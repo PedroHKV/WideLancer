@@ -13,10 +13,10 @@
             <h1><span class="wide">Wide</span><span class="lancer">Lancer</span></h1>
         </div>
         <div class="login-container">
-            <a href="login.html" class="login-btn">Login</a>
+            <a href="login.html" class="btn">Login</a>
         </div>
-        <div class="cadastro-container">
-            <a href="cadastro.html" class="cadastro-btn">Cadastro</a>
+        <div id="perfil-container">
+            <a href="./perfil.php" class="btn">Perfil</a>
         </div>
     </header>
 

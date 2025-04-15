@@ -26,6 +26,18 @@
             return $this->foto;
         }
 
+        public function getTitulo(){
+            return $this->titulo;
+        }
+
+        public function getDescricao(){
+            return $this->descricao;
+        }
+
+        public function getUsuarioId(){
+            return $this->usuario_id;
+        }
+
         public function setPortifolio($id_port){
             $this->portifolio = $id_port;
         }

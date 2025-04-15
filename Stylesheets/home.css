@@ -51,15 +51,7 @@ header {
     border: 1px solid white;
 }
 
-.cadastro-container{
-    text-align: right;
-    justify-content: space-between;
-    align-items: center;
-    margin-right: 8px;
-    margin-top: 8px;
-}
-
-.cadastro-btn {
+.btn {
     padding: 10px 20px;
     color: rgb(0, 0, 0);
     border: none;
@@ -71,17 +63,27 @@ header {
     border: 1px solid black;
 }
 
-.cadastro-btn:hover{
-    background-color: #000000;
+.btn:hover{
+    background-color: #232f46;
     box-shadow: 0px 0px 3px rgba(0, 0, 0, 100%);
     color: white;
     border: 1px solid white;
 }
 
+#perfil-container{
+    text-align: right;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 8px;
+    margin-top: 8px;
+}
+
 .retangulo {
     width: 98%;
     height: 350px;
-    background:linear-gradient(180deg, rgb(126, 240, 255), rgb(73, 135, 143));
+    background:url("../imagens/mundo.jpg");
+    background-size: cover;
+    background-position: 20px;
     border-radius: 20px;
     margin: 20px auto;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -89,7 +91,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0px 7px 0px 7px;
+    padding: 0px 17px 0px 17px;
 }
 
 .container {
@@ -113,7 +115,7 @@ h1 {
 }
 
 .retangulo h1 .destaque {
-    color: #0b939c; 
+    color: #28d9f8; 
     font-style: italic;
 }
 
