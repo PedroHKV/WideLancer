@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS Usuario (
 CREATE TABLE IF NOT EXISTS Portifolio (
     id INT PRIMARY KEY AUTO_INCREMENT,
     foto VARCHAR(100),
+    titulo VARCHAR(50),
     descricao TEXT,
     usuario_id INT,
     FOREIGN KEY (usuario_id) REFERENCES Usuario(id)
@@ -25,8 +26,11 @@ CREATE TABLE IF NOT EXISTS Anuncio (
     id INT PRIMARY KEY AUTO_INCREMENT,
     foto VARCHAR(100) NOT NULL,
     descricao VARCHAR(100) NOT NULL,
+    titulo VARCHAR(50),
     portifolio_id INT,
-    FOREIGN KEY (portifolio_id) REFERENCES Portifolio(id)
+    usuario_id INT,
+    FOREIGN KEY (portifolio_id) REFERENCES Portifolio(id),
+    FOREIGN KEY (usuario_id) REFERENCES Usuario(id)
 );
 
 CREATE TABLE IF NOT EXISTS Comentario (
