@@ -13,6 +13,7 @@
         private $vendedor; //booleano
         private $curador; //booleano
         private $portifolio;
+        private $pix;
 
         //construtores
         public function __construct( 
@@ -53,12 +54,20 @@
             return $this->cpf;
         }
 
+        public function getPix(){
+            return $this->pix;
+        }
+
         public function isVendedor(){
             return $this->vendedor;
         }
 
         public function isCurador(){
             return $this->curador;
+        }
+
+        public function setPix( $pix ){
+            $this->pix = $pix;
         }
 
         //metodos publicos
