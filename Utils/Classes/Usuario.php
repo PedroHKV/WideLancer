@@ -1,5 +1,6 @@
 <?php
-    include "C:/xampp/htdocs/WideLancer_Artefato/Utils/DatabaseFunctions.php";
+    include "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Portifolio.php";
+    //databasefunctions ja esta incluido neste include acima
 
     class Usuario{
         //atributos
@@ -12,7 +13,6 @@
         private $cpf;
         private $vendedor; //booleano
         private $curador; //booleano
-        private $portifolio;
         private $pix;
 
         //construtores
@@ -58,17 +58,50 @@
             return $this->pix;
         }
 
-        public function isVendedor(){
-            return $this->vendedor;
+        public function setEmail( $email){
+            $this->email = $email;
         }
 
-        public function isCurador(){
-            return $this->curador;
+        public function setSenha( $senha ){
+            $this->senha = $senha;
         }
 
+        public function setNome( $nome ){
+            $this->nome = $nome;
+        }
+
+        public function setSobrenome( $sobrenome ){
+            $this->sobrenome = $sobrenome;
+        }
+
+        public function setFoto( $foto ){
+            $this->foto = $foto;
+        }
+        
+        public function setCpf( $cpf ){
+            $this->cpf = $cpf;
+        }
+        
         public function setPix( $pix ){
             $this->pix = $pix;
         }
+        
+        public function isVendedor(){
+            return $this->vendedor == 1;
+        }
+
+        public function isCurador(){
+            return $this->curador == 1;
+        }
+
+        public function setVendedor( $bool ){
+            $this->vendedor = $bool;
+        }
+
+        public function setCurador( $bool ){
+            $this->curador = $bool;
+        }
+
 
         //metodos publicos
         public function cadastrar(){
@@ -83,8 +116,49 @@
             );
             $cadastrado = $query->execute();
             $query->close();
+            $bd->close();
             return $cadastrado;
 
+        }
+
+        //para esse metodo, supoe-se:
+        //que o objeto esteja com as alterações do update
+        //que a tabela do banco de dados esteja desatualizada e pronta
+        //para receber as atualizações que o objeto carrega
+        public function salvarUpdates(){
+            $bd = ConectarSQL();
+
+            $sql = 
+            "UPDATE Usuario SET nome = ?, sobrenome = ?, email = ?, ".
+            "senha = ?, foto = ?, vendedor = ?, curador = ?, pix = ? ".
+            "WHERE id = ".$this->getId();
+
+            $query = $bd->prepare($sql);
+            $query->bind_param("sssssiis", 
+            $this->nome, $this->sobrenome, $this->email, 
+            $this->senha, $this->foto, $this->vendedor, $this->curador,
+            $this->pix
+            );
+            $atualizado = $query->execute();
+            $bd->close();
+            return $atualizado;
+        }
+
+        //metodo para cadastrar um portifolio no banco de dados
+        //para essa finalidade foi definido o metodo dentro da classe
+        //usuario e nao portifolio , porque o portifolio prcisa do id de um
+        //usuario para existir
+        public function criarPortifolio($foto, $titulo, $descricao){
+            $bd = ConectarSQL();
+            $sql = "INSERT INTO Portifolio(foto, titulo, descricao, usuario_id) ".
+            "VALUES (?, ?, ?, ?);";
+
+            $query = $bd->prepare($sql);
+            $query->bind_param("sssi", $foto, $titulo, $descricao, $this->id);
+            $cadastrado = $query->execute();
+
+            $bd->close();   
+            return $cadastrado;
         }
 
         //pesquisa um usuario no banco de dados por id
@@ -163,6 +237,7 @@
                 return null;
             }
         }
+
 
     }
 ?>

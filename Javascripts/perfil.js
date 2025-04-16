@@ -46,6 +46,9 @@ fotos_input.oninput = () => {
 }
 
 //edição de informações
+
+//se for informada a chave pix o usuario é promovido
+//a vendendor e ganha um portifolio
 submit.onclick = () => {
     const nome = document.getElementById("nome").value;
     const sobrenome = document.getElementById("sobrenome").value;
@@ -53,6 +56,53 @@ submit.onclick = () => {
     const senha = document.getElementById("senha").value;
     const pix = document.getElementById("chavePIX").value;
     const descricao =document.getElementById("txtarea").value;
+    const img = fotos_input.files[0];
 
-    // TERMINAR ================== 
+    let houve_mudanca = false;
+    let dados = new FormData();
+
+    if ( !(nome_initial === nome) ){
+        dados.append("nome", nome);
+        houve_mudanca = true; 
+    }
+    if ( !(sobrenome_initial === sobrenome) ){
+        dados.append("sobrenome", sobrenome);
+        houve_mudanca = true;
+    }
+    if ( !(email_initial === email) ){
+        dados.append("email", email);
+        houve_mudanca = true;
+    }
+    if ( !(senha_initial === senha) ){
+        dados.append("senha", senha);
+        houve_mudanca = true;
+    }
+    if ( !(pix_initial === pix) ){
+        dados.append("pix", pix);
+        houve_mudanca = true;
+    }
+    if ( !(descricao_initial === descricao) ){
+        dados.append("descricao", descricao);
+        houve_mudanca = true;
+    }
+    
+    console.log(img);
+    if ( !(img == null || img == undefined) ){
+        dados.append("img", img);
+        houve_mudanca = true;
+        console.log("img enviada");
+    }
+
+    if (houve_mudanca){
+        fetch(URL_SITE+"/ServerScripts/update_usuario.php", {
+            method : "POST",
+            body : dados
+        }).then(r => { return r.text()}).then(res => {
+            console.log(res);
+        }).catch( e => {console.log(e);});
+    }
+    
+
+    
+
 }

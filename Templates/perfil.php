@@ -29,12 +29,12 @@
                     <input type="file" name="" id="infoto">
                 </div>
                 <div id="inputs">
-                    <input type="text" placeholder="Nome" id="nome">
-                    <input type="text" placeholder="Sobrenome" id="sobrenome">
-                    <input type="email" placeholder="Email" id="email">
-                    <input type="password" placeholder="Senha" id="senha">
-                    <input type="text" placeholder="chavePIX" id="chavePIX">
-                    <textarea name="" id="txtarea" placeholder="Escreva sobre voce"></textarea>
+                    <input type="text" value="<?php echo $usuario->getNome()?>" placeholder="Nome" id="nome">
+                    <input type="text" value="<?php echo $usuario->getSobrenome()?>" placeholder="Sobrenome" id="sobrenome">
+                    <input type="email" value="<?php echo $usuario->getEmail()?>" placeholder="Email" id="email">
+                    <input type="password" value="<?php echo $usuario->getSenha()?>" placeholder="Senha" id="senha">
+                    <input type="text" value="<?php echo $usuario->getPix()?>" placeholder="chavePIX" id="chavePIX">
+                    <textarea id="txtarea" placeholder="Escreva sobre voce"><?php echo $usuario->getNome()?></textarea>
                 </div>
                 <div id="btn_div">
                     <input type="button" id="submit" value="salvar">

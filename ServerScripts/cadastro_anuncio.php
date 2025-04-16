@@ -10,7 +10,7 @@
         $descricao = $_POST["descricao"];
         if ( isset($_FILES["imagem"]) ){
             $img = $_FILES["imagem"];
-            $caminho = "../Uploads/".$img["name"];
+            $caminho = "../Uploads/anuncios".$img["name"];
             $anuncio = new Anuncio(NULL, $caminho, $nome, $descricao, $id);
             move_uploaded_file($img["tmp_name"], $caminho);
             $cadastrado = $anuncio->cadastrar();

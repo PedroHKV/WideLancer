@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS Usuario (
     senha VARCHAR(100) NOT NULL,
     nome VARCHAR(100) NOT NULL,
     sobrenome VARCHAR(100) NOT NULL,
+    pix varchar(50),
     cpf VARCHAR(15),
     foto VARCHAR(100),
     vendedor BOOLEAN NOT NULL,
@@ -18,7 +19,7 @@ CREATE TABLE IF NOT EXISTS Portifolio (
     foto VARCHAR(100),
     titulo VARCHAR(50),
     descricao TEXT,
-    usuario_id INT,
+    usuario_id INT UNIQUE,
     FOREIGN KEY (usuario_id) REFERENCES Usuario(id)
 );
 
