@@ -6,6 +6,7 @@
     $senha = $_POST["senha"];
 
     $usuario = Usuario::findUsuarioByEmail($email);
+    
     if($usuario != null){
         if($senha == $usuario->getSenha()){
             session_start();

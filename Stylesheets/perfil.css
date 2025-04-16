@@ -17,7 +17,7 @@ main div {
     background-color: rgb(0, 127, 162);
     width: 25%;
     height: 100%;
-    padding: 30px 10px 10px 10px;
+    padding: 21px 10px 10px 10px;
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -58,7 +58,7 @@ main div {
 }
 
 #inputs {
-    margin-top: 30px;
+    margin-top: 21px;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -181,6 +181,10 @@ main div {
     border-radius: 9px;
     font-family: "Arial";
     margin-bottom: 20px;
+}
+
+#informacoes p{
+    font-size: 18px;
 }
 
 h3 {

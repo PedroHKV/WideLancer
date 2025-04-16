@@ -1,9 +1,11 @@
 <?php
     include "../Utils/Classes/Usuario.php";
+    // portifolio.php esta incluido em Usuario.php
 
     session_start();
     $id = $_SESSION["id"];
     $usuario = Usuario::findUsuarioById($id);
+    $portifolio = Portifolio::findPortifolioByUsuario_id($id);
 
     $foto = $usuario->getFoto();
     if ( !isset($foto) ){
@@ -29,12 +31,13 @@
                     <input type="file" name="" id="infoto">
                 </div>
                 <div id="inputs">
-                    <input type="text" value="<?php echo $usuario->getNome()?>" placeholder="Nome" id="nome">
-                    <input type="text" value="<?php echo $usuario->getSobrenome()?>" placeholder="Sobrenome" id="sobrenome">
-                    <input type="email" value="<?php echo $usuario->getEmail()?>" placeholder="Email" id="email">
-                    <input type="password" value="<?php echo $usuario->getSenha()?>" placeholder="Senha" id="senha">
-                    <input type="text" value="<?php echo $usuario->getPix()?>" placeholder="chavePIX" id="chavePIX">
-                    <textarea id="txtarea" placeholder="Escreva sobre voce"><?php echo $usuario->getNome()?></textarea>
+                    <input type="text" value="<?php echo $usuario->getNome();?>" placeholder="Nome" id="nome">
+                    <input type="text" value="<?php echo $usuario->getSobrenome();?>" placeholder="Sobrenome" id="sobrenome">
+                    <input type="email" value="<?php echo $usuario->getEmail();?>" placeholder="Email" id="email">
+                    <input type="password" value="<?php echo $usuario->getSenha();?>" placeholder="Senha" id="senha">
+                    <input type="text" value="<?php echo $usuario->getPix();?>" placeholder="chavePIX" id="chavePIX">
+                    <input type="text" placeholder="titulo" id="titulo" value="<?php echo ($usuario->isVendedor() ? $portifolio->getTitulo() :  Null) ?>">
+                    <textarea id="txtarea" placeholder="Escreva sobre voce"><?php echo ($usuario->isVendedor() ? $portifolio->getDescricao() :  Null) ?></textarea>
                 </div>
                 <div id="btn_div">
                     <input type="button" id="submit" value="salvar">
@@ -49,9 +52,8 @@
                 </div>
                 <div id="informacoes">
                     <br><br><br><br>
-                    <h2>Quem sou eu?</h2>
-                    <p id="descricao">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate molestias eos culpa similique sunt ipsum saepe aliquam laboriosam, veniam perferendis, unde dicta repudiandae consectetur reiciendis magnam corrupti quae illum in!</p>
-                    <p id="descricao">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate molestias eos culpa similique sunt ipsum saepe aliquam laboriosam, veniam perferendis, unde dicta repudiandae consectetur reiciendis magnam corrupti quae illum in!</p>
+                    <h2><?php echo $portifolio->getTitulo();?></h2>
+                    <p id="descricao"><?php echo $portifolio->getDescricao() ?></p>
                     <h2>Quais serviços eu presto?</h2>
                     <div id="addservic">
                         <input type="button" value="novo anuncio">
@@ -88,10 +90,6 @@
             </div>
     </main>
 </body>
-<script>
-    console.log(<?php echo $usuario->getFoto();?>);
-    
-</script>
 <script src="../Configuracoes.js"></script>
 <script src="../Javascripts/perfil.js"></script>
 </html>

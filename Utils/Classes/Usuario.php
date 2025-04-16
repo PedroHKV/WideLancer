@@ -24,6 +24,9 @@
                 $this->nome = $nome;
                 $this->sobrenome = $sobrenome;
                 $this->foto = $foto;
+                $this->vendedor = $vendedor;
+                $this->curador = $curador;
+                $this->cpf = $cpf;
         }
         //getters
         public function getId(){
@@ -87,11 +90,11 @@
         }
         
         public function isVendedor(){
-            return $this->vendedor == 1;
+            return  $this->vendedor;
         }
 
         public function isCurador(){
-            return $this->curador == 1;
+            return $this->curador;
         }
 
         public function setVendedor( $bool ){
@@ -187,6 +190,10 @@
                 $linha["vendedor"],
                 $linha["curador"]
                 );
+
+                if ( isset($linha["pix"]) ){
+                    $usuario->setPix($linha["pix"]);
+                }
                  
                  $query->close();
                  $BD->close();
@@ -208,7 +215,7 @@
             $sql = "SELECT * FROM Usuario WHERE email = ?";
 
             $query = $BD->prepare($sql);
-            $query->bind_param("i", $email);
+            $query->bind_param("s", $email);
             $query->execute();
             $resultado = $query->get_result();
             //como o $id é unico:

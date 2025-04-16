@@ -7,6 +7,7 @@ const sobrenome_tag = document.getElementById("sobrenome");
 const email_tag = document.getElementById("email");
 const senha_tag = document.getElementById("senha");
 const pix_tag = document.getElementById("chavePIX");
+const titulo_tag = document.getElementById("titulo");
 const descricao_tag =document.getElementById("txtarea");
 const fotos_input = document.getElementById("infoto");
 const fotos_img = document.getElementById("foto_lab");
@@ -17,7 +18,8 @@ const sobrenome_initial = document.getElementById("sobrenome").value;
 const email_initial = document.getElementById("email").value;
 const senha_initial = document.getElementById("senha").value;
 const pix_initial = document.getElementById("chavePIX").value;
-const descricao_initial =document.getElementById("txtarea").value;
+const descricao_initial = document.getElementById("txtarea").value;
+const titulo_initial = document.getElementById("titulo").value;
 
 //controle do carrossel
 let index = 0;
@@ -54,6 +56,7 @@ submit.onclick = () => {
     const sobrenome = document.getElementById("sobrenome").value;
     const email = document.getElementById("email").value;
     const senha = document.getElementById("senha").value;
+    const titulo = document.getElementById("titulo").value;
     const pix = document.getElementById("chavePIX").value;
     const descricao =document.getElementById("txtarea").value;
     const img = fotos_input.files[0];
@@ -77,11 +80,17 @@ submit.onclick = () => {
         dados.append("senha", senha);
         houve_mudanca = true;
     }
+    if ( !(titulo_initial === titulo) ){
+        dados.append("titulo", titulo);
+        dados.append("descricao", descricao);
+        houve_mudanca = true;
+    }
     if ( !(pix_initial === pix) ){
         dados.append("pix", pix);
         houve_mudanca = true;
     }
     if ( !(descricao_initial === descricao) ){
+        dados.append("titulo", titulo);
         dados.append("descricao", descricao);
         houve_mudanca = true;
     }
@@ -99,6 +108,9 @@ submit.onclick = () => {
             body : dados
         }).then(r => { return r.text()}).then(res => {
             console.log(res);
+            if ( res === "sucesso" ){
+                window.location.href = URL_SITE+"/Templates/perfil.php";
+            }
         }).catch( e => {console.log(e);});
     }
     
