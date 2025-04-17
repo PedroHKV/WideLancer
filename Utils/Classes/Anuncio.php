@@ -1,5 +1,5 @@
 <?php
-    include "C:/xampp/htdocs/WideLancer_Artefato/Utils/DatabaseFunctions.php";
+    include "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Usuario.php";
 
     class Anuncio{
         private $id;
@@ -102,7 +102,28 @@
             $bd->close();
             return $anuncios;
         }
-        
-        
+
+        public static function findAnunciosByUserId($id) {
+            $bd = ConectarSQL();
+            $sql = "SELECT * FROM Anuncio WHERE usuario_id = ?";
+            $query = $bd->prepare($sql);
+            $query->bind_param("i", $id);
+            $query->execute();
+            $result = $query->get_result();
+            $anuncios = [];
+            while ($linha = $result->fetch_assoc()){
+                $anuncio = new Anuncio(
+                    $linha["id"],
+                    $linha["foto"],
+                    $linha["titulo"],
+                    $linha["descricao"],
+                    $linha["usuario_id"],
+                    $linha["portifolio_id"]
+                );
+                $anuncios[] = $anuncio;
+            }
+            $bd->close();
+            return $anuncios;
+        }
     }
 ?>

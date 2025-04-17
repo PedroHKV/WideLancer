@@ -1,12 +1,14 @@
 <?php
-    include "../Utils/Classes/Usuario.php";
+    include "../Utils/Classes/Anuncio.php";
+    // Usuaio.php está contido em Anuncio.php
     // portifolio.php esta incluido em Usuario.php
 
     session_start();
     $id = $_SESSION["id"];
     $usuario = Usuario::findUsuarioById($id);
     $portifolio = Portifolio::findPortifolioByUsuario_id($id);
-
+    $anuncios = Anuncio::findAnunciosByUserId($id);
+    
     $foto = $usuario->getFoto();
     if ( !isset($foto) ){
         $foto = "../imagens/usuario_icone.png";
@@ -60,6 +62,14 @@
                     </div><br><br>
                     <div class="servicos-container">
                         <div class="servicos" id="servicos">
+                            <?php
+                                foreach ($anuncios as $anuncio){
+                                    echo "<div class='servico'>". 
+                                              "<img src='".$anuncio->getFoto()."' alt=''".
+                                              "<p>".$anuncio->getTitulo()."</p>".
+                                          "</div>";
+                                }
+                            ?>
                             <div class="servico">
                                 <img src="" alt="">
                                 <p>Servico</p>
