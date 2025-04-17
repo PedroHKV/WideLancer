@@ -22,7 +22,7 @@
 
     <div class="retangulo">
         <h1>Bem vindo! procure o seu <span class="destaque">serviço freelancer</span> ideal, rapido e seguro!</h1>
-        <input type="text" placeholder="Procure um serviço digital! Ex.: Design logos" class="search-bar">
+        <input type="text" placeholder="Procure um serviço digital! Ex.: Design logos" class="search-bar" id="search-bar">
     </div>
 
     <div class="categorias">
@@ -51,7 +51,7 @@
             <button class="carousel-btn right" onclick="moveCarousel('right')">→</button>
         </div>
     </section>
-
+    <script src="../Configuracoes.js"></script>
     <script src="../Javascripts/home.js"></script>
 </body>
 </html>

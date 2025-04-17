@@ -2,7 +2,7 @@ let index = 3; // anúncio 3 como principal (índice 2)
 const totalAnuncios = 7; // Total de anúncios
 const anuncios = Array.from(document.querySelectorAll('.anuncio'));
 let count = 0;
-console.log(anuncios);
+const pegarBarra = document.getElementById("search-bar");
 
 attAnuncio();
 
@@ -70,4 +70,12 @@ function moveCarousel(direction) {
     const translateXValue = -(index - 3) * 320; // leva em conta o número de anúncios visíveis e a largura de cada anúncio
     container.style.transition = 'transform 0.5s ease'; // Adiciona transição suave para o movimento
     container.style.transform = `translateX(${translateXValue}px)`;
+}
+// controle da barra de pesquisa
+pegarBarra.onchange = () => {
+    const baseHTTP = URL_SITE+"/Templates/pesquisa.php?query=";
+    let pesquisa = pegarBarra.value;
+    pesquisa = pesquisa.replaceAll(" ", "+");
+    const http = baseHTTP + pesquisa;
+    window.location.href = http;
 }
