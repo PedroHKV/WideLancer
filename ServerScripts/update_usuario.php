@@ -26,6 +26,10 @@
             $senha = $_POST["senha"];
             $usuario->setSenha( $senha );
         }
+        if (isset( $_POST["cpf"] )){
+            $cpf = $_POST["cpf"];
+            $usuario->setCpf($cpf);
+        }
         if (isset( $_POST["pix"] )){
             $pix = $_POST["pix"];
             $usuario->setPix($pix);
@@ -39,7 +43,8 @@
 
         if ( isset($_FILES["img"]) ){
             $img = $_FILES["img"];
-            $caminho = "../Uploads/portifolio/".$img["name"];
+            $nome_file = str_replace(" ", "+", $img["name"]);
+            $caminho = "../Uploads/portifolio/".$nome_file;
             move_uploaded_file($img["tmp_name"], $caminho);
             $usuario->setFoto($caminho);
         } 

@@ -21,6 +21,14 @@ main div {
     display: flex;
     flex-direction: column;
     position: fixed;
+    overflow-y: auto;
+    scrollbar-width: thin; /* e para ser o do firefox */
+    scrollbar-color: #2fb3c0 #004a5a; 
+}
+
+#esquerda h3{
+    font-family: cursive;
+    color:white;
 }
 
 #foto {
@@ -198,7 +206,8 @@ h3 {
 
 .servicos-container {
     position: relative;
-    width: 60%;
+    height: 300px;
+    width: 100%;
     overflow: hidden;
     margin: auto;
     border: 1px solid #ccc;
@@ -214,8 +223,8 @@ h3 {
 
 .servico {
     min-width: 100%;
-    height: 200px;
-    background-color: #00a8cc;
+    height: 300px;
+    background-color: #00a7cc;
     color: white;
     display: flex;
     flex-direction: column;
@@ -227,7 +236,7 @@ h3 {
 
 .servico img {
     width: 80%;
-    height: 100px;
+    height: 200px;
     border-radius: 7px;
     display: flex;
     justify-content: center;
@@ -260,6 +269,7 @@ button {
 #addservic{
     display: flex;
     justify-content: end;
+    gap: 5px;
 }
 
 #addservic input{
@@ -278,4 +288,50 @@ button {
 
 #addservic input:hover{
     background-color: rgb(47, 179, 192);
+}
+
+#confirm{
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+    position:fixed;
+    z-index: 11;
+    width: 300px;
+    background-color:#037791;
+    display: flex;
+    color: white;
+    font-family: "Arial";
+    padding: 15px;
+    display: none;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+#confirm.show{
+    display: block;
+    opacity: 1;
+}
+
+#simounao{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+#simounao input{
+    width: 100px;
+    height: 25px;
+    height: 25px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(8, 146, 201);
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+#simounao input:hover{
+    transform: scale(1.05);
+    border: 1px solid white;
 }

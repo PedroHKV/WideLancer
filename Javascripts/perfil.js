@@ -1,25 +1,26 @@
 const servicos = document.getElementById('servicos');
+
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
-const btn_add_anuncio = document.querySelector("#addservic input");
+const btn_add_anuncio = document.getElementById("novo_anunc");
+const btn_esc_anuncio = document.getElementById("esc");
+const btn_mod_anuncio = document.getElementById("mod");
+const sim_btn = document.getElementById("sim");
+const nao_btn = document.getElementById("nao");
+
 const nome_tag = document.getElementById("nome");
 const sobrenome_tag = document.getElementById("sobrenome");
 const email_tag = document.getElementById("email");
 const senha_tag = document.getElementById("senha");
+const cpf_tag = document.getElementById("cpf");
 const pix_tag = document.getElementById("chavePIX");
 const titulo_tag = document.getElementById("titulo");
 const descricao_tag =document.getElementById("txtarea");
 const fotos_input = document.getElementById("infoto");
 const fotos_img = document.getElementById("foto_lab");
 
+
 const submit = document.getElementById("submit");
-const nome_initial = document.getElementById("nome").value;
-const sobrenome_initial = document.getElementById("sobrenome").value;
-const email_initial = document.getElementById("email").value;
-const senha_initial = document.getElementById("senha").value;
-const pix_initial = document.getElementById("chavePIX").value;
-const descricao_initial = document.getElementById("txtarea").value;
-const titulo_initial = document.getElementById("titulo").value;
 
 //controle do carrossel
 let index = 0;
@@ -28,6 +29,7 @@ const totalSlides = document.querySelectorAll('.servico').length;
 nextBtn.addEventListener('click', () => {
     index = (index + 1) % totalSlides;
     servicos.style.transform = `translateX(-${index * 100}%)`;
+    
 });
 
 prevBtn.addEventListener('click', () => {
@@ -48,6 +50,44 @@ fotos_input.oninput = () => {
 }
 
 //edição de informações
+//mostra caixa de confirmação de exclusao
+btn_esc_anuncio.onclick = () => {
+    let div = document.getElementById("confirm");
+    div.style.display = "block";
+    requestAnimationFrame( () => {
+        div.classList.add("show");
+    });
+}
+
+nao_btn.onclick = () => {
+    let div = document.getElementById("confirm");
+    div.classList.remove('show');
+    setTimeout(() => div.style.display = 'none', 600);
+}
+
+sim_btn.onclick = () => {
+    let div = document.getElementById("confirm");
+    const anuncio = document.querySelectorAll(".servico").item(index);
+    let id = anuncio.id;
+    let dados = new FormData();
+    dados.append("id",id);
+
+    fetch(URL_SITE+"/ServerScripts/delete_anuncio.php",{
+        method : "POST",
+        body : dados
+    }).then(r => { return r.text()}).then( res => {
+        console.log(res);
+        if (res === "excluido"){
+            window.location.href = URL_SITE+"/Templates/perfil.php";
+        } else {
+            console.log(res);
+        }
+    }).catch( e=> {
+        console.log(e);
+    })
+    
+}
+
 
 //se for informada a chave pix o usuario é promovido
 //a vendendor e ganha um portifolio
@@ -57,6 +97,7 @@ submit.onclick = () => {
     const email = document.getElementById("email").value;
     const senha = document.getElementById("senha").value;
     const titulo = document.getElementById("titulo").value;
+    const cpf = document.getElementById("cpf").value;
     const pix = document.getElementById("chavePIX").value;
     const descricao =document.getElementById("txtarea").value;
     const img = fotos_input.files[0];
@@ -64,57 +105,29 @@ submit.onclick = () => {
     let houve_mudanca = false;
     let dados = new FormData();
 
-    if ( !(nome_initial === nome) ){
-        dados.append("nome", nome);
-        houve_mudanca = true; 
-    }
-    if ( !(sobrenome_initial === sobrenome) ){
-        dados.append("sobrenome", sobrenome);
-        houve_mudanca = true;
-    }
-    if ( !(email_initial === email) ){
-        dados.append("email", email);
-        houve_mudanca = true;
-    }
-    if ( !(senha_initial === senha) ){
-        dados.append("senha", senha);
-        houve_mudanca = true;
-    }
-    if ( !(titulo_initial === titulo) ){
-        dados.append("titulo", titulo);
-        dados.append("descricao", descricao);
-        houve_mudanca = true;
-    }
-    if ( !(pix_initial === pix) ){
-        dados.append("pix", pix);
-        houve_mudanca = true;
-    }
-    if ( !(descricao_initial === descricao) ){
-        dados.append("titulo", titulo);
-        dados.append("descricao", descricao);
-        houve_mudanca = true;
-    }
-    
-    console.log(img);
+    dados.append("nome", nome);
+    dados.append("sobrenome", sobrenome);
+    dados.append("email", email);
+    dados.append("senha", senha);
+    dados.append("titulo", titulo);
+    dados.append("descricao", descricao);
+    dados.append("cpf", cpf);
+    dados.append("pix", pix);
+    dados.append("titulo", titulo);
+    dados.append("descricao", descricao);
+
     if ( !(img == null || img == undefined) ){
         dados.append("img", img);
         houve_mudanca = true;
         console.log("img enviada");
     }
-
-    if (houve_mudanca){
-        fetch(URL_SITE+"/ServerScripts/update_usuario.php", {
-            method : "POST",
-            body : dados
-        }).then(r => { return r.text()}).then(res => {
-            console.log(res);
-            if ( res === "sucesso" ){
-                window.location.href = URL_SITE+"/Templates/perfil.php";
-            }
-        }).catch( e => {console.log(e);});
-    }
-    
-
-    
-
+    fetch(URL_SITE+"/ServerScripts/update_usuario.php", {
+        method : "POST",
+        body : dados
+    }).then(r => { return r.text()}).then(res => {
+        console.log(res);
+        if ( res === "sucesso" ){
+            window.location.href = URL_SITE+"/Templates/perfil.php";
+        }
+    }).catch( e => {console.log(e);});
 }

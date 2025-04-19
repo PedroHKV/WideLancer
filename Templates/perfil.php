@@ -3,15 +3,23 @@
     // Usuaio.php está contido em Anuncio.php
     // portifolio.php esta incluido em Usuario.php
 
-    session_start();
-    $id = $_SESSION["id"];
-    $usuario = Usuario::findUsuarioById($id);
-    $portifolio = Portifolio::findPortifolioByUsuario_id($id);
-    $anuncios = Anuncio::findAnunciosByUserId($id);
-    
-    $foto = $usuario->getFoto();
-    if ( !isset($foto) ){
-        $foto = "../imagens/usuario_icone.png";
+    if (isset($_GET["id"])){
+        // parte destinada para quando o usuario acessar o portifolio de
+        //outra pessoa
+        $editavel = false;
+    } else{
+        session_start();
+        $id = $_SESSION["id"];
+        $usuario = Usuario::findUsuarioById($id);
+        $portifolio = Portifolio::findPortifolioByUsuario_id($id);
+        $anuncios = Anuncio::findAnunciosByUserId($id);
+
+        $editavel = true;
+
+        $foto = $usuario->getFoto();
+        if ( !isset($foto) ){
+            $foto = "../imagens/usuario_icone.png";
+        }
     }
     
 
@@ -28,22 +36,40 @@
     <main>
         <div>
             <div id="esquerda">
-                <div id="foto">
-                    <label for="infoto"><img id="foto_lab" src="<?php echo $foto; ?>" alt=""></label>
-                    <input type="file" name="" id="infoto">
-                </div>
+                <?php
+                    if ($editavel){
+                        echo "<div id='foto'>
+                                 <label for='infoto'><img id='foto_lab' src=' ".$foto."' alt=''></label>
+                                 <input type='file' name='' id='infoto'>
+                             </div>";
+                    } 
+                ?>
                 <div id="inputs">
                     <input type="text" value="<?php echo $usuario->getNome();?>" placeholder="Nome" id="nome">
                     <input type="text" value="<?php echo $usuario->getSobrenome();?>" placeholder="Sobrenome" id="sobrenome">
                     <input type="email" value="<?php echo $usuario->getEmail();?>" placeholder="Email" id="email">
-                    <input type="password" value="<?php echo $usuario->getSenha();?>" placeholder="Senha" id="senha">
-                    <input type="text" value="<?php echo $usuario->getPix();?>" placeholder="chavePIX" id="chavePIX">
-                    <input type="text" placeholder="titulo" id="titulo" value="<?php echo ($usuario->isVendedor() ? $portifolio->getTitulo() :  Null) ?>">
-                    <textarea id="txtarea" placeholder="Escreva sobre voce"><?php echo ($usuario->isVendedor() ? $portifolio->getDescricao() :  Null) ?></textarea>
+                    <?php 
+                        if ($editavel){
+                          echo "<input type='password' value='" . $usuario->getSenha() . "' placeholder='Senha' id='senha'> 
+                                <h3>Torne-se um cliente para poder contratar serviços!</h3> 
+                                <input type='text' value='" . $usuario->getCpf() . "' placeholder='CPF' id='cpf'> 
+                                <h3>Torne-se um vendedor também! basta adicionar as seguintes informações</h3> 
+                                <input type='text' value='" . $usuario->getPix() . "' placeholder='chavePIX' id='chavePIX'> 
+                                <input type='text' placeholder='titulo' id='titulo' value='" . ($usuario->isVendedor() ? $portifolio->getTitulo() :  "") . "'> 
+                                <textarea id='txtarea' placeholder='Escreva sobre voce'>" . ($usuario->isVendedor() ? $portifolio->getDescricao() :  "") . "</textarea>";
+                        } else {
+                            echo "<input type='text' value='" . $usuario->getPix() . "' placeholder='chavePIX' id='chavePIX'>";
+                        }
+                    ?>
+
                 </div>
-                <div id="btn_div">
-                    <input type="button" id="submit" value="salvar">
-                </div>
+                <?php
+                    if ($editavel){
+                        echo "<div id='btn_div'>
+                                  <input type='button' id='submit' value='salvar'>
+                              </div><br><br>";
+                    }
+                ?>
             </div>
             <div id="direita">
                 <div id="header">
@@ -56,36 +82,33 @@
                     <br><br><br><br>
                     <h2><?php echo $portifolio->getTitulo();?></h2>
                     <p id="descricao"><?php echo $portifolio->getDescricao() ?></p>
+                    <div id="confirm">
+                        <p>Tem certeza que deseja escluir este anuncio?</p>
+                        <br>
+                        <div id="simounao">
+                            <input type="button" id="sim" value="sim">
+                            <input type="button" id="nao" value="nao">
+                        </div>
+                    </div>
                     <h2>Quais serviços eu presto?</h2>
-                    <div id="addservic">
-                        <input type="button" value="novo anuncio">
-                    </div><br><br>
+                    <?php
+                        if ($editavel){
+                            echo "<div id='addservic'>".
+                                      "<input type='button' id='novo_anunc' value='novo anuncio'>".
+                                      "<input type='button' id='esc' value='excluir'>".
+                                 "</div><br><br>";
+                        }
+                    ?>
                     <div class="servicos-container">
                         <div class="servicos" id="servicos">
                             <?php
                                 foreach ($anuncios as $anuncio){
-                                    echo "<div class='servico'>". 
-                                              "<img src='".$anuncio->getFoto()."' alt=''".
+                                    echo "<div class='servico' id='".$anuncio->getId()."' >". 
+                                              "<img src='".$anuncio->getFoto()."' alt=''/>".
                                               "<p>".$anuncio->getTitulo()."</p>".
                                           "</div>";
                                 }
                             ?>
-                            <div class="servico">
-                                <img src="" alt="">
-                                <p>Servico</p>
-                            </div>
-                            <div class="servico">
-                                <img src="" alt="">
-                                <p>Servico</p>
-                            </div>
-                            <div class="servico">
-                                <img src="" alt="">
-                                <p>Servico</p>
-                            </div>
-                            <div class="servico">
-                                <img src="" alt="">
-                                <p>Servico</p>
-                            </div>
                         </div>
                         <button id="prevBtn">❮</button>
                         <button id="nextBtn">❯</button>

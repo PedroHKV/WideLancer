@@ -133,14 +133,14 @@
 
             $sql = 
             "UPDATE Usuario SET nome = ?, sobrenome = ?, email = ?, ".
-            "senha = ?, foto = ?, vendedor = ?, curador = ?, pix = ? ".
+            "senha = ?, foto = ?, vendedor = ?, curador = ?, pix = ?, cpf = ? ".
             "WHERE id = ".$this->getId();
 
             $query = $bd->prepare($sql);
-            $query->bind_param("sssssiis", 
+            $query->bind_param("sssssiiss", 
             $this->nome, $this->sobrenome, $this->email, 
             $this->senha, $this->foto, $this->vendedor, $this->curador,
-            $this->pix
+            $this->pix, $this->cpf
             );
             $atualizado = $query->execute();
             $bd->close();

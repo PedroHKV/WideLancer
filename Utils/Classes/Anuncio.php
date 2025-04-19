@@ -125,5 +125,15 @@
             $bd->close();
             return $anuncios;
         }
+
+        public static function deleteAnuncioById($id){
+            $bd = ConectarSQL();
+            $sql = "DELETE FROM Anuncio WHERE id = ?";
+            $query = $bd->prepare($sql);
+            $query->bind_param("i", $id);
+            $excluido = $query->execute();
+            $bd->close();
+            return $excluido;
+        }
     }
 ?>
