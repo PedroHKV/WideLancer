@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #e6f0f3;
+    color: #333;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #e6f0f3;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo h1 {
+    font-size: 24px;
+  }
+  
+  .wide {
+    color: rgb(126, 240, 255);
+  }
+  
+  .lancer {
+    color: rgb(73, 135, 143);
+  }
+  
+  .search-bar {
+    flex: 1;
+    max-width: 500px;
+    margin: 0 30px;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.1);
+    outline: none;
+  }
+  
+  .perfil .btn {
+    padding: 10px 20px;
+    background-color: #e6f0f3;
+    border: 1px solid black;
+    border-radius: 8px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  .perfil .btn:hover {
+    background-color: #232f46;
+    color: white;
+  }
+  
+  .notificacoes-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+  }
+  
+  .notificacoes-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #232f46;
+  }
+  
+  .notificacao {
+    background-color: #e6f0f3;
+    border-left: 5px solid #28d9f8;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    transition: background 0.3s;
+  }
+  
+  .notificacao:hover {
+    background-color: #d2eaf0;
+  }
+  
+  .notificacao h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
+  .notificacao p {
+    font-size: 15px;
+    margin: 0;
+  }
+  
+  .notificacao a {
+    color: #28a5c6;
+    text-decoration: none;
+  }
+  
+  .notificacao a:hover {
+    text-decoration: underline;
+  }
+  
+  .notificacao {
+    position: relative;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    background-color: #fff;
+  }
+  
+  .bolinha-vermelha {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 12px;
+    height: 12px;
+    background-color: red;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  }
+  
