@@ -27,7 +27,7 @@
     <div id="cards">
         <?php
             foreach ($anuncios as $anuncio){
-                echo " <div class='card'>".
+                echo " <div class='card' onClick='render_anuncio(".$anuncio->getId().")'>".
                           "<img src='".$anuncio->getFoto()."' alt=''>".
                           "<div>".
                                 "<p class='titulo'>".$anuncio->getTitulo()."</p>". 
@@ -36,7 +36,8 @@
                         "</div>";
             }
         ?>
-      
    </main>
 </body>
+<script src="../Configuracoes.js"></script>
+<script src="../javascripts/pesquisa.js"></script>
 </html>

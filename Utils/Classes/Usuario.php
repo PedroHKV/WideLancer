@@ -1,5 +1,5 @@
 <?php
-    include "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Portifolio.php";
+    include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Portifolio.php";
     //databasefunctions ja esta incluido neste include acima
 
     class Usuario{

@@ -1,5 +1,5 @@
 <?php
-    include "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Usuario.php";
+    include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Usuario.php";
 
     class Anuncio{
         private $id;
@@ -124,6 +124,27 @@
             }
             $bd->close();
             return $anuncios;
+        }
+
+        public static function findAnuncioById($id){
+            $bd = ConectarSQL();
+            $sql = "SELECT * FROM Anuncio WHERE id = ?";
+            $query = $bd->prepare($sql);
+            $query->bind_param("i", $id);
+            $query->execute();
+            $result = $query->get_result();
+            $linha = $result->fetch_assoc();
+            
+            $anuncio = new Anuncio(
+                $linha["id"],
+                $linha["foto"],
+                $linha["titulo"],
+                $linha["descricao"],
+                $linha["usuario_id"],
+                $linha["portifolio_id"]);
+                
+            $bd->close();
+            return $anuncio;
         }
 
         public static function deleteAnuncioById($id){

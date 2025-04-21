@@ -1,3 +1,16 @@
+<?php
+    include "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Anuncio.php";
+    //usuario.php esta incluido em anuncio.php
+    session_start();
+    $id = $_SESSION["id"];
+
+    if ($_SERVER["REQUEST_METHOD"] === "GET"){
+      $id_anuncio = $_GET["id"];
+      $anuncio = Anuncio::findAnuncioById($id_anuncio);
+      $usuario_id = $anuncio->getUsuarioId();
+      $vendedor = Usuario::findUsuarioById($usuario_id);
+    }
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -11,7 +24,7 @@
       <h1><span class="wide">Wide</span><span class="lancer">Lancer</span></h1>
       </div>
       <div class="topo">
-        <h1>Faço seu site!</h1>
+        <h1><?php echo $anuncio->getTitulo()?></h1>
       </div>
   
       <div class="availability">
@@ -22,12 +35,12 @@
       </div>
   
       <div class="offer">
-        <div class="price-highlight">Preço médio: R$ 450,00</div>
-        <button class="buy-button">COMPRAR</button>
+        <div class="price-highlight">Clique no botao abaixo para iniciar a sua negociação</div>
+        <button id="negoc" onclick="init_negocio(<?php echo $id;?>,<?php echo $usuario_id?>)" class="buy-button">Iniciar Chat</button>
       </div>
-  
+    
       <div class="images">
-        <img src="../imagens/SONIC.jpg" alt="Imagem" />
+        <img src="<?php echo $anuncio->getFoto()?>" alt="Imagem" />
       </div>
   </div>
 </header><br><br><br><br><br><br>
@@ -44,34 +57,24 @@
       <div class="verifications">
         <h2>Verificações</h2>
         <span>E-mail: Verificado</span>
-        <span>Telefone: Verificado</span>
         <span>Documentos: Não Verificado</span>
       </div>
     </div>
 
     <section class="description">
       <h2>DESCRIÇÃO DO ANÚNCIO</h2>
-      <p>Massa</p>
-      <p>1/2 xícara(s) de óleo</p>
-      <p>3 unidade(s) ovo</p>
-      <p>1 1/2 xícara(s) de leite</p>
-      <p>2 xícara(s) de farinha de trigo</p>
-      <p>2 xícara(s) de açúcar</p>
-      <p>1 xícara(s) de chocolate em pó</p>
-      <p>1 colher(es) de sopa de fermento</p>
-      <p>Cobertura</p>
-      <p>1caixinha(s) de creme de leite</p>
-      <p>2 barra(s) de chocolate</p>
+      <p><?php echo $anuncio->getDescricao()?></p>
     </section>
 
     <aside class="seller-box">
       <h2>Vendedor</h2>
-      <img src="../imagens/PEASHOOTER.jpg" alt="Foto de perfil" class="profile-pic" />
-      <span><strong>Joazinho123</strong> 😊</span>
+      <img src="<?php echo $vendedor->getFoto();?>" alt="Foto de perfil" class="profile-pic" />
+      <span><strong><?php echo $vendedor->getNome()." ".$vendedor->getSobrenome();?></strong> 😊</span>
       <span>Membro desde 14/04/2025</span>
       <span>Avaliações positivas: 100%</span>
       <span>Número de avaliações: 3</span>
       <span>Último acesso: há 14 dias</span>
+      <span><input type="button" id="portif" onclick="render_portif(<?php echo $vendedor->getId()?>)" value="Conferir Portifolio"></span>
     </aside>
 
     <section class="guarantee">
@@ -115,4 +118,6 @@
     </section>
   </main>
 </body>
+<script src="../Configuracoes.js"></script>
+<script src="../javascripts/visualis_anuncio.js"></script>
 </html>

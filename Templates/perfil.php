@@ -1,13 +1,28 @@
 <?php
     include "../Utils/Classes/Anuncio.php";
-    // Usuaio.php está contido em Anuncio.php
+    // Usuario.php está contido em Anuncio.php
     // portifolio.php esta incluido em Usuario.php
 
+    //a variavel usuario representa o usuario que possui o portifolio, nao o que
+    //esta visualizando a pagina
     if (isset($_GET["id"])){
         // parte destinada para quando o usuario acessar o portifolio de
         //outra pessoa
+        session_start();
+        $visualizador_id = $_SESSION["id"];
+        $id_vendedor = $_GET["id"];
+        $usuario = Usuario::findUsuarioById($id_vendedor);
+        $portifolio = Portifolio::findPortifolioByUsuario_id($id_vendedor);
+        $anuncios = Anuncio::findAnunciosByUserId($id_vendedor);
+
         $editavel = false;
+
+        $foto = $usuario->getFoto();
+        if ( !isset($foto) ){
+            $foto = "../imagens/usuario_icone.png";
+        }
     } else{
+        //nesse caso o usuario esta acessando o proprio perfil
         session_start();
         $id = $_SESSION["id"];
         $usuario = Usuario::findUsuarioById($id);
@@ -77,6 +92,9 @@
                     <div id="fotoport">
                         <label for="infotoport"><img src="<?php echo $foto;?>" alt=""></label>
                     </div>
+                </div>
+                <div id="notif">
+
                 </div>
                 <div id="informacoes">
                     <br><br><br><br>

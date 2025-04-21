@@ -1,5 +1,5 @@
 <?php
-    include "C:/xampp/htdocs/WideLancer_Artefato/Utils/DatabaseFunctions.php";
+    include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/DatabaseFunctions.php";
 
     class Portifolio{
 

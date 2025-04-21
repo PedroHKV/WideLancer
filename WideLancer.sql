@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS Portifolio (
 CREATE TABLE IF NOT EXISTS Anuncio (
     id INT PRIMARY KEY AUTO_INCREMENT,
     foto VARCHAR(100) NOT NULL,
-    descricao VARCHAR(100) NOT NULL,
+    descricao TEXT NOT NULL,
     titulo VARCHAR(50),
     portifolio_id INT,
     usuario_id INT,
@@ -45,11 +45,13 @@ CREATE TABLE IF NOT EXISTS Comentario (
     FOREIGN KEY (usuario_id) REFERENCES Usuario(id)
 );
 
-CREATE TABLE IF NOT EXISTS Servico (
+
+CREATE TABLE IF NOT EXISTS Chat (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    descricao VARCHAR(100) NOT NULL,
-    usuario_id INT,
-    FOREIGN KEY (usuario_id) REFERENCES Usuario(id)
+    anunciante_id INT,
+    solicitante_id INT,
+    FOREIGN KEY (anunciante_id) REFERENCES Usuario(id),
+    FOREIGN KEY (solicitante_id) REFERENCES Usuario(id)
 );
 
 CREATE TABLE IF NOT EXISTS Venda (
@@ -57,22 +59,10 @@ CREATE TABLE IF NOT EXISTS Venda (
     descricao VARCHAR(100) NOT NULL,
     data_init DATE NOT NULL,
     data_termino DATE NOT NULL,
-    servico_id INT,
-    anunciante_id INT,
-    solicitante_id INT,
-    FOREIGN KEY (servico_id) REFERENCES Servico(id),
-    FOREIGN KEY (anunciante_id) REFERENCES Usuario(id),
-    FOREIGN KEY (solicitante_id) REFERENCES Usuario(id)
-);
-
-CREATE TABLE IF NOT EXISTS Chat (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    venda_id INT,
-    anunciante_id INT,
-    solicitante_id INT,
-    FOREIGN KEY (venda_id) REFERENCES Venda(id),
-    FOREIGN KEY (anunciante_id) REFERENCES Usuario(id),
-    FOREIGN KEY (solicitante_id) REFERENCES Usuario(id)
+    chat_id INT,
+    anuncio_id INT,
+    FOREIGN KEY (chat_id) REFERENCES Chat(id),
+    FOREIGN KEY (anuncio_id) REFERENCES Anuncio(id)
 );
 
 CREATE TABLE IF NOT EXISTS Mensagem (
