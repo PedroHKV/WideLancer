@@ -1,0 +1,328 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #e6f0f3;
+}
+
+header {
+  padding: 20px 0;
+  color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgb(15, 227, 255);
+}
+
+.wide {
+  color: rgb(126, 240, 255);
+}
+
+.lancer {
+  color: rgb(73, 135, 143);
+}
+
+#perfil-container {
+  text-align: right;
+  margin-right: 8px;
+  margin-top: 8px;
+}
+
+.btn {
+  padding: 10px 20px;
+  color: rgb(0, 0, 0);
+  border: 1px solid black;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #232f46;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 100%);
+  color: white;
+  border: 1px solid white;
+}
+
+.chat-layout {
+  display: flex;
+  height: calc(100vh - 80px);
+}
+
+.chat-sidebar {
+  width: 20%;
+  background-color: #e6f0f3;
+  border-right: 1px solid;
+  padding: 15px;
+}
+
+.chat-list {
+  list-style: none;
+  padding: 0;
+}
+
+.chat-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.chat-item:hover {
+  background-color: rgb(151, 190, 196);
+}
+
+.chat-main {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow-y: auto;
+  background-image: url('../imagens/chat-fundo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+#chat-perfilinfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-indicador {
+  position: fixed;
+  right: 20px;
+  background-color: rgb(73, 135, 143);
+  color: white;
+  padding: 12px 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-texto {
+  font-weight: bold;
+}
+
+.user-photo {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.chat-messages {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+  overflow-y: auto;
+}
+
+.message-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.message-row.sent {
+  flex-direction: row-reverse;
+}
+
+.message-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 10px;
+}
+
+.message {
+  max-width: 70%;
+  padding: 10px;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.message-row.sent .message {
+  background-color: #d0f0ff;
+}
+
+.message-row.received .message {
+  background-color: #ffffff;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+  align-self: flex-end;
+}
+
+.chat-input {
+  display: flex;
+  gap: 10px;
+  padding-top: 10px;
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.proposta-card-1 {
+  position: fixed;
+  left: 45%;
+  z-index: 1;
+  max-width: 45%;
+  background-color: #f2faff;
+  border: 1px solid #b3e5fc;
+  padding: 15px;
+  border-radius: 12px;
+  margin: 15px auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.descricao-trabalho,
+.prazo-trabalho {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.enviar-proposta {
+  background-color: rgb(73, 135, 143);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.enviar-proposta:hover {
+  background-color: #232f46;
+}
+
+.proposta-card-2 {
+  max-width: 45%;
+  background-color: #f2faff;
+  border: 1px solid #b3e5fc;
+  padding: 15px;
+  border-radius: 12px;
+  margin: 15px auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.proposta-card-2 .descricao,
+.proposta-card-2 .prazo {
+  font-size: 14px;
+  color: #444;
+}
+
+.input-orcamento {
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.proposta-card-3 {
+  max-width: 45%;
+  background-color: #f2faff;
+  border: 1px solid #b3e5fc;
+  padding: 15px;
+  border-radius: 12px;
+  margin: 15px auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.proposta-card-3 .descricao,
+.proposta-card-3 .prazo,
+.proposta-card-3 .orcamento {
+  font-size: 14px;
+  color: #333;
+}
+
+.proposta-card-3 .orcamento {
+  font-weight: bold;
+  color: #0077aa;
+}
+
+.botoes-proposta {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.aceitar,
+.recusar {
+  background-color: rgb(73, 135, 143);
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.aceitar {
+  background-color: rgb(73, 135, 143);
+}
+
+.recusar {
+  background-color: rgb(73, 135, 143);
+}
+
+#mensagens{
+  height: 90%;
+}
