@@ -11,15 +11,9 @@ function init_negocio(id, usuario_id){
         method : "POST",
         body : dados
     }).then(r => { return r.text()}).then(res => {
-        console.log(res);
+        const http = URL_SITE+"/Templates/chat.php";
+        window.location.href=http;
 
-
-
-        //adicionar redirecionamento para a pagina de chat
-
-
-
-        
     }).catch(e => {
         console.log(e);
     })

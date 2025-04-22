@@ -1,3 +1,28 @@
+<?php
+    include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Usuario.php";
+    include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Chat.php";
+    include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Mensagem.php";
+    //Só redirecionar essa página com um GET chamado id contendo o id do chat.
+
+    session_start();
+    $usuario_id = $_SESSION["id"];
+    $chat_id = $_SESSION["chat_id"];
+    $chat = Chat::findChatById($chat_id);
+    $outro;
+    if ($chat->getSolicitante()===$usuario_id){
+        $outro = Usuario::findUsuarioById($chat->getAnunciante());
+        $vendedor = false;
+
+    } else {
+        $outro = Usuario::findUsuarioById($chat->getSolicitante());
+    } 
+    
+    $usuario = Usuario::findUsuarioById($usuario_id);
+    $mensagens = Mensagem::findMensagensByChatId($chat_id);
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,20 +60,20 @@
                 </div>
             </div>
             <div id="mensagens">
-                <div class="message-row received">
-                    <img src="../imagens/usuario1.jpg" class="message-avatar" alt="Usuário">
-                    <div class="message">
-                        <p>Olá, tudo bem?</p>
-                        <span class="timestamp">21/04/2025 - 10:45</span>
-                    </div>
-                </div>
-                <div class="message-row sent">
-                    <img src="../imagens/usuario2.jpg" class="message-avatar" alt="Você">
-                    <div class="message">
-                        <p>Oi! Tudo sim, e você?</p>
-                        <span class="timestamp">21/04/2025 - 10:46</span>
-                    </div>
-                </div>
+                <?php
+                    foreach ($mensagens as $mensagem ){
+                        $myMSG = ($mensagem->getUsuarioId()===$usuario_id);
+                        $classe = $myMSG ? "message-row sent" : "message-row received";
+                        $foto = $myMSG ? $usuario->getFoto() : $outro->getFoto();
+                        echo "<div class='".$classe."'>".
+                                "<img src='".$foto."' class='message-avatar' alt='Você'>".
+                                "<div class='message'>".
+                                    "<p>".$mensagem->getTexto()."</p>".
+                                    "<span class='timestamp'>".$mensagem->getHorario()."</span>".
+                                "</div>".
+                              "</div>";
+                    }
+                ?>
                 <div class="proposta-card-1" id="proposta-form" style="display: none;">
                     <h4>Proposta de Serviço</h4>
                     <input type="text" class="prazo-trabalho" placeholder="Prazo (ex: 5 dias)">
@@ -75,6 +100,7 @@
             
         </section>
     </main>
+    <script src="../Configuracoes.js"></script>
     <script src="../Javascripts/chat.js"></script>
 </body>
 </html>

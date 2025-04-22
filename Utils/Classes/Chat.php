@@ -54,7 +54,7 @@
             $linha = $result->fetch_assoc();
 
             $chat = new Chat(
-                $linha["id"], $linha["solicitante"], $linha["anunciante"]
+                $linha["id"], $linha["solicitante_id"], $linha["anunciante_id"]
             );
 
 

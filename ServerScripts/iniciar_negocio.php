@@ -12,7 +12,8 @@
             $chat->cadastrar();
             $chat = Chat::findChatByParticipantes($solicitante, $anunciante);
         }
-        echo $chat->getId();
+        session_start();
+        $_SESSION["chat_id"] = $chat->getId();
     }
 
 ?>

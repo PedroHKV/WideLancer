@@ -30,6 +30,15 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             mensagens.appendChild(msg);
             input.value = '';
+
+            let dados = new FormData();
+            dados.append("msg_cnt",msgContent);
+            fetch(URL_SITE+"/ServerScripts/tratar_msg.php", {
+                method:"POST", 
+                body: dados 
+            }).then(r=>{return r.text()}).then(res=>{
+                
+            });
             scrollToBottom();
         }
     });
