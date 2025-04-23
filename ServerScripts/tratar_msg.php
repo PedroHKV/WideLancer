@@ -6,13 +6,29 @@
         $usuario_id = $_SESSION["id"];
         $chat_id = $_SESSION["chat_id"];
         $mensagem = $_POST["msg_cnt"];
-        $horario = date("Y-m-d H:i:s");
-        $MSG = new Mensagem (null, $mensagem, $horario, $chat_id, $usuario_id );
-        $cadastrada = $MSG->cadastrar();
-        if ($cadastrado){
-            echo "cadastrado";
+
+        //analiza se a mensagem é uma proposta ou nao
+        if ($mensagem === "<?><;><.>proposta<?><;><.>"){
+            $horario = date("Y-m-d H:i:s");
+            $prazo = $_POST["prazo"];
+            $orcamento = $_POST["orcamento"];
+
+            $MSG =  new Mensagem(NULL, NULL, $horario, $chat_id, $usuario_id, true, $prazo, $orcamento);
+            $cadastrada =  $MSG->cadastrarComoProposta();
+            if ($cadastrado){
+                echo "cadastrado";
+            } else {
+                echo "falha";
+            }
         } else {
-            echo "falha";
+            $horario = date("Y-m-d H:i:s");
+            $MSG = new Mensagem (null, $mensagem, $horario, $chat_id, $usuario_id );
+            $cadastrada = $MSG->cadastrar();
+            if ($cadastrado){
+                echo "cadastrado";
+            } else {
+                echo "falha";
+            }
         }
     }
 ?>

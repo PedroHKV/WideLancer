@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS Venda (
     descricao VARCHAR(100) NOT NULL,
     data_init DATE NOT NULL,
     data_termino DATE NOT NULL,
+    andamento BOOLEAN,
     chat_id INT,
     anuncio_id INT,
     FOREIGN KEY (chat_id) REFERENCES Chat(id),
@@ -67,8 +68,11 @@ CREATE TABLE IF NOT EXISTS Venda (
 
 CREATE TABLE IF NOT EXISTS Mensagem (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    texto TEXT NOT NULL,
+    texto TEXT,
     horario DATETIME NOT NULL,
+    proposta BOOLEAN,
+    orcamento DOUBLE,
+    prazo DATETIME,
     chat_id INT,
     usuario_id INT,
     FOREIGN KEY (chat_id) REFERENCES Chat(id),

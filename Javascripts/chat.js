@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const msg = document.createElement('div');
             msg.className = 'message-row sent';
             msg.innerHTML = `
-                <img src="../imagens/usuario2.jpg" class="message-avatar" alt="Você">
+                <img src="" class="message-avatar" alt="Você">
                 <div class="message">
                     <p>${msgContent}</p>
                     <span class="timestamp">${new Date().toLocaleString()}</span>
@@ -37,13 +37,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 method:"POST", 
                 body: dados 
             }).then(r=>{return r.text()}).then(res=>{
-                
+                window.location.href = URL_SITE+"/Templates/chat.php";
             });
             scrollToBottom();
         }
     });
     propostaBtn.addEventListener('click', () => {
-        propostaCard1.style.display = (propostaCard1.style.display === 'none' || propostaCard1.style.display === '') ? 'block' : 'none';
+        propostaCard1.style.display = (propostaCard1.style.display === 'none' || propostaCard1.style.display === '') ? 'flex' : 'none';
     });
     document.querySelector('.enviar-proposta').addEventListener('click', () => {
         const prazo = prazoInput.value;
@@ -53,6 +53,18 @@ document.addEventListener('DOMContentLoaded', () => {
             propostaCard2.querySelector('.orcamento').textContent = `Orçamento: ${orcamento}`;
             propostaCard2.style.display = 'block';
             propostaCard1.style.display = 'none';
+
+            let dados = new FormData();
+            dados.append("msg_cnt", "<?><;><.>proposta<?><;><.>");
+            dados.append("prazo", prazo);
+            dados.append("orcamento", orcamento);
+            fetch(URL_SITE+"/ServerScripts/tratar_msg.php", {
+                method:"POST", 
+                body: dados 
+            }).then(r=>{return r.text()}).then(res=>{
+                window.location.href = URL_SITE+"/Templates/chat.php";
+            });
+
         } else {
             alert("Por favor, insira um prazo e um orçamento.");
         }

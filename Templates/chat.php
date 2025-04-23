@@ -52,45 +52,50 @@
         <section class="chat-main">
             <div class="chat-header">
                 <div id="chat-perfilinfo">
-                    <img src="../imagens/usuario2.jpg" alt="Foto do usuário" class="user-photo">
-                    <span class="user-name">João Silva</span>
+                    <img src="<?php echo $outro->getFoto(); ?>" alt="Foto do usuário" class="user-photo">
+                    <span class="user-name"><?php echo $outro->getNome()." ".$outro->getSobrenome();?></span>
                 </div>
                 <div class="status-indicador">
                     <span class="status-texto">🕒 Em andamento...</span>
                 </div>
             </div>
             <div id="mensagens">
-                <?php
-                    foreach ($mensagens as $mensagem ){
-                        $myMSG = ($mensagem->getUsuarioId()===$usuario_id);
-                        $classe = $myMSG ? "message-row sent" : "message-row received";
-                        $foto = $myMSG ? $usuario->getFoto() : $outro->getFoto();
-                        echo "<div class='".$classe."'>".
-                                "<img src='".$foto."' class='message-avatar' alt='Você'>".
-                                "<div class='message'>".
-                                    "<p>".$mensagem->getTexto()."</p>".
-                                    "<span class='timestamp'>".$mensagem->getHorario()."</span>".
-                                "</div>".
-                              "</div>";
-                    }
-                ?>
                 <div class="proposta-card-1" id="proposta-form" style="display: none;">
                     <h4>Proposta de Serviço</h4>
-                    <input type="text" class="prazo-trabalho" placeholder="Prazo (ex: 5 dias)">
+                    <input type="date" class="prazo-trabalho" placeholder="Prazo (ex: 5 dias)">
                     <input type="text" class="input-orcamento" placeholder="Insira seu orçamento (ex: R$ 300)">
                     <div class="botoes-proposta">
                         <button class="enviar-proposta">Enviar</button>
                     </div>
                 </div>
-                <div class="proposta-card-2" id="proposta-recebida" style="display: none;">
-                    <h4>Proposta de Serviço</h4>
-                    <p class="prazo">Prazo: 5 dias</p>
-                    <p class="orcamento">Orçamento: R$ 500,00</p>
-                    <div class="botoes-proposta">
-                        <button class="btn aceitar">Aceitar</button>
-                        <button class="btn recusar">Recusar</button>
-                    </div>
-                </div>
+                <?php
+                    foreach ($mensagens as $mensagem ){
+                        $myMSG = ($mensagem->getUsuarioId()===$usuario_id);
+                        $classe = $myMSG ? "message-row sent" : "message-row received";
+                        $foto = $myMSG ? $usuario->getFoto() : $outro->getFoto();
+                        $isProposta = ($mensagem->getProposta() == 1);
+                        if ($isProposta){
+                            echo "<br><br>";
+                            echo    "<div class='proposta-card-2' id='proposta-recebida'>".
+                                        "<h4>Estimativa do Serviço</h4>".
+                                        "<p class='prazo'>será entregue até: ".$mensagem->getPrazo()."</p>".
+                                        "<p class='orcamento'>irá custar: ".$mensagem->getOrcamento()."</p><br>".
+                                        "<div class='botoes-proposta'>".
+                                            "<button class='btn aceitar'>Aceitar</button>".
+                                            "<button class='btn recusar'>Recusar</button>".
+                                        "</div>".
+                                    "</div>";
+                        } else {
+                            echo "<div class='".$classe."'>".
+                                    "<img src='".$foto."' class='message-avatar' alt='Você'>".
+                                    "<div class='message'>".
+                                        "<p>".$mensagem->getTexto()."</p>".
+                                        "<span class='timestamp'>".$mensagem->getHorario()."</span>".
+                                    "</div>".
+                                  "</div>";
+                        }
+                    }
+                ?>
             </div>
             <div class="chat-input">
                 <input type="text" placeholder="Digite sua mensagem...">

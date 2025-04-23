@@ -222,10 +222,13 @@ header {
   border: 1px solid #b3e5fc;
   padding: 15px;
   border-radius: 12px;
+  gap: 10px;
   margin: 15px auto;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   text-align: center;
+  flex-direction: column;
 }
+
 
 .descricao-trabalho,
 .prazo-trabalho {
@@ -259,7 +262,13 @@ header {
   border-radius: 12px;
   margin: 15px auto;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  text-align: center;
+  text-align: start;
+  display: flex;
+  flex-direction: column;
+}
+
+.proposta-card-2 h4{
+  margin-bottom: 15px;
 }
 
 .proposta-card-2 .descricao,
@@ -301,7 +310,7 @@ header {
 
 .botoes-proposta {
   display: flex;
-  justify-content: center;
+  justify-content: end;
   gap: 10px;
 }
 
