@@ -26,5 +26,18 @@ function adicionarNotificacao(titulo, mensagem, link = "#") {
   });
 }
 
-adicionarNotificacao("Pagamento Recebido", "Você recebeu R$ 200,00 pelo projeto de edição de vídeo.");
-adicionarNotificacao("Mensagem nova", "Um cliente enviou uma mensagem sobre o serviço de tradução.");
+function redirect (id){
+    console.log("cheguei")
+    let dados = new FormData();
+    dados.append("chat", id);
+    fetch(URL_SITE + "/ServerScripts/processa_chat.php", {
+      method : "POST", 
+      body : dados
+    }).then(r => {return r.text()}).then(res => {
+      console.log(res);
+      const http = URL_SITE + "/Templates/chat.php";
+      window.location.href = http;
+    }).catch(r => {console.log(r);})
+  }
+  
+

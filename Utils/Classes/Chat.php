@@ -84,7 +84,21 @@
             } else { return NULL ; }
         }
 
+        public static function findChatsByUsuarioId($id){
+            $bd = ConectarSQL();
+            $sql = "SELECT * FROM CHAT WHERE anunciante_id = ? OR solicitante_id = ?;";
+            $query = $bd->prepare($sql);
+            $query->bind_param("ii", $id, $id);
+            $query->execute(); 
+            $result = $query->get_result();
+            $chats = [];
+            while ($linha = $result->fetch_assoc()) {
+                $chat = new Chat($linha["id"], $linha["solicitante_id"], $linha["anunciante_id"]);
+                $chats[] = $chat;
+        }   
+        return $chats;
     }
+}
 
 
 ?>

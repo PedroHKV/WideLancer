@@ -13,10 +13,13 @@
             <h1><span class="wide">Wide</span><span class="lancer">Lancer</span></h1>
         </div>
         <div class="login-container">
-            <a href="login.html" class="btn">Login</a>
+            <a href="./login.html" class="btn">Login</a>
         </div>
         <div id="perfil-container">
             <a href="./perfil.php" class="btn">Perfil</a>
+        </div>
+        <div class="login-container">
+            <a href="./notificacoes.php" class="btn">Notificações</a>
         </div>
     </header>
 
