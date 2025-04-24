@@ -9,6 +9,7 @@
 <body>
 
     <header>
+        <img src="../imagens/logo.png" id="logo" style="width: 90px; height: 80px;">
         <div class="container">
             <h1><span class="wide">Wide</span><span class="lancer">Lancer</span></h1>
         </div>

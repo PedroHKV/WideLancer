@@ -26,7 +26,9 @@ submit.onclick = () => {
             body : dados
         }).then(r => {return r.text();}).then(res => {
             console.log(res);
-            alert(res);
+            if (res === "cadastrado"){
+                window.location.href = URL_SITE+'/Templates/perfil.php';
+            }
         }).catch(e => {
             alert(e);
         });

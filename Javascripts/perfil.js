@@ -1,4 +1,5 @@
 const servicos = document.getElementById('servicos');
+const voltar = document.getElementById("voltar");
 
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
@@ -131,3 +132,14 @@ submit.onclick = () => {
         }
     }).catch( e => {console.log(e);});
 }
+
+//cobtrole do botao de voltar
+voltar.onclick = () => {
+    window.location.href = URL_SITE+"/Templates/home.php";
+}
+
+//função para reenderizar a pagina de um anuncio
+function render_anuncio(id){
+    window.location.href = URL_SITE+"/Templates/visualis_anuncio.php?id="+id;
+}
+

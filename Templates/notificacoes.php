@@ -19,12 +19,14 @@
 <body>
 
   <header>
-    <div class="logo">
-      <h1><span class="wide">Wide</span><span class="lancer">Lancer</span></h1>
-    </div>
-    <input type="text" id="search-bar" class="search-bar" placeholder="Buscar notificações..."/>
+    <div id="log">
+      <img src="../imagens/logo.png" id="logo" style="width: 90px; height: 80px;">
+      <div class="logo">
+        <h1><span class="wide">Wide</span><span class="lancer">Lancer</span></h1>
+      </div>
+    </div>  
     <div class="perfil">
-      <a href="./perfil.php" class="btn">Perfil</a>
+      <a href="./home.php" class="btn">Home</a>
     </div>
   </header>
 

@@ -54,6 +54,7 @@
                 <?php
                     if ($editavel){
                         echo "<div id='foto'>
+                                <img id='cam' src='../imagens/camera.png'>
                                  <label for='infoto'><img id='foto_lab' src=' ".$foto."' alt=''></label>
                                  <input type='file' name='' id='infoto'>
                              </div>";
@@ -92,6 +93,7 @@
                     <div id="fotoport">
                         <label for="infotoport"><img src="<?php echo $foto;?>" alt=""></label>
                     </div>
+                    <input type="button" id="voltar" value="< Home">
                 </div>
                 <div id="notif">
 
@@ -121,7 +123,7 @@
                         <div class="servicos" id="servicos">
                             <?php
                                 foreach ($anuncios as $anuncio){
-                                    echo "<div class='servico' id='".$anuncio->getId()."' >". 
+                                    echo "<div class='servico' onClick='render_anuncio(".$anuncio->getId().")' >". 
                                               "<img src='".$anuncio->getFoto()."' alt=''/>".
                                               "<p>".$anuncio->getTitulo()."</p>".
                                           "</div>";

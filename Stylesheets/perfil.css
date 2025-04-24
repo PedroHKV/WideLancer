@@ -22,12 +22,12 @@ main div {
     flex-direction: column;
     position: fixed;
     overflow-y: auto;
-    scrollbar-width: thin; /* e para ser o do firefox */
+    scrollbar-width: thin; 
     scrollbar-color: #2fb3c0 #004a5a; 
 }
 
 #esquerda h3{
-    font-family: cursive;
+    font-family: 'Trebuchet MS', sans-serif;
     color:white;
 }
 
@@ -63,6 +63,19 @@ main div {
 
 #infoto {
     display: none;
+}
+
+#cam{
+    position:absolute;
+    width: 28px;
+    height: 28px;
+    background-color: white;
+    border-radius: 50%;
+    padding: 3px;
+    top: 85px ;
+    left: 55%;
+    z-index: 5;
+    opacity: 50%;
 }
 
 #inputs {
@@ -224,7 +237,7 @@ h3 {
 .servico {
     min-width: 100%;
     height: 300px;
-    background-color: #00a7cc;
+    background-color: rgb(3, 147, 187);
     color: white;
     display: flex;
     flex-direction: column;
@@ -234,6 +247,7 @@ h3 {
     font-size: 24px;
 }
 
+
 .servico img {
     width: 80%;
     height: 200px;
@@ -242,6 +256,12 @@ h3 {
     justify-content: center;
     align-items: center;
     border: none;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.servico img:hover{
+    transform: scale(1.05);
 }
 
 button {
@@ -334,4 +354,33 @@ button {
 #simounao input:hover{
     transform: scale(1.05);
     border: 1px solid white;
+}
+
+#back_volt{
+    position: fixed;
+    left: 95%;
+    top: 20px;
+    width: 20px;
+    height: 20px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+#voltar{
+    position: absolute;
+    left: 90%;
+    top: 10px;
+    height: 25px;   
+    border-radius: 5px;
+    border: none; 
+    cursor: pointer;
+    color: white;
+    background-color: rgb(28, 124, 161);
+    transition: 0.3s ease;
+}
+
+#voltar:hover{
+    background-color: rgb(47, 179, 192);
 }
