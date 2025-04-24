@@ -33,11 +33,12 @@
 </head>
 <body>
     <header>
+        <img src="../imagens/logo.png" id="logo" style="width: 70px; height: 60px;">
         <div class="container">
             <h1><span class="wide">Wide</span><span class="lancer">Lancer</span></h1>
         </div>
         <div id="perfil-container">
-            <a href="./perfil.php" class="btn">Perfil</a>
+            <a href="./home.php" class="btn">Home</a>
         </div>
     </header>
     <main class="chat-layout">
@@ -54,9 +55,6 @@
                 <div id="chat-perfilinfo">
                     <img src="<?php echo $outro->getFoto(); ?>" alt="Foto do usuário" class="user-photo">
                     <span class="user-name"><?php echo $outro->getNome()." ".$outro->getSobrenome();?></span>
-                </div>
-                <div class="status-indicador">
-                    <span class="status-texto">🕒 Em andamento...</span>
                 </div>
             </div>
             <div id="mensagens">

@@ -21,6 +21,7 @@
 </head>
   <header>
   <div class="container">
+      <img src="../imagens/logo.png" id="logo" style="width: 85px; height: 75px;">
       <h1><span class="wide">Wide</span><span class="lancer">Lancer</span></h1>
       </div>
       <div class="topo">

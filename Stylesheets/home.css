@@ -81,7 +81,7 @@ header {
 .retangulo {
     width: 98%;
     height: 350px;
-    background:url("../imagens/mundo.jpg");
+    background:url("../imagens/planeta.jpg");
     background-size: cover;
     background-position: -0px;
     border-radius: 20px;

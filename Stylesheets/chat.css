@@ -10,7 +10,7 @@ body {
 }
 
 header {
-  padding: 20px 0;
+  padding: 10px 0;
   color: #ffffff;
   border-bottom: 1px solid #ddd;
   display: flex;
@@ -36,6 +36,8 @@ header {
 #perfil-container {
   text-align: right;
   margin-right: 8px;
+  display: flex;
+  align-items: center;
   margin-top: 8px;
 }
 
