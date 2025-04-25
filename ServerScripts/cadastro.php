@@ -1,5 +1,5 @@
 <?php
-    include "../Utils/Classes/Usuario.php";
+    include_once "../Utils/Classes/Usuario.php";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
 

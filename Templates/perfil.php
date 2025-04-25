@@ -35,8 +35,12 @@
         if ( !isset($foto) ){
             $foto = "../imagens/usuario_icone.png";
         }
-    }
-    
+    // Verificação de permissões
+    $temCpf = $usuario->getCpf() ? "flex" : 'none';
+    $temPix = $usuario->getPix() ? "flex" : 'none';    
+    $nTemCpf = $usuario->getCpf() ? "none" : 'flex';
+    $nTemPix = (! $usuario->getPix() && $usuario->getCpf()) ? "flex" : 'none';
+}
 
 ?>
 <!DOCTYPE html>
@@ -67,12 +71,12 @@
                     <?php 
                         if ($editavel){
                           echo "<input type='password' value='" . $usuario->getSenha() . "' placeholder='Senha' id='senha'> 
-                                <h3>Torne-se um cliente para poder contratar serviços!</h3> 
+                                <h3 style = 'display:".$nTemCpf.";'>Torne-se um cliente para poder contratar serviços!</h3> 
                                 <input type='text' value='" . $usuario->getCpf() . "' placeholder='CPF' id='cpf'> 
-                                <h3>Torne-se um vendedor também! basta adicionar as seguintes informações</h3> 
-                                <input type='text' value='" . $usuario->getPix() . "' placeholder='chavePIX' id='chavePIX'> 
-                                <input type='text' placeholder='titulo' id='titulo' value='" . ($usuario->isVendedor() ? $portifolio->getTitulo() :  "") . "'> 
-                                <textarea id='txtarea' placeholder='Escreva sobre voce'>" . ($usuario->isVendedor() ? $portifolio->getDescricao() :  "") . "</textarea>";
+                                <h3 style = 'display:".$nTemPix." ;'>Torne-se um vendedor também! basta adicionar as seguintes informações</h3> 
+                                <input type='text' style = 'display:".$temCpf.";' value='" . $usuario->getPix() . "' placeholder='chavePIX' id='chavePIX'> 
+                                <input type='text' style = 'display:".$temPix.";' placeholder='titulo' id='titulo' value='" . ($usuario->isVendedor() ? $portifolio->getTitulo() :  "") . "'> 
+                                <textarea id='txtarea' style = 'display:".$temPix.";' placeholder='Escreva sobre voce'>" . ($usuario->isVendedor() ? $portifolio->getDescricao() :  "") . "</textarea>";
                         } else {
                             echo "<input type='text' value='" . $usuario->getPix() . "' placeholder='chavePIX' id='chavePIX'>";
                         }
@@ -114,8 +118,8 @@
                     <?php
                         if ($editavel){
                             echo "<div id='addservic'>".
-                                      "<input type='button' id='novo_anunc' value='novo anuncio'>".
-                                      "<input type='button' id='esc' value='excluir'>".
+                                      "<input type='button' style = 'display:".$temPix.";' id='novo_anunc' value='novo anuncio'>".
+                                      "<input type='button' style = 'display:".$temPix.";' id='esc' value='excluir'>".
                                  "</div><br><br>";
                         }
                     ?>
