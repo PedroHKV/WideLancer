@@ -103,14 +103,14 @@
                     <h2><?php echo $portifolio->getTitulo();?></h2>
                     <p id="descricao"><?php echo $portifolio->getDescricao() ?></p>
                     <div id="confirm">
-                        <p>Tem certeza que deseja escluir este anuncio?</p>
+                        <p>Tem certeza que deseja excluir este anuncio?</p>
                         <br>
                         <div id="simounao">
                             <input type="button" id="sim" value="sim">
                             <input type="button" id="nao" value="nao">
                         </div>
                     </div>
-                    <h2>Quais serviços eu presto?</h2>
+                    <h2>Meus Serviços</h2>
                     <?php
                         if ($editavel){
                             echo "<div id='addservic'>".
