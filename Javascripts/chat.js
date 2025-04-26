@@ -13,22 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusTexto = document.querySelector('.status-texto');
     const chatInputWrapper = document.querySelector('.chat-input');
     const statusIndicador = document.querySelector('.status-indicador');
+    const proposta_btn = document.querySelector('.enviar-proposta');
+
     function scrollToBottom() {
         chatMain.scrollTop = chatMain.scrollHeight;
     }
+
     sendBtn.addEventListener('click', () => {
         const msgContent = input.value.trim();
         if (msgContent !== '') {
-            const msg = document.createElement('div');
-            msg.className = 'message-row sent';
-            msg.innerHTML = `
-                <img src="" class="message-avatar" alt="Você">
-                <div class="message">
-                    <p>${msgContent}</p>
-                    <span class="timestamp">${new Date().toLocaleString()}</span>
-                </div>
-            `;
-            mensagens.appendChild(msg);
+            
             input.value = '';
 
             let dados = new FormData();
@@ -42,17 +36,17 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollToBottom();
         }
     });
+
+
     propostaBtn.addEventListener('click', () => {
         propostaCard1.style.display = (propostaCard1.style.display === 'none' || propostaCard1.style.display === '') ? 'flex' : 'none';
     });
+
+
     document.querySelector('.enviar-proposta').addEventListener('click', () => {
         const prazo = prazoInput.value;
         const orcamento = orcamentoInput.value;
         if (prazo && orcamento) {
-            propostaCard2.querySelector('.prazo').textContent = `Prazo: ${prazo}`;
-            propostaCard2.querySelector('.orcamento').textContent = `Orçamento: ${orcamento}`;
-            propostaCard2.style.display = 'block';
-            propostaCard1.style.display = 'none';
 
             let dados = new FormData();
             dados.append("msg_cnt", "<?><;><.>proposta<?><;><.>");
@@ -69,18 +63,24 @@ document.addEventListener('DOMContentLoaded', () => {
             alert("Por favor, insira um prazo e um orçamento.");
         }
     });
+
+
     aceitarBtn.addEventListener('click', () => {
         propostaCard2.style.display = 'none';
         statusTexto.textContent = '🕒 Em andamento...';
         statusIndicador.style.backgroundColor = '#0077aa';
         alert("Proposta aceita! A conversa está em andamento.");
     });
+
+
     recusarBtn.addEventListener('click', () => {
         propostaCard2.style.display = 'none';
         statusTexto.textContent = '❌ Proposta recusada.';
         statusIndicador.style.backgroundColor = '#e60000';
         alert('Proposta recusada.');
     });
+
+    
     scrollToBottom();
 });
 
