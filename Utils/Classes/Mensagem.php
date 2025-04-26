@@ -95,15 +95,18 @@
             $mensagens = [];
             $result = $query->get_result();
             while ( $linha = $result->fetch_assoc() ){
+                $proposta = isset($linha["proposta"]) ? $linha["proposta"]: null;
+                $prazo = isset($linha["prazo"]) ? $linha["prazo"]: null;
+                $orcamento = isset($linha["orcamento"]) ? $linha["orcamento"]: null;
                 $mensagem = new Mensagem(
                     $linha["id"],
                     $linha["texto"],
                     $linha["horario"],
                     $linha["chat_id"],
                     $linha["usuario_id"],
-                    $linha["proposta"],
-                    $linha["prazo"],
-                    $linha["orcamento"]
+                    $proposta,
+                    $prazo,
+                    $orcamento
                 );
 
                 $mensagens[] = $mensagem;
