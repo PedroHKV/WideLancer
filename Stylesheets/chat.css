@@ -203,9 +203,13 @@ header {
   display: flex;
   gap: 10px;
   padding-top: 10px;
-  position: sticky;
+  position: fixed;
   bottom: 0;
   z-index: 2;
+  width: 80%;
+  background-color: #e6f0f3;
+  padding: 20px 20px 20px 20px;
+  left: 20%;
 }
 
 .chat-input input {
