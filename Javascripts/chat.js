@@ -56,7 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 method:"POST", 
                 body: dados 
             }).then(r=>{return r.text()}).then(res=>{
-                window.location.href = URL_SITE+"/Templates/chat.php";
+                if (res === "cadastrado"){
+                    window.location.href = URL_SITE+"/Templates/chat.php";
+                } else { 
+                    alert("Falha ao enviar mensagem.");
+                }
             });
 
         } else {
