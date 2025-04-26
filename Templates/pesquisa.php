@@ -41,3 +41,4 @@
 <script src="../Configuracoes.js"></script>
 <script src="../javascripts/pesquisa.js"></script>
 </html>
+<script src=".."></script>
