@@ -1,4 +1,5 @@
 const pegarBarra = document.getElementById ("search-bar");
+const voltar = document.getElementById ("volta");
 
 function render_anuncio( id ){
     const http = URL_SITE+"/Templates/visualis_anuncio.php?id="+id;
@@ -12,3 +13,8 @@ pegarBarra.onchange = () => {
     const http = baseHTTP + pesquisa;
     window.location.href = http;
 }
+
+voltar.onclick = () => {
+    window.location.href=URL_SITE + "/Templates/home.php";
+}
+

@@ -19,9 +19,11 @@
 <body>
    <header>
     <div class="container">
+        <img src="../imagens/logo.png" id="logo" style="width: 90px; height: 80px;">
         <h1><span class="wide">Wide</span><span class="lancer">Lancer</span></h1>
     </div>
     <input type="text" placeholder="Procure um serviço digital! Ex.: Design logos" id="search-bar">
+    <input type="button" value="voltar" class="btn" id="volta">
    </header>
    <main>
     <div id="cards">

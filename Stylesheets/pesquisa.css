@@ -10,6 +10,11 @@ header {
     gap: 20%;
     align-items: center;
 }
+
+.container {
+    display: flex;
+}
+
 .wide {
     color: rgb(126, 240, 255);
 }
@@ -74,6 +79,25 @@ header {
 }
 .descricao{
     width: 200px;
+}
+
+.btn {
+    padding: 10px 20px;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;  
+    font-size: 16px;
+    cursor: pointer;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
+.btn:hover{
+    background-color: #232f46;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 100%);
+    color: white;
+    border: 1px solid white;
 }
 
 
