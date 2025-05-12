@@ -10,7 +10,7 @@
 
         //o id é auto gerado
         //o cpf e a foto serao definidos depois
-        $USUARIO = new Usuario(Null, $email, $senha, $nome, $sobrenome, Null, Null, false , false );
+        $USUARIO = new Usuario(Null, $email, $senha, $nome, $sobrenome, "../imagens/usuario_icone.png", Null, false , false );
         $Cadastrado = $USUARIO->cadastrar();
 
         if ( $Cadastrado ){

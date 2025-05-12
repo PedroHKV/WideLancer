@@ -1,7 +1,10 @@
 <?php
     include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Usuario.php";
     include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Chat.php";
-    include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Mensagem.php";
+    include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Mensagem_comum.php";
+    include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Proposta.php";
+    include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Mensagem_produto.php";
+
     //Só redirecionar essa página com um GET chamado id contendo o id do chat.
 
     session_start();
@@ -16,11 +19,9 @@
     } else {
         $outro = Usuario::findUsuarioById($chat->getSolicitante());
     } 
-    
+    // os participantes sao dados pelas variaveis: usuario e outro
     $usuario = Usuario::findUsuarioById($usuario_id);
-    $mensagens = Mensagem::findMensagensByChatId($chat_id);
-
-
+    $mensagens = $chat->carregarMensagens();
 ?>
 
 <!DOCTYPE html>
@@ -71,8 +72,9 @@
                         $myMSG = ($mensagem->getUsuarioId()===$usuario_id);
                         $classe = $myMSG ? "message-row sent" : "message-row received";
                         $foto = $myMSG ? $usuario->getFoto() : $outro->getFoto();
-                        $isProposta = ($mensagem->getProposta() == 1);
-                        if ($isProposta){
+                        if ($mensagem instanceof Proposta){
+                            
+
                             echo "<br><br>";
                             echo    "<div class='proposta-card-2' id='proposta-recebida'>".
                                         "<h4>Estimativa do Serviço</h4>".
@@ -83,7 +85,7 @@
                                             "<button class='btn recusar'>Recusar</button>".
                                         "</div>".
                                     "</div>";
-                        } else {
+                        } else if ($mensagem instanceof MensagemComum) {
                             echo "<div class='".$classe."'>".
                                     "<img src='".$foto."' class='message-avatar' alt='Você'>".
                                     "<div class='message'>".

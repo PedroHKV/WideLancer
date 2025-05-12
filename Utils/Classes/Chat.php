@@ -8,6 +8,7 @@
         private $id;
         private $solicitante;
         private $anunciante;
+        private $mensagens;
 
         //getters e setters
         
@@ -21,6 +22,10 @@
 
         public function getAnunciante(){
             return $this->anunciante;
+        }
+
+        public function getMensagens(){
+            return $this->mensagens;
         }
 
         //construtores
@@ -40,6 +45,49 @@
             $cadastrado = $query->execute(); 
             $bd->close();
             return $cadastrado;
+        }
+
+        public function carregarMensagens(){
+            $bd = ConectarSQL();
+            $sql = "SELECT * FROM MensagensView WHERE chat_id = ?";
+            $query = $bd->prepare($sql);
+            $query->bind_param("i", $this->id);
+            $query->execute();
+            $result = $query->get_result();
+
+            $mensagens = [];
+            while($linha = $result->fetch_assoc()){
+                $tipo = $linha["tipo"];
+                if ( $tipo === "mensagem_comum" ){
+                    $mensagem = new MensagemComum(
+                        $linha["id"],
+                        $linha["texto"],
+                        $linha["imagem"],
+                        $linha["horario"],
+                        $linha["chat_id"],
+                        $linha["usuario_id"],
+                    );
+                    $mensagens[] = $mensagem;
+
+                } else if ( $tipo === "proposta"){
+                    $mensagem = new Proposta(
+                        $linha["id"],
+                        $linha["orcamento"],
+                        $linha["prazo"],
+                        $linha["aceita"],
+                        $linha["usuario_id"],
+                        $linha["chat_id"],
+                        $linha["horario"],
+                    );
+                    $mensagens[] = $mensagem;
+                } else if ( $tipo === "mensagem_produto"){
+
+                } else {
+                    echo "errp ap carregar mensagens";
+                }
+            }
+            return $mensagens;
+
         }
 
         //metodos estaticos
@@ -95,9 +143,10 @@
             while ($linha = $result->fetch_assoc()) {
                 $chat = new Chat($linha["id"], $linha["solicitante_id"], $linha["anunciante_id"]);
                 $chats[] = $chat;
-        }   
-        return $chats;
-    }
+            }   
+            return $chats;
+        }
+
 }
 
 

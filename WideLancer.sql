@@ -68,13 +68,93 @@ CREATE TABLE IF NOT EXISTS Venda (
 
 CREATE TABLE IF NOT EXISTS Mensagem (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    texto TEXT,
-    horario DATETIME NOT NULL,
-    proposta BOOLEAN,
-    orcamento DOUBLE,
-    prazo DATETIME,
+    tipo VARCHAR(20),
+    horario DATETIME,
     chat_id INT,
     usuario_id INT,
     FOREIGN KEY (chat_id) REFERENCES Chat(id),
     FOREIGN KEY (usuario_id) REFERENCES Usuario(id)
 );
+
+CREATE TABLE IF NOT EXISTS Mensagem_comum(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    texto TEXT,
+    imagem VARCHAR(200),
+    lida TINYINT,
+    FOREIGN KEY (id) REFERENCES Mensagem(id)
+);
+
+CREATE TABLE IF NOT EXISTS Proposta(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    orcamento DOUBLE,
+    prazo DATETIME,
+    aceita TINYINT,
+    FOREIGN KEY (id) REFERENCES Mensagem(id)
+);
+
+CREATE TABLE IF NOT EXISTS Mensagem_produto(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    adquirido TINYINT ,
+    caminho VARCHAR(200),
+    FOREIGN KEY (id) REFERENCES Mensagem(id)
+);
+
+CREATE OR REPLACE VIEW MensagensView AS
+SELECT
+    m.id,
+    m.tipo,
+    m.horario,
+    m.chat_id,
+    m.usuario_id,
+    mc.texto,
+    mc.imagem,
+    mc.lida,
+    p.orcamento,
+    p.prazo,
+    p.aceita,
+    mp.adquirido,
+    mp.caminho
+FROM Mensagem m
+LEFT JOIN Mensagem_comum mc ON m.id = mc.id
+LEFT JOIN Proposta p ON m.id = p.id
+LEFT JOIN Mensagem_produto mp ON m.id = mp.id;
+
+DELIMITER $$
+    CREATE PROCEDURE cadastrar_msg_comum( 
+        IN texto TEXT,
+        IN imagem VARCHAR(20),
+        IN chat INT,
+        IN usuario_id INT)
+
+    BEGIN
+        DECLARE horario DATETIME;
+        DECLARE id INT;
+
+        SET horario := NOW();
+        INSERT INTO Mensagem(tipo, horario, chat_id, usuario_id) VALUES ("mensagem_comum", horario, chat, usuario_id);
+        SET id := last_insert_id();
+        INSERT INTO Mensagem_comum(id, texto, imagem, lida ) VALUES (id, texto, imagem, 0);
+
+    END $$
+
+DELIMITER ;
+
+DELIMITER $$
+    CREATE PROCEDURE cadastrar_proposta( 
+        IN prazo datetime,
+        IN orcamento double,
+        IN chat INT,
+        IN usuario_id INT)
+
+    BEGIN
+        DECLARE horario DATETIME;
+        DECLARE id INT;
+
+        SET horario := NOW();
+        INSERT INTO Mensagem(tipo, horario, chat_id, usuario_id) VALUES ("proposta", horario, chat, usuario_id);
+        SET id := last_insert_id();
+        INSERT INTO Proposta(id, orcamento, prazo ) VALUES (id, orcamento, prazo);
+
+    END $$
+
+DELIMITER ;

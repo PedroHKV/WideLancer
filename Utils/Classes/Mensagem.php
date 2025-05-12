@@ -3,25 +3,19 @@
     
     class Mensagem{
         
-        private $id;
-        private $texto;
-        private $horario;
-        private $chat_id;
-        private $usuario_id;
-        private $proposta;
-        private $prazo;
-        private $orcamento;
+        protected $id;
+        protected $horario;
+        protected $chat_id;
+        protected $usuario_id;
+        protected $tipo;
 
         //construtores
-        function __construct($id, $texto, $horario, $chat_id, $usuario_id, $proposta = false, $prazo = NULL, $orcamento = NULL){
+        function __construct($id, $horario, $chat_id, $usuario_id, $tipo){
             $this->id = $id;
-            $this->texto = $texto;
             $this->horario = $horario;
             $this->chat_id = $chat_id;
             $this->usuario_id = $usuario_id;
-            $this->prazo = $prazo;
-            $this->proposta = $proposta;
-            $this->orcamento = $orcamento;
+            $this->tipo = $tipo;
         }
 
 
@@ -29,10 +23,6 @@
 
         public function getId(){
             return $this->id;
-        }
-
-        public function getTexto(){
-            return $this->texto;
         }
 
         public function getHorario(){
@@ -47,74 +37,29 @@
             return $this->usuario_id;
         }
 
-        public function getProposta(){
-            return $this->proposta;
+        public function getTipo(){
+            return $this->tipo;
         }
 
-        public function getPrazo(){
-            return $this->prazo;
-        }
-
-        public function getOrcamento(){
-            return $this->orcamento;
+        public function setTipo( $tipo){
+            $this->tipo = $tipo;
         }
 
 
-        //metodos publicos
+        //metodos protegidos
 
-        public function cadastrar(){
+        protected function cadastrar(){
             $bd = ConectarSQL();
-            $sql = "INSERT INTO Mensagem(texto, horario, chat_id, usuario_id) VALUES (?, ?, ?, ?);";
+            $sql = "INSERT INTO Mensagem(tipo, horario, chat_id, usuario_id) VALUES (?, ?, ?, ?);";
             $query = $bd->prepare($sql);
             $proposta = false;
-            $query->bind_param("ssii", $this->texto, $this->horario, $this->chat_id, $this->usuario_id);
-            $cadastrado =  $query->execute();
-            $bd->close();
-            return $cadastrado ;
-        }
-
-        public function cadastrarComoProposta(){
-            $bd = ConectarSQL();
-            $sql = "INSERT INTO Mensagem(horario, proposta, orcamento, prazo, chat_id, usuario_id) VALUES (?, ?, ?, ?, ?, ?);";
-            $query = $bd->prepare($sql);
-            $query->bind_param("sidsii", $this->horario, $this->proposta, $this->orcamento, $this->prazo, $this->chat_id, $this->usuario_id);
+            $query->bind_param("ssii", $this->tipo, $this->horario, $this->chat_id, $this->usuario_id);
             $cadastrado =  $query->execute();
             $bd->close();
             return $cadastrado ;
         }
         
         //metodos estaticos
-        
-        public static function findMensagensByChatId( $id ){
-            $bd = ConectarSQL();
-            $sql = "SELECT * FROM Mensagem WHERE chat_id = ?";
-            $query = $bd->prepare($sql);
-            $query->bind_param("i", $id);
-            $query->execute();
-
-            $mensagens = [];
-            $result = $query->get_result();
-            while ( $linha = $result->fetch_assoc() ){
-                $proposta = isset($linha["proposta"]) ? $linha["proposta"]: null;
-                $prazo = isset($linha["prazo"]) ? $linha["prazo"]: null;
-                $orcamento = isset($linha["orcamento"]) ? $linha["orcamento"]: null;
-                $mensagem = new Mensagem(
-                    $linha["id"],
-                    $linha["texto"],
-                    $linha["horario"],
-                    $linha["chat_id"],
-                    $linha["usuario_id"],
-                    $proposta,
-                    $prazo,
-                    $orcamento
-                );
-
-                $mensagens[] = $mensagem;
-            }
-
-            $bd->close();
-            return $mensagens;
-        }
 
     }
 

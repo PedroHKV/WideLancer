@@ -18,9 +18,6 @@
         $editavel = false;
 
         $foto = $usuario->getFoto();
-        if ( !isset($foto) ){
-            $foto = "../imagens/usuario_icone.png";
-        }
     } else{
         //nesse caso o usuario esta acessando o proprio perfil
         session_start();
@@ -32,9 +29,6 @@
         $editavel = true;
 
         $foto = $usuario->getFoto();
-        if ( !isset($foto) ){
-            $foto = "../imagens/usuario_icone.png";
-        }
     // Verificação de permissões
     $temCpf = $usuario->getCpf() ? "flex" : 'none';
     $temPix = $usuario->getPix() ? "flex" : 'none';    
@@ -127,7 +121,7 @@
                         <div class="servicos" id="servicos">
                             <?php
                                 foreach ($anuncios as $anuncio){
-                                    echo "<div class='servico' onClick='render_anuncio(".$anuncio->getId().")' >". 
+                                    echo "<div class='servico' id=".$anuncio->getId()." onClick='render_anuncio(".$anuncio->getId().")' >". 
                                               "<img src='".$anuncio->getFoto()."' alt=''/>".
                                               "<p>".$anuncio->getTitulo()."</p>".
                                           "</div>";

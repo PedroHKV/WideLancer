@@ -1,34 +1,25 @@
 <?php
     include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Mensagem.php";
+    include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Mensagem_comum.php";
+    include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Mensagem_produto.php";
+
 
     if ($_SERVER["REQUEST_METHOD"]==="POST"){
         session_start();
         $usuario_id = $_SESSION["id"];
         $chat_id = $_SESSION["chat_id"];
         $mensagem = $_POST["msg_cnt"];
+        $imagem = isset($_FILES["img"]) ? $_FILES["img"] : NULL;
 
-        //analiza se a mensagem é uma proposta ou nao
-        if ($mensagem === "<?><;><.>proposta<?><;><.>"){
-            $horario = date("Y-m-d H:i:s");
-            $prazo = $_POST["prazo"];
-            $orcamento = $_POST["orcamento"];
+        //para fins de cadastro o banco de dados pode prover o tipo, a hora e o id
+        $MSG = new MensagemComum(NULL, $mensagem, $imagem, NULL, $chat_id, $usuario_id);
 
-            $MSG =  new Mensagem(NULL, NULL, $horario, $chat_id, $usuario_id, true, $prazo, $orcamento);
-            $cadastrada =  $MSG->cadastrarComoProposta();
-            if ($cadastrado){
-                echo "cadastrado";
-            } else {
-                echo "falha";
-            }
+        $cadastrada = $MSG->cadastrar();
+        if ($cadastrada){
+            echo "cadastrado";
         } else {
-            $horario = date("Y-m-d H:i:s");
-            $MSG = new Mensagem (null, $mensagem, $horario, $chat_id, $usuario_id );
-            $cadastrada = $MSG->cadastrar();
-            if ($cadastrado){
-                echo "cadastrado";
-            } else {
-                echo "falha";
-            }
+            echo "falha";
         }
+        
     }
 ?>

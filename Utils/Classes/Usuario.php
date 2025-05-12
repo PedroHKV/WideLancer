@@ -109,13 +109,13 @@
         //metodos publicos
         public function cadastrar(){
             $bd = ConectarSQL();
-            $sql = "INSERT INTO Usuario(email, senha, nome, sobrenome, vendedor, curador)
-            VALUES (?, ?, ?, ?, false, false)";
+            $sql = "INSERT INTO Usuario(email, senha, nome, sobrenome, vendedor, curador, foto)
+            VALUES (?, ?, ?, ?, false, false, ?)";
 
             $query = $bd->prepare($sql);
             $query->bind_param(
-                "ssss",
-                $this->email,$this->senha, $this->nome, $this->sobrenome, 
+                "sssss",
+                $this->email,$this->senha, $this->nome, $this->sobrenome, $this->foto 
             );
             $cadastrado = $query->execute();
             $query->close();
