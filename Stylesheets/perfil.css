@@ -15,6 +15,7 @@ main div {
 
 #esquerda {
     background-color: rgb(0, 127, 162);
+    background: url("../imagens/portif_padr_rotacionado.png");
     width: 25%;
     height: 100%;
     padding: 21px 10px 10px 10px;
@@ -147,7 +148,7 @@ main div {
     border-bottom: 1px solid rgb(47, 75, 94);
     background: url("../imagens/portif_padr.avif");
     background-size: cover;
-    background-position: 150px 245px;
+    background-position: 270px 400px;
     box-shadow: 1px 0px 15px rgba(0,0,0,0.9);
     align-items: center;
     font-family: "Arial";

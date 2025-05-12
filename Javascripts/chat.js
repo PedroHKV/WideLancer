@@ -57,8 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }).then(r=>{return r.text()}).then(res=>{
                 console.log(res);
                 if (res === "cadastrado"){
-                    
-                    //window.location.href = URL_SITE+"/Templates/chat.php";
+                    window.location.href = URL_SITE+"/Templates/chat.php";
                 } else { 
                     alert("Falha ao enviar mensagem.");
                 }

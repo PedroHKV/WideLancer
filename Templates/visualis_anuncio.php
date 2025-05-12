@@ -48,74 +48,27 @@
 <body>
 
   <main>
-    <div class="info-verification-wrapper">
-      <div class="info-box">
-        <h2>CARACTERÍSTICAS</h2>
-        <span><strong>Tipo do Anúncio:</strong> Freelance</span>
-        <span><strong>Procedência:</strong> Solo</span>
-      </div>
-
-      <div class="verifications">
-        <h2>Verificações</h2>
-        <span>E-mail: Verificado</span>
-        <span>Documentos: Não Verificado</span>
-      </div>
-    </div>
 
     <section class="description">
       <h2>DESCRIÇÃO DO ANÚNCIO</h2>
       <p><?php echo $anuncio->getDescricao()?></p>
+      <br><br>
+      <div>
+        <h2>COMENTARIOS</h2>
+
+      </div>
     </section>
 
     <aside class="seller-box">
       <h2>Vendedor</h2>
       <img src="<?php echo $vendedor->getFoto();?>" alt="Foto de perfil" class="profile-pic" />
-      <span><strong><?php echo $vendedor->getNome()." ".$vendedor->getSobrenome();?></strong> 😊</span>
+      <span><strong><?php echo $vendedor->getNome()." ".$vendedor->getSobrenome();?></strong> </span>
       <span>Membro desde 14/04/2025</span>
       <span>Avaliações positivas: 100%</span>
       <span>Número de avaliações: 3</span>
       <span>Último acesso: há 14 dias</span>
       <span><input type="button" id="portif" onclick="render_portif(<?php echo $vendedor->getId()?>)" value="Conferir Portifolio"></span>
     </aside>
-
-    <section class="guarantee">
-      <h2>Entrega garantida</h2>
-      <p>ou o seu dinheiro de volta</p>
-      <img src="../imagens/SELO GARANTIA.png" alt="Selo Garantia" class="selo-garantia" />
-    </section>
-
-    <section class="questions">
-      <h2>PERGUNTAS</h2>
-
-      <div class="question">
-        <p><strong>jullyano:</strong> Você é formado em alguma coisa?</p>
-        <p class="resposta"><strong>Joazinho123 (anunciante):</strong> Sou formado em Engenharia de Software pela PUC.</p>
-      </div>
-
-      <div class="question">
-        <p><strong>pedrinhoklein82:</strong> Estou super interessado, por favor, responder o chat de orçamento.</p>
-        <p class="resposta"><strong>Joazinho123 (anunciante):</strong> Já te respondi lá! Podemos negociar.</p>
-      </div>
-
-      <div class="question">
-        <p><strong>yurioperdido:</strong> Está online?</p>
-        <p class="resposta"><strong>Joazinho123 (anunciante):</strong> Sim, estou disponível agora!</p>
-      </div>
-
-      <div class="question-input">
-        <p>Você precisa estar logado para fazer uma pergunta</p>
-      </div>
-    </section>
-
-    <section class="similar-ads">
-      <h2>Anúncios parecidos</h2>
-      <div class="tags">
-        <span>TANANAM TANAM</span>
-        <span>PARAM PARAM</span>
-        <span>BABILU</span>
-        <span>KKKKKKKKKK</span>
-        <span>NÃO COMPENSA</span>
-      </div>
     </section>
   </main>
 </body>
