@@ -7,12 +7,13 @@ CREATE TABLE IF NOT EXISTS Usuario (
     senha VARCHAR(100) NOT NULL,
     nome VARCHAR(100) NOT NULL,
     sobrenome VARCHAR(100) NOT NULL,
-    pix varchar(50),
-    cpf VARCHAR(15),
+    pix varchar(50) UNIQUE,
+    cpf VARCHAR(15) UNIQUE,
     foto VARCHAR(100),
     vendedor BOOLEAN NOT NULL,
     curador BOOLEAN NOT NULL
 );
+
 
 CREATE TABLE IF NOT EXISTS Portifolio (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -158,3 +159,5 @@ DELIMITER $$
     END $$
 
 DELIMITER ;
+
+INSERT INTO Usuario(email, senha, nome, sobrenome, pix, cpf, foto, vendedor, curador) VALUES ('yuriSobezak@gmail.com', 'admin123', 'Yuri', 'Sobezak', '1234567', '541.731.480-38', '../imagens/usuario_icone.png', 1, 1);

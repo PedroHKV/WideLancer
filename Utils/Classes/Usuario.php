@@ -2,7 +2,7 @@
     include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Portifolio.php";
     //databasefunctions ja esta incluido neste include acima
 
-    class Usuario{
+    class Usuario implements JsonSerializable{
         //atributos
         private $id;
         private $email;
@@ -164,6 +164,21 @@
             return $cadastrado;
         }
 
+        //metodo para transformar usuario em JSON
+        public function jsonSerialize(){
+            return [
+                "id" => $this->id,
+                "email" => $this->email,
+                "nome" => $this->nome,
+                "sobrenome" => $this->sobrenome,
+                "foto" => $this->foto,
+                "cpf" => $this->cpf,
+                "vendedor" => $this->vendedor,
+                "curador" => $this->curador,
+                "pix" => $this->pix ?? null
+            ];
+        }
+
         //pesquisa um usuario no banco de dados por id
         //retorna o objeto do usuario ou null caso ele nao exista no bd
         public static function findUsuarioById( $id ){
@@ -243,6 +258,59 @@
                 $BD->close();
                 return null;
             }
+        }
+
+        public static function findUsuariosByFuncao( $funcao ){
+            $BD = ConectarSQL();
+
+            if ($funcao === "curador"){
+                $sql = "SELECT * FROM Usuario WHERE curador = 1";
+            } else if ($funcao === "vendedor"){
+                $sql = "SELECT * FROM Usuario WHERE vendedor = 1";
+            } else if ($funcao === "cliente") {
+                $sql = "SELECT * FROM Usuario WHERE cpf IS NOT NULL";
+            } else {
+                $sql = "SELECT * FROM Usuario";
+            }
+
+
+            $query = $BD->prepare($sql);
+            $query->execute();
+            $resultado = $query->get_result();
+            //como o $id é unico:
+
+            if ( $resultado->num_rows > 0){
+
+                $usuarios = [];
+                while ($linha = $resultado->fetch_assoc()){
+                    $usuario = new Usuario(
+                    $linha["id"],
+                    $linha["email"],
+                    $linha["senha"],
+                    $linha["nome"],
+                    $linha["sobrenome"],
+                    $linha["foto"],
+                    $linha["cpf"],
+                    $linha["vendedor"],
+                    $linha["curador"]
+                    );
+
+                    if ( isset($linha["pix"]) ){
+                        $usuario->setPix($linha["pix"]);
+                    }
+
+                    $usuarios[] = $usuario;
+                } 
+
+                $query->close();
+                $BD->close();
+                return $usuarios;
+            } else {
+                $query->close();
+                $BD->close();
+                return null;
+            }
+
         }
 
 

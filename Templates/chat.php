@@ -11,6 +11,8 @@
     $usuario_id = $_SESSION["id"];
     $chat_id = $_SESSION["chat_id"];
     $chat = Chat::findChatById($chat_id);
+    //apos carregar as informações do chat é necessario carregar a instancia do outro
+    //vendedor e saber se o usuario que está vendo a página é o vendedor ou solicitante
     $outro;
     if ($chat->getSolicitante()===$usuario_id){
         $outro = Usuario::findUsuarioById($chat->getAnunciante());
@@ -18,10 +20,13 @@
 
     } else {
         $outro = Usuario::findUsuarioById($chat->getSolicitante());
+        $vendedor = true;
     } 
     // os participantes sao dados pelas variaveis: usuario e outro
     $usuario = Usuario::findUsuarioById($usuario_id);
     $mensagens = $chat->carregarMensagens();
+
+    $outros_chats = Chat::findChatsByUsuarioId($usuario_id);
 ?>
 
 <!DOCTYPE html>
@@ -46,9 +51,12 @@
         <aside class="chat-sidebar">
             <h3>Conversas</h3>
             <ul class="chat-list">
-                <li class="chat-item">João</li>
-                <li class="chat-item">Maria</li>
-                <li class="chat-item">Carlos</li>
+                <?php
+                    foreach( $outros_chats as $chat){
+                        $outro = Usuario::findUsuarioById(($usuario_id === $chat->getSolicitante()) ? $chat->getAnunciante() : $chat->getSolicitante());
+                        echo "<li class='chat-item'>".$outro->getNome()." ".$outro->getSobrenome()."</li>";
+                    }
+                ?>
             </ul>
         </aside>
         <section class="chat-main">
@@ -100,7 +108,7 @@
             <div class="chat-input">
                 <input type="text" placeholder="Digite sua mensagem...">
                 <button class="btn enviar-mensagem">Enviar</button>
-                <button class="btn proposta-btn">Proposta</button>
+                <?php echo ($vendedor ? "<button class='btn proposta-btn'>Proposta</button>": NULL); ?>
             </div>
             
         </section>

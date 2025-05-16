@@ -1,3 +1,10 @@
+<?php
+    include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Usuario.php";
+
+    session_start();
+    $usuario_id = $_SESSION["id"];
+    $usuario = Usuario::findUsuarioById($usuario_id);
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -16,6 +23,13 @@
         <div class="login-container">
             <a href="./login.html" class="btn">Login</a>
         </div>
+        <?php
+            if( $usuario->isCurador() ){
+               echo "<div class='login-container'>".
+                        "<a href='./curadoria.php' class='btn'>Curadoria</a>".
+                    "</div>";
+            }
+        ?>
         <div id="perfil-container">
             <a href="./perfil.php" class="btn">Perfil</a>
         </div>

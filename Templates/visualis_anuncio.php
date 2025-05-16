@@ -27,12 +27,13 @@
       <div class="topo">
         <h1><?php echo $anuncio->getTitulo()?></h1>
       </div>
-  
-      <div class="availability">
-        <span class="available">Sim</span>
-        <span class="sale">1</span>
-        <div class="quantity">
-        </div>
+      <div>
+          <div class="availability">
+            <span class="available">Sim</span>
+            <span class="sale">1</span>
+            <div class="quantity">
+          </div>
+          <input type="button" class="btn" name="" id="" value="denunciar">  
       </div>
   
       <div class="offer">

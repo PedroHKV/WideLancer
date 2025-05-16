@@ -28,8 +28,27 @@ body {
     background-color: #5a6d7e;
     padding: 10px 15px;
     border-top: 1px solid #ddd;
+    border-radius: 5px;
   }
-  
+
+  .btn {
+    padding: 5px 10px;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;  
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 50% ;
+    border: 1px solid black;
+  }
+
+  .btn:hover{
+    background-color: #232f46;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 100%);
+    color: white;
+    border: 1px solid white;
+}
   .available, .sale {
     display: flex;
     align-items: center;
