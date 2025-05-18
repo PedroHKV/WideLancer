@@ -64,6 +64,25 @@ clientes.onclick = () => {
     });
 }
 
+//gera o relatorio das denúncias
+denuncias.onclick = () => {
+    status_carregando();
+    let dados = new FormData();
+    dados.append("solicitacao", "denuncias")
+    fetch(URL_SITE+"/ServerScripts/reqs_curadoria.php", {
+        method : "POST",
+        body : dados
+    }).then(r => {return r.json()}).then( r => { 
+        caixa.innerHTML = "<h3>Denúncias</h3><br>";
+        r.forEach(denuncia => {
+            caixa.innerHTML += "<div class='info' id='"+denuncia.anuncio_id+"' onClick = '' >"+
+                                  "<p>"+denuncia.delator+" fez uma denuncia sobre um anúncio de "+denuncia.acusado+"</p>"+
+                                  "<p class='status'>"+(denuncia.pendente ? "pendente" : "esta denuncia já foi avaliada" )+"</p>"+
+                               "</div>";
+        });
+    });
+}
+
 function status_carregando(){
     caixa.innerHTML = "<div class='loading-screen'>"+
                         "<div class='spinner'></div>"+

@@ -37,13 +37,8 @@
         <div id="direita">
             <input type="search" name="" id="pesquisa" placeholder="pesquisar usuario">
             <div id="caixa">
-                <h3>Denûncias</h3><br>
-
-                <div class="info">
-                    <p>pedro klein denunciou uma publicação de pedro senn</p>
-                    <p class="status">pendente</p>
-                </div>
-                
+                <h3></h3><br>
+        
             </div>
         </div>
     </main>

@@ -19,6 +19,10 @@
   <title>WideLancer</title>
   <link rel="stylesheet" href="../Stylesheets/anuncio2.css" />
 </head>
+  <div id="reqStatus">
+      <p id="status"></p>
+      <input type="button" onclick="translatediv()" id="dispose" value="X">
+  </div>  
   <header>
   <div class="container">
       <img src="../imagens/logo.png" id="logo" style="width: 85px; height: 75px;">
@@ -27,13 +31,20 @@
       <div class="topo">
         <h1><?php echo $anuncio->getTitulo()?></h1>
       </div>
+      
+      <div class="denuncia hid" id="denuncia_">
+          <p>Denùnciar post</p>
+          <textarea name="" id="motivo" placeholder="motivo da denúncia"></textarea><br>
+          <div><input type="button" id="cancelar" onclick="cancelar()" value="cancelar"><input type="button" id="denun" onclick="enviar_denuncia(<?php echo $anuncio->getId();?>)" value="denunciar"></div>
+      </div>
+      
       <div>
           <div class="availability">
             <span class="available">Sim</span>
             <span class="sale">1</span>
             <div class="quantity">
           </div>
-          <input type="button" class="btn" name="" id="" value="denunciar">  
+          <input type="button" class="btn" name="" id="" onclick="denunciar()" value="denúncia">  
       </div>
   
       <div class="offer">
@@ -54,20 +65,13 @@
       <h2>DESCRIÇÃO DO ANÚNCIO</h2>
       <p><?php echo $anuncio->getDescricao()?></p>
       <br><br>
-      <div>
-        <h2>COMENTARIOS</h2>
-
-      </div>
     </section>
 
     <aside class="seller-box">
       <h2>Vendedor</h2>
       <img src="<?php echo $vendedor->getFoto();?>" alt="Foto de perfil" class="profile-pic" />
       <span><strong><?php echo $vendedor->getNome()." ".$vendedor->getSobrenome();?></strong> </span>
-      <span>Membro desde 14/04/2025</span>
-      <span>Avaliações positivas: 100%</span>
-      <span>Número de avaliações: 3</span>
-      <span>Último acesso: há 14 dias</span>
+      
       <span><input type="button" id="portif" onclick="render_portif(<?php echo $vendedor->getId()?>)" value="Conferir Portifolio"></span>
     </aside>
     </section>

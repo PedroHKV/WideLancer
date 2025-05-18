@@ -67,6 +67,17 @@ CREATE TABLE IF NOT EXISTS Venda (
     FOREIGN KEY (anuncio_id) REFERENCES Anuncio(id)
 );
 
+CREATE TABLE IF NOT EXISTS Denuncia (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    motivo TEXT NOT NULL,
+    pendente TINYINT NOT NULL,
+    decisao VARCHAR(45),
+    delator INT NOT NULL,
+    anuncio_id INT NOT NULL,
+    FOREIGN KEY (delator) REFERENCES Usuario(id),
+    FOREIGN KEY (anuncio_id) REFERENCES Anuncio(id)
+);
+
 CREATE TABLE IF NOT EXISTS Mensagem (
     id INT PRIMARY KEY AUTO_INCREMENT,
     tipo VARCHAR(20),

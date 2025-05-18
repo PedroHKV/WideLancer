@@ -37,53 +37,50 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    //cria a caicha de dialogo para enviar proposta
-    propostaBtn.addEventListener('click', () => {
-        propostaCard1.style.display = (propostaCard1.style.display === 'none' || propostaCard1.style.display === '') ? 'flex' : 'none';
-    });
+    if (vendedor){
+        //cria a caixa de dialogo para enviar proposta
+        propostaBtn.addEventListener('click', () => {
+            propostaCard1.style.display = (propostaCard1.style.display === 'none' || propostaCard1.style.display === '') ? 'flex' : 'none';
+        });
 
-    //envia a proposta
-    document.querySelector('.enviar-proposta').addEventListener('click', () => {
-        const prazo = prazoInput.value;
-        const orcamento = orcamentoInput.value;
-        if (prazo && orcamento) {
+        //envia a proposta
+        document.querySelector('.enviar-proposta').addEventListener('click', () => {
+            const prazo = prazoInput.value;
+            const orcamento = orcamentoInput.value;
+            if (prazo && orcamento) {
 
-            let dados = new FormData();
-            dados.append("prazo", prazo);
-            dados.append("orcamento", orcamento);
-            fetch(URL_SITE+"/ServerScripts/tratar_proposta.php", {
-                method:"POST", 
-                body: dados 
-            }).then(r=>{return r.text()}).then(res=>{
-                console.log(res);
-                if (res === "cadastrado"){
-                    window.location.href = URL_SITE+"/Templates/chat.php";
-                } else { 
-                    alert("Falha ao enviar mensagem.");
-                }
-            });
+                let dados = new FormData();
+                dados.append("prazo", prazo);
+                dados.append("orcamento", orcamento);
+                fetch(URL_SITE+"/ServerScripts/tratar_proposta.php", {
+                    method:"POST", 
+                    body: dados 
+                }).then(r=>{return r.text()}).then(res=>{
+                    console.log(res);
+                    if (res === "cadastrado"){
+                        window.location.href = URL_SITE+"/Templates/chat.php";
+                    } else { 
+                        alert("Falha ao enviar mensagem.");
+                    }
+                });
 
-        } else {
-            alert("Por favor, insira um prazo e um orçamento.");
-        }
-    });
+            } else {
+                alert("Por favor, insira um prazo e um orçamento.");
+            }
+        });
+    }
 
-    //informa que a proposta foi aceita
-    //aceitarBtn.addEventListener('click', () => {
-      //  propostaCard2.style.display = 'none';
-      //  statusTexto.textContent = '🕒 Em andamento...';
-      // statusIndicador.style.backgroundColor = '#0077aa';
-      //  alert("Proposta aceita! A conversa está em andamento.");
-    //});
+    if (proposta_pendente){
+        //informa que a proposta foi aceita
+        aceitarBtn.addEventListener('click', () => {
+            
+        });
 
-    //informa que a proposta foi recusada
-    //recusarBtn.addEventListener('click', () => {
-      //  propostaCard2.style.display = 'none';
-      //  statusTexto.textContent = '❌ Proposta recusada.';
-      //  statusIndicador.style.backgroundColor = '#e60000';
-      //  alert('Proposta recusada.');
-    //});
-
+        //informa que a proposta foi recusada
+        recusarBtn.addEventListener('click', () => {
+            
+        });
+    }
     
     scrollToBottom();
 });

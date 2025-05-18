@@ -27,6 +27,7 @@
     $mensagens = $chat->carregarMensagens();
 
     $outros_chats = Chat::findChatsByUsuarioId($usuario_id);
+    $proposta_pendente = false;
 ?>
 
 <!DOCTYPE html>
@@ -80,8 +81,15 @@
                         $myMSG = ($mensagem->getUsuarioId()===$usuario_id);
                         $classe = $myMSG ? "message-row sent" : "message-row received";
                         $foto = $myMSG ? $usuario->getFoto() : $outro->getFoto();
+
                         if ($mensagem instanceof Proposta){
-                            
+                            $respondida = !($mensagem->getAceita() === null);
+                            if ( $respondida){
+                                $acoes = $mensagem->getAceita() ? "<p>Proposta aceita</p>" : "<p>Proposta recusada</p>" ;
+                            } else {
+                                $acoes = "<button class='btn aceitar'>Aceitar</button><button class='btn recusar'>Recusar</button>";
+                                $proposta_pendente = true;
+                            }
 
                             echo "<br><br>";
                             echo    "<div class='proposta-card-2' id='proposta-recebida'>".
@@ -89,8 +97,7 @@
                                         "<p class='prazo'>será entregue até: ".$mensagem->getPrazo()."</p>".
                                         "<p class='orcamento'>irá custar: ".$mensagem->getOrcamento()."</p><br>".
                                         "<div class='botoes-proposta'>".
-                                            "<button class='btn aceitar'>Aceitar</button>".
-                                            "<button class='btn recusar'>Recusar</button>".
+                                            $acoes.
                                         "</div>".
                                     "</div>";
                         } else if ($mensagem instanceof MensagemComum) {
@@ -113,6 +120,10 @@
             
         </section>
     </main>
+    <script>
+        const vendedor = (<?php echo ($vendedor ? 1 : 0)?> === 1); 
+        const proposta_pendente = (<?php echo ($proposta_pendente ? 1 : 0)?> === 1);            
+    </script>
     <script src="../Configuracoes.js"></script>
     <script src="../Javascripts/chat.js"></script>
 </body>
