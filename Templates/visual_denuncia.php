@@ -66,9 +66,9 @@
                     ?>
                 </div>
 
-                <input type="button" disabled = "<?php echo ($denuncia->getPendente() ? "false" : "true")?>" id="ign" value="ignorar">
-                <input type="button" disabled = "<?php echo ($denuncia->getPendente() ? "false" : "true")?>" id="esc" value="excluir anuncio">
-                <input type="button" disabled = "<?php echo ($denuncia->getPendente() ? "false" : "true")?>" id="ban_anun" value="banir anunciante">
+                <input type="button" <?php echo ($denuncia->getPendente() ? "" : "disabled")?> id="ign" value="ignorar">
+                <input type="button" <?php echo ($denuncia->getPendente() ? "" : "disabled")?> id="esc" value="excluir anuncio">
+                <input type="button" <?php echo ($denuncia->getPendente() ? "" : "disabled")?> id="ban_anun" value="banir anunciante">
             </div>
             <div id="anuncio">
                 <img src="" alt="" id="anuncio_img">

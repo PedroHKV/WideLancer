@@ -57,14 +57,11 @@ CREATE TABLE IF NOT EXISTS Chat (
 
 CREATE TABLE IF NOT EXISTS Venda (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    descricao VARCHAR(100) NOT NULL,
     data_init DATE NOT NULL,
     data_termino DATE NOT NULL,
     andamento BOOLEAN,
     chat_id INT,
-    anuncio_id INT,
-    FOREIGN KEY (chat_id) REFERENCES Chat(id),
-    FOREIGN KEY (anuncio_id) REFERENCES Anuncio(id)
+    FOREIGN KEY (chat_id) REFERENCES Chat(id)
 );
 
 CREATE TABLE IF NOT EXISTS Denuncia (
@@ -195,5 +192,33 @@ DELIMITER $$
     END $$
 
 DELIMITER ;
+
+DELIMITER $$
+
+DELIMITER $$
+
+CREATE PROCEDURE cadastrar_msg_produto( 
+    IN caminho VARCHAR(200),
+    IN chat INT,
+    IN usuario_id INT
+)
+BEGIN
+    DECLARE horario DATETIME;
+    DECLARE id INT;
+
+    SET horario = NOW();
+
+    INSERT INTO Mensagem(tipo, horario, chat_id, usuario_id) 
+    VALUES ('produto', horario, chat, usuario_id);
+
+    SET id = LAST_INSERT_ID();
+
+    INSERT INTO Mensagem_produto(id, adquirido, caminho) 
+    VALUES (id, 0, caminho);  
+END $$
+
+DELIMITER ;
+
+
 
 INSERT INTO Usuario(email, senha, nome, sobrenome, pix, cpf, foto, vendedor, curador) VALUES ('yuriSobezak@gmail.com', 'admin123', 'Yuri', 'Sobezak', '1234567', '541.731.480-38', '../imagens/usuario_icone.png', 1, 1);

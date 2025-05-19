@@ -4,9 +4,7 @@ const btnBanirAnunciante = document.getElementById('ban_anun');
 const statusbar = document.getElementById("status");
 const url = URL_SITE+"/ServerScripts/visual_denuncia.php";
 
-function translatediv(){
-    reqStatus.style.transform = "translateY(-115px)";
-}
+
 
 btnIgnorar.onclick = () => {
     let dados = new FormData();

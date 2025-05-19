@@ -73,6 +73,10 @@ header {
 .chat-list {
   list-style: none;
   padding: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color:#232f46 #e6f0f3;
+  height: 40%;
 }
 
 .chat-item {
@@ -210,7 +214,7 @@ header {
   border-top: 1px solid black;
   width: 80%;
   background-color: #e6f0f3;
-  padding: 30px 20px 20px 20px;
+  padding: 15px 20px 0px 20px;
   left: 20%;
 }
 
@@ -342,4 +346,54 @@ header {
 
 #mensagens{
   height: 90%;
+}
+
+#reqStatus{
+  display: flex;
+  position: fixed;
+  width: 90%;
+  background-color: #037791;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  align-items: center;
+  top: -100px;
+  left: 5%;
+  transition: 1s ease;
+}
+
+#status{
+    color: white;
+}
+
+#dispose{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: #03b4db;
+  color: white;
+  transition: 0.3s ease;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+#dispose:hover{
+  background-color: #04c0eb;
+}
+
+#status_denuncia{
+    background-color: #037791;
+    display: flex;
+    color: white;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 5px;
+    border:none;
+    height: 70px;
+    font-family: "Arial";
+    font-size: 14px;
 }

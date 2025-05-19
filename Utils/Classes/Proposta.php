@@ -58,6 +58,52 @@
             return $cadastrada;
         }
 
+        public function salvarUpdates() {
+            $bd = ConectarSQL();
+
+            $sql = "UPDATE proposta SET prazo = ?, orcamento = ?, aceita = ? WHERE id = ?";
+
+            $query = $bd->prepare($sql);
+            $query->bind_param("sdii", $this->prazo, $this->orcamento, $this->aceita, $this->id);
+            $resultado = $query->execute();
+
+            $bd->close();
+            return $resultado;
+        }
+        
         //metodos estaticos
+
+        public static function findPropostaById($id) {
+            $BD = ConectarSQL();
+            $sql = "SELECT * FROM MensagensView WHERE id = ? AND tipo = 'proposta'";
+
+            $query = $BD->prepare($sql);
+            $query->bind_param("i", $id);
+            $query->execute();
+            $resultado = $query->get_result();
+
+            if ($resultado->num_rows > 0) {
+                $linha = $resultado->fetch_assoc();
+
+                $proposta = new Proposta(
+                    $id,
+                    $linha["orcamento"],
+                    $linha["prazo"],
+                    $linha["aceita"],
+                    $linha["usuario_id"],
+                    $linha["chat_id"],
+                    $linha["horario"]
+                );
+
+                $query->close();
+                $BD->close();
+                return $proposta;
+            } else {
+                $query->close();
+                $BD->close();
+                return null;
+            }
+        }
+
     }
 ?>

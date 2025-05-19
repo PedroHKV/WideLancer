@@ -28,6 +28,7 @@
 
     $outros_chats = Chat::findChatsByUsuarioId($usuario_id);
     $proposta_pendente = false;
+    $proposta_aceita = false;
 ?>
 
 <!DOCTYPE html>
@@ -48,6 +49,10 @@
             <a href="./home.php" class="btn">Home</a>
         </div>
     </header>
+    <div id="reqStatus">
+      <p id="status"></p>
+      <input type="button" onclick="translatediv()" id="dispose" value="X">
+    </div> 
     <main class="chat-layout">
         <aside class="chat-sidebar">
             <h3>Conversas</h3>
@@ -59,6 +64,7 @@
                     }
                 ?>
             </ul>
+            
         </aside>
         <section class="chat-main">
             <div class="chat-header">
@@ -84,11 +90,18 @@
 
                         if ($mensagem instanceof Proposta){
                             $respondida = !($mensagem->getAceita() === null);
+
+                            if(($mensagem->getAceita() !== null) && ($mensagem->getAceita() !== 0)){
+                                $proposta_aceita = true;
+                            }
+
                             if ( $respondida){
-                                $acoes = $mensagem->getAceita() ? "<p>Proposta aceita</p>" : "<p>Proposta recusada</p>" ;
-                            } else {
-                                $acoes = "<button class='btn aceitar'>Aceitar</button><button class='btn recusar'>Recusar</button>";
+                                $acoes = ($mensagem->getAceita() === 1) ? "<p>Proposta aceita</p>" : "<p>Proposta recusada</p>" ;
+                            } else if (!$respondida && !$vendedor) {
+                                $acoes = "<button class='btn aceitar' onClick=\"enviar_decisao('aceitar', '".$mensagem->getId()."')\">Aceitar</button><button class='btn recusar' onClick=\"enviar_decisao('recusar', '".$mensagem->getId()."')\"'>Recusar</button>";
                                 $proposta_pendente = true;
+                            } else if (!$respondida && $vendedor){
+                                $acoes = "sem resposta";
                             }
 
                             echo "<br><br>";
@@ -115,7 +128,8 @@
             <div class="chat-input">
                 <input type="text" placeholder="Digite sua mensagem...">
                 <button class="btn enviar-mensagem">Enviar</button>
-                <?php echo ($vendedor ? "<button class='btn proposta-btn'>Proposta</button>": NULL); ?>
+                <?php echo (($vendedor && !$proposta_aceita && !$proposta_pendente) ? "<button class='btn proposta-btn'>Proposta</button>": NULL); ?>
+                <?php echo ($proposta_aceita ? "<button class='btn' id='produto_ent' onClick='entregar_produto()'>Entregar produto</button>": NULL); ?>
             </div>
             
         </section>
