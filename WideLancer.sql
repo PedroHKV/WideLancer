@@ -131,6 +131,31 @@ LEFT JOIN Mensagem_comum mc ON m.id = mc.id
 LEFT JOIN Proposta p ON m.id = p.id
 LEFT JOIN Mensagem_produto mp ON m.id = mp.id;
 
+CREATE OR REPLACE VIEW ViewDenunciasComUsuarios AS
+SELECT
+    d.id AS denuncia_id,
+    d.motivo,
+    d.pendente,
+    d.decisao,
+    a.id AS anuncio_id,
+    
+    delator.id AS delator_id,
+    delator.nome AS delator_nome,
+    delator.sobrenome AS delator_sobrenome,
+    delator.email AS delator_email,
+
+    vendedor.id AS acusado_id,
+    vendedor.nome AS acusado_nome,
+    vendedor.sobrenome AS acusado_sobrenome,
+    vendedor.email AS acusado_email
+
+FROM Denuncia d
+JOIN Usuario delator ON d.delator = delator.id
+JOIN Anuncio a ON d.anuncio_id = a.id
+JOIN Usuario vendedor ON a.usuario_id = vendedor.id;
+
+select * from ViewDenunciasComUsuarios
+
 DELIMITER $$
     CREATE PROCEDURE cadastrar_msg_comum( 
         IN texto TEXT,

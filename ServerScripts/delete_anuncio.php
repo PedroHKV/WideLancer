@@ -1,5 +1,5 @@
 <?php
-    include "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Anuncio.php";
+    include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Anuncio.php";
 
     //recebe o id do anuncio a ser removido
     if (isset($_POST["id"])){
