@@ -385,3 +385,118 @@ button {
 #voltar:hover{
     background-color: rgb(47, 179, 192);
 }
+
+#cadas_btn{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+}
+
+.cadas_solic_btn{
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(1, 187, 219);
+    color: white;
+    padding: 3px 9px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.cadas_solic_btn:hover{
+    background-color: rgb(4, 211, 248);
+}
+
+#cadas_solic{
+    width: 50%;
+    background-color: rgb(0, 127, 162);
+    color: white;
+    border-radius: 5px;
+    border: none;
+    padding: 10px 15px;
+    transition: 0.3s ease;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 35%;
+    left: 35%;
+    z-index: 100;
+}
+
+#cadas_solic h2{
+    font-family: 'Arial';
+    font-size: 16px;
+}
+
+#inputs_{
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+    gap: 5px;
+}
+
+#inputs_txt{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 60%;
+}
+
+#inputs_txt input{
+    border-radius: 5px;
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 5px;
+}
+
+#inputs_txt input:focus{
+    outline: none;
+    background-color: rgb(222, 241, 245);
+}
+
+#input_file{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+}
+
+#documento{
+    display: none;
+}
+
+#documento_lab{
+    display: flex;
+    width: 90%;
+    max-width: 100px;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    transition: 0.3s ease;
+    color: black;
+    justify-content: center;
+    align-items: center;
+}
+
+#documento_lab:hover{
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
+}
+
+#err{
+    display: flex;
+    width: 100%;
+    font-size: 13px;
+    color: rgb(231, 2, 2);
+    font-family: "Arial";
+    display: none;
+}
+
+.ativo{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.inativo{
+    opacity: 0;
+    pointer-events: none;
+}

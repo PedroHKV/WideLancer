@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #reqStatus{
+            display: flex;
+            position: fixed;
+            width: 90%;
+            background-color: #037791;
+            justify-content: space-between;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            align-items: center;
+            top: -100px;
+            transition: 1s ease;
+        }
+
+        #status{
+
+        }
+
+        #dispose{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            background-color: #03b4db;
+            color: white;
+            transition: 0.3s ease;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        #dispose:hover{
+            background-color: #04c0eb;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="reqStatus">
+        <p id="status"></p>
+        <input type="button" onclick="translatediv()" id="dispose" value="X">
+    </div>  
+
+</body>
+<script>
+    function translatediv(){
+        reqStatus.style.transform = "translateY(-115px)";
+    }
+
+    function translatediv_down(){
+        reqStatus.style.transform = "translateY(115px)";
+    }
+
+</script>
+</html>

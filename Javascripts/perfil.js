@@ -13,8 +13,62 @@ const nome_tag = document.getElementById("nome");
 const sobrenome_tag = document.getElementById("sobrenome");
 const email_tag = document.getElementById("email");
 const senha_tag = document.getElementById("senha");
-const cpf_tag = document.getElementById("cpf");
+const cpf_tag = document.getElementById("cpf_doc");
+const doc_div = document.getElementById("cadas_solic");
+const doc_input = document.getElementById("documento");
+const doc_lab = document.getElementById("documento_lab");
+const doc_enviar = document.getElementById("doc_enviar");
+const cancelar_btn = document.getElementById("cancelar_btn");
+const btn_solic = document.getElementById("cadas_solic_btn");
+const pix_tag = document.getElementById("chavePIX");
+const titulo_tag = document.getElementById("titulo");
+const descricao_tag = document.getElementById("txtarea");
+const fotos_input = document.getElementById("infoto");
+const fotos_img = document.getElementById("foto_lab");
+const err = document.getElementById("err");
 
+const submit = document.getElementById("submit");
+
+function validarCPF(cpf) {
+    cpf = cpf.replace(/[^\d]+/g, ''); // remove tudo que não for número
+    
+    if (/^(\d)\1{10}$/.test(cpf)) {
+        exibirMensagemErro("O CPF não pode ser composto por números repetidos.");
+        return false;
+    }
+    let soma = 0;
+    for (let i = 0; i < 9; i++) {
+        soma += parseInt(cpf.charAt(i)) * (10 - i);
+    }
+    let resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf.charAt(9))) {
+        exibirMensagemErro("CPF inválido, tente novamente.");
+        return false;
+    }
+
+    soma = 0;
+    for (let i = 0; i < 10; i++) {
+        soma += parseInt(cpf.charAt(i)) * (11 - i);
+    }
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf.charAt(10))) {
+        exibirMensagemErro("CPF inválido, tente novamente.");
+        return false;
+    }
+    return true;
+}
+
+// Função para exibir a mensagem de erro
+function exibirMensagemErro(mensagem) {
+    err.style.display = "none";
+    err.innerHTML = mensagem;
+    err.style.display = "flex";
+}
+
+
+//formatação do campo de CPF
 cpf_tag.addEventListener('input', () => {
     let cpf = cpf_tag.value.replace(/\D/g, ''); // Remove tudo que não é número
     if (cpf.length > 11) cpf = cpf.slice(0, 11); // Limita a 11 dígitos
@@ -32,14 +86,6 @@ cpf_tag.addEventListener('input', () => {
     cpf_tag.value = cpfFormatado;
 });
 
-const pix_tag = document.getElementById("chavePIX");
-const titulo_tag = document.getElementById("titulo");
-const descricao_tag = document.getElementById("txtarea");
-const fotos_input = document.getElementById("infoto");
-const fotos_img = document.getElementById("foto_lab");
-
-const submit = document.getElementById("submit");
-
 // controle do carrossel
 let index = 0;
 const totalSlides = document.querySelectorAll('.servico').length;
@@ -53,6 +99,76 @@ prevBtn.addEventListener('click', () => {
     index = (index - 1 + totalSlides) % totalSlides;
     servicos.style.transform = `translateX(-${index * 100}%)`;
 });
+
+//controle da caixa de dialogo de envio de solicitação
+doc_input.onchange = () => {
+    let bytes_img = doc_input.files[doc_input.files.length - 1];
+    let url = URL.createObjectURL(bytes_img);
+    doc_lab.innerHTML = "<img style='width:100%; height:100%; border-radius:5px; border:none;' src = '"+url+"'>";
+} 
+
+doc_enviar.onclick = () => {
+    doc_div.classList.remove("inativo");
+    doc_div.classList.add("ativo");
+}
+
+cancelar_btn.onclick = () => {
+    doc_div.classList.remove("ativo");
+    doc_div.classList.add("inativo");
+}
+
+// submit (PARA SOLICITAR CONTA DE FORNECEDOR)
+btn_solic.onclick = () => {
+    const cpf = document.getElementById("cpf_doc").value ;
+    const pix = document.getElementById("chavePIX_doc").value ;
+    const doc_foto = doc_input.files;
+    // VALIDAÇÕES CPF
+    if (cpf) {
+        const cpfLimpo = cpf.replace(/\D/g, ''); 
+        if (cpf) {
+            const cpfLimpo = cpf.replace(/\D/g, ''); 
+            
+            // Só números permitidos
+            if (!/^\d+$/.test(cpfLimpo)) {
+                exibirMensagemErro("O CPF deve conter apenas números de 0 a 9.");
+                return;
+            }
+            
+            if (cpfLimpo.length !== 11) {
+                exibirMensagemErro("O CPF deve ter exatamente 11 dígitos.");
+                return;
+            }
+            
+            if (!validarCPF(cpfLimpo)) {
+                exibirMensagemErro("CPF invalido");
+                return;
+            }
+        }
+    }
+
+    if (!pix){
+        exibirMensagemErro("o campo: Chave PIX é obrigatório");
+        return;
+    }
+
+    if ( doc_foto.length === 0){
+        exibirMensagemErro("é necessário incluir uma foto do RG");
+    }
+
+    let dados = new FormData();
+    dados.append("cmd", "solicitar");
+    dados.append("cpf", cpf);
+    dados.append("pix", pix);
+    dados.append("foto", doc_foto[doc_foto.length - 1]);
+    fetch(URL_SITE+"/ServerScripts/tratar_solicitacao.php", {
+        method : "POST",
+        body : dados
+    }).then(r => {return r.text()}).then(res => {
+        console.log(res);
+    }).catch(erro => {
+        console.log(erro);
+    })
+}
 
 // redirecionar para cadastro de anuncio
 btn_add_anuncio.onclick = () => {
@@ -103,58 +219,6 @@ sim_btn.onclick = () => {
         console.log(e);
     })
 }
-// função de validação
-function validarCPF(cpf) {
-    cpf = cpf.replace(/[^\d]+/g, ''); // remove tudo que não for número
-    const errorElement = document.getElementById('cpf-error'); // Procurar se existe algum erro prévio
-    
-    // Se houver um erro prévio, removê-lo
-    if (errorElement) {
-        errorElement.remove();
-    }
-    if (cpf.length !== 11) {
-        exibirMensagemErro("O CPF deve ter exatamente 11 dígitos.");
-        return false;
-    }
-    if (/^(\d)\1{10}$/.test(cpf)) {
-        exibirMensagemErro("O CPF não pode ser composto por números repetidos.");
-        return false;
-    }
-    let soma = 0;
-    for (let i = 0; i < 9; i++) {
-        soma += parseInt(cpf.charAt(i)) * (10 - i);
-    }
-    let resto = (soma * 10) % 11;
-    if (resto === 10 || resto === 11) resto = 0;
-    if (resto !== parseInt(cpf.charAt(9))) {
-        exibirMensagemErro("CPF inválido, tente novamente.");
-        return false;
-    }
-
-    soma = 0;
-    for (let i = 0; i < 10; i++) {
-        soma += parseInt(cpf.charAt(i)) * (11 - i);
-    }
-    resto = (soma * 10) % 11;
-    if (resto === 10 || resto === 11) resto = 0;
-    if (resto !== parseInt(cpf.charAt(10))) {
-        exibirMensagemErro("CPF inválido, tente novamente.");
-        return false;
-    }
-    return true;
-}
-
-// Função para exibir a mensagem de erro
-function exibirMensagemErro(mensagem) {
-    const cpfTag = document.getElementById("cpf");
-    const errorElement = document.createElement("span");
-    errorElement.id = 'cpf-error'; // Definindo um id para identificar facilmente o erro
-    errorElement.style.color = 'red'; // Cor vermelha para a mensagem
-    errorElement.textContent = mensagem; // Texto da mensagem de erro
-
-    // Adiciona o erro abaixo do campo CPF
-    cpfTag.parentNode.insertBefore(errorElement, cpfTag.nextSibling);
-}
 
 // botão de submit (salvar alterações)
 submit.onclick = () => {
@@ -163,33 +227,9 @@ submit.onclick = () => {
     const email = document.getElementById("email").value;
     const senha = document.getElementById("senha").value;
     const titulo = document.getElementById("titulo") ? document.getElementById("titulo").value : '';
-    const cpf = document.getElementById("cpf") ? document.getElementById("cpf").value : '';
-    const pix = document.getElementById("chavePIX") ? document.getElementById("chavePIX").value : '';
     const descricao = document.getElementById("txtarea") ? document.getElementById("txtarea").value : '';
     const img = fotos_input.files[0];
 
-    // VALIDAÇÕES CPF
-    if (cpf) {
-        const cpfLimpo = cpf.replace(/\D/g, ''); 
-        if (cpf) {
-            const cpfLimpo = cpf.replace(/\D/g, ''); 
-    
-            // Só números permitidos
-            if (!/^\d+$/.test(cpfLimpo)) {
-                exibirMensagemErro("O CPF deve conter apenas números de 0 a 9.");
-                return;
-            }
-
-            if (cpfLimpo.length !== 11) {
-                exibirMensagemErro("O CPF deve ter exatamente 11 dígitos.");
-                return;
-            }
-
-            if (!validarCPF(cpfLimpo)) {
-                return;
-            }
-        }
-    }
     let dados = new FormData();
     dados.append("nome", nome);
     dados.append("sobrenome", sobrenome);
@@ -197,8 +237,6 @@ submit.onclick = () => {
     dados.append("senha", senha);
     dados.append("titulo", titulo);
     dados.append("descricao", descricao);
-    dados.append("cpf", cpf);
-    dados.append("pix", pix);
 
     if (img) {
         dados.append("img", img);

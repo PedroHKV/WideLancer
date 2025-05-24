@@ -1,6 +1,7 @@
 <?php
     include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Usuario.php";
     include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Denuncia.php";
+    include_once "C:/xampp/htdocs/WideLancer_Artefato/Utils/Classes/Solicitacao.php";
 
     if ($_SERVER["REQUEST_METHOD"] === "POST"){
         $solicitacao = $_POST["solicitacao"];
@@ -17,6 +18,9 @@
         } else if ($solicitacao === "denuncias"){
             $denuncias = Denuncia::carregarDenuncias();
             echo json_encode($denuncias);
+        } else if ($solicitacao = "solicitacoes"){
+            $solicitacoes = Solicitacao::findAll();
+            echo json_encode($solicitacoes);
         }
     }
 

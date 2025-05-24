@@ -83,6 +83,26 @@ denuncias.onclick = () => {
     });
 }
 
+//gera o relatorio das solicitações
+solics.onclick = () => {
+    status_carregando();
+    let dados = new FormData();
+    dados.append("solicitacao", "solicitacoes");
+    fetch(URL_SITE+"/ServerScripts/reqs_curadoria.php", {
+        method : "POST",
+        body : dados
+    }).then(r => {return r.json()}).then( r => { 
+        caixa.innerHTML = "<h3>Solicitacoes</h3><br>";
+        r.forEach(solicitacao => {
+            caixa.innerHTML += "<div class='info' id='"+solicitacao.id+"' onClick = 'render_pagina_solic("+solicitacao.id+")' >"+
+                                  "<p>"+solicitacao.usuario+" solicitou permissão para fornecer serviços online</p>"+
+                                  "<p class='status'>"+solicitacao.decisao+"</p>"+
+                               "</div>";
+        });
+    });
+}
+
+
 function status_carregando(){
     caixa.innerHTML = "<div class='loading-screen'>"+
                         "<div class='spinner'></div>"+
@@ -104,6 +124,22 @@ function render_pagina_denun(id){
     }).then(r => {return r.text()}).then( r => {
         if (r === "sucesso"){
             window.location.href = URL_SITE+"/Templates/visual_denuncia.php";
+        } else {
+            console.log(r);
+        }
+    });
+}
+
+function render_pagina_solic(id){
+    let dados = new FormData();
+    dados.append("cmd", "solicitacao");
+    dados.append("solicitacao_id", id);
+    fetch(URL_SITE+"/ServerScripts/curadoria.php", {
+        method : "POST",
+        body : dados
+    }).then(r => {return r.text()}).then( r => {
+        if (r === "sucesso"){
+            window.location.href = URL_SITE+"/Templates/visual_solic.php";
         } else {
             console.log(r);
         }

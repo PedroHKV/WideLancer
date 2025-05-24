@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS Usuario (
     sobrenome VARCHAR(100) NOT NULL,
     pix varchar(50) UNIQUE,
     cpf VARCHAR(15) UNIQUE,
+    ativo TINYINT,
     foto VARCHAR(100),
     vendedor BOOLEAN NOT NULL,
     curador BOOLEAN NOT NULL
@@ -106,6 +107,16 @@ CREATE TABLE IF NOT EXISTS Mensagem_produto(
     adquirido TINYINT ,
     caminho VARCHAR(200),
     FOREIGN KEY (id) REFERENCES Mensagem(id)
+);
+
+CREATE TABLE IF NOT EXISTS Solicitacao(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    cpf VARCHAR(16) NOT NULL,
+    pix VARCHAR(45) NOT NULL,
+    foto VARCHAR(200) NOT NULL,
+    decisao VARCHAR(45),
+    usuario_id INT NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES Usuario(id)
 );
 
 CREATE OR REPLACE VIEW MensagensView AS

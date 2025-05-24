@@ -8,7 +8,8 @@
         $usuario = Usuario::findUsuarioById($id);
 
         //para saber se e necessario cadastrar um novo portifolio
-        $ja_era_vendedor = $usuario->isVendedor();
+        $portifolio  = Portifolio::findPortifolioByUsuario_id($id);
+        $ja_tinha_portifolio = ($portifolio->getId() === null) ? false : true;
 
         if (isset( $_POST["nome"] )){
             $nome = $_POST["nome"];
@@ -26,17 +27,14 @@
             $senha = $_POST["senha"];
             $usuario->setSenha( $senha );
         }
-        if (isset( $_POST["cpf"] )){
-            $cpf = $_POST["cpf"];
-            $usuario->setCpf($cpf);
-        }
         if (isset( $_POST["pix"] )){
-            $pix = $_POST["pix"];
+            $pix = (trim($_POST["pix"] === "") ? null : $_POST["pix"]);
             $usuario->setPix($pix);
         }
         if (isset( $_POST["descricao"] )){
             $descricao = $_POST["descricao"];
         } else { $descricao = Null;}
+
         if (isset( $_POST["titulo"] )){
             $titulo = $_POST["titulo"];
         } else { $titulo = Null;}
@@ -49,10 +47,9 @@
             $usuario->setFoto($caminho);
         } 
 
-        if (!$ja_era_vendedor){
+        if (!$ja_tinha_portifolio){
             $usuario->criarPortifolio(Null, Null, $descricao );
-            // no mysql o true deve ser passado como 1
-            $usuario->setVendedor(1);
+
         } else {
             $portifolio = Portifolio::findPortifolioByUsuario_id($id);
             $portifolio->setDescricao( $descricao );
