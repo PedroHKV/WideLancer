@@ -45,8 +45,8 @@
         <div id="horizontal">
             <div id="acoes">
                 <div id="status_denuncia"></div>
-                <input type="button" id="ign" value="aceitar">
-                <input type="button" id="esc" value="recusar">
+                <input type="button" id="aceit" value="aceitar" onclick = "aceitar(<?php echo $solicitacao->getUsuarioId() ?>)">
+                <input type="button" id="rec" value="recusar">
             </div>
             <div id="dados_solicitante">
                 <h3>Informações do candidato:</h3><br>

@@ -131,12 +131,12 @@ class Usuario implements JsonSerializable {
     public function salvarUpdates() {
         $bd = ConectarSQL();
 
-        $sql = "UPDATE Usuario SET nome = ?, sobrenome = ?, email = ?, senha = ?, foto = ?, vendedor = ?, curador = ?, pix = ?, cpf = ?, ativo = ?
+        $sql = "UPDATE Usuario SET nome = ?, sobrenome = ?, email = ?, senha = ?, foto = ?, vendedor = ?, curador = ?, pix = ?, ativo = ?
                 WHERE id = ?";
 
         $query = $bd->prepare($sql);
         $query->bind_param(
-            "sssssiissi",
+            "sssssiisii",
             $this->nome,
             $this->sobrenome,
             $this->email,
@@ -145,7 +145,6 @@ class Usuario implements JsonSerializable {
             $this->vendedor,
             $this->curador,
             $this->pix,
-            $this->cpf,
             $this->ativo,
             $this->id
         );
