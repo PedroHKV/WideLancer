@@ -12,8 +12,11 @@
         $usuario = Usuario::findUsuarioById($usuario_id);
 
         if ($cmd === "aceitar"){
-            $solicitacao->setDecisao("aceitada");
+            $solicitacao->setDecisao("aceita");
             $usuario->setVendedor(1);
+            $usuario->setCpf( $solicitacao->getCpf() );
+            $usuario->setStripeid($solicitacao->getPix()); //mudar pix para Stripe ID
+            
             
             $solicitacao->salvarUpdates();
             $usuario->salvarUpdates();

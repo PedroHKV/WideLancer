@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS Usuario (
     senha VARCHAR(100) NOT NULL,
     nome VARCHAR(100) NOT NULL,
     sobrenome VARCHAR(100) NOT NULL,
-    pix varchar(50) UNIQUE,
+    stripeid varchar(50) UNIQUE,
     cpf VARCHAR(15) UNIQUE,
     ativo TINYINT,
     foto VARCHAR(100),
@@ -61,6 +61,7 @@ CREATE TABLE IF NOT EXISTS Venda (
     data_init DATE NOT NULL,
     data_termino DATE NOT NULL,
     andamento BOOLEAN,
+    preco DOUBLE,
     chat_id INT,
     FOREIGN KEY (chat_id) REFERENCES Chat(id)
 );
@@ -116,6 +117,14 @@ CREATE TABLE IF NOT EXISTS Solicitacao(
     foto VARCHAR(200) NOT NULL,
     decisao VARCHAR(45),
     usuario_id INT NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES Usuario(id)
+);
+
+CREATE TABLE IF NOT EXISTS Produto(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    caminho VARCHAR(200) NOT NULL,
+    usuario_id INT NOT NULL,
+    data DATETIME,
     FOREIGN KEY (usuario_id) REFERENCES Usuario(id)
 );
 
@@ -232,4 +241,4 @@ DELIMITER ;
 
 
 
-INSERT INTO Usuario(email, senha, nome, sobrenome, pix, cpf, foto, vendedor, curador) VALUES ('yuriSobezak@gmail.com', 'admin123', 'Yuri', 'Sobezak', '1234567', '541.731.480-38', '../imagens/usuario_icone.png', 1, 1);
+INSERT INTO Usuario(email, senha, nome, sobrenome, stripeid, cpf, foto, vendedor, curador) VALUES ('yuriSobezak@gmail.com', 'admin123', 'Yuri', 'Sobezak', '1234567', '541.731.480-38', '../imagens/usuario_icone.png', 1, 1);

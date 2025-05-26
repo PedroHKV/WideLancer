@@ -20,6 +20,7 @@
                 $dataAtual = date("Y-m-d H:i:s");
 
                 $venda = new Venda(null,$dataAtual,  $proposta->getPrazo(),1, $chat_id);
+                $venda->setPreco($proposta->getOrcamento());
                 $venda->cadastrar();
             } else {
                 $proposta->setAceita(0);
@@ -29,7 +30,6 @@
             echo "salvas";
         } else {
             //caso seja um fornecedor cadastrando uma proposta
-            session_start();
             $orcamento = $_POST["orcamento"];
             $prazo = $_POST["prazo"];
             $usuario_id = $_SESSION["id"];

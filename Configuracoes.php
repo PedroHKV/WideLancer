@@ -5,5 +5,4 @@
 	$DataBaseName = "WideLancer";
 	$StdUser = "root";
 	$Password = "";
-
 ?>

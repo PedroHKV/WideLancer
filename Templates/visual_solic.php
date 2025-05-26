@@ -53,7 +53,7 @@
                 <div class="info"><b>Nome:</b> <?php echo $usuario->getNome()." ".$usuario->getSobrenome();?>  </div><br>
                 <div class="info"><b>Email:</b> <?php echo $usuario->getEmail();?>  </div><br>
                 <div class="info"><b>CPF:</b> <?php echo $solicitacao->getCpf();?>  </div><br>
-                <div class="info"><b>Pix:</b> <?php echo $solicitacao->getPix();?> </div><br>
+                <div class="info"><b>Stripe ID:</b> <?php echo $solicitacao->getPix();?> </div><br>
             </div>
             <div id="documento_foto">
                 <img id="foto" src="<?php echo $solicitacao->getFoto();?>" alt="">

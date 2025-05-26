@@ -15,7 +15,6 @@
         $usuario = Usuario::findUsuarioById($id_vendedor);
         $portifolio = Portifolio::findPortifolioByUsuario_id($id_vendedor);
         $anuncios = Anuncio::findAnunciosByUserId($id_vendedor);
-
         $editavel = false;
 
         $foto = $usuario->getFoto();
@@ -33,7 +32,7 @@
 
         // Verificação de permissões
         $solic  = Solicitacao::findSolicitacaoByUsuarioId($id);
-        $solicitacao_pendente = ($usuario->isVendedor() && ($solic === null)) ? "none" : "flex";
+        $solicitacao_pendente = (!$usuario->isVendedor() && ($solic !== null)) ? "flex" : "none";
         $semSolicitacao_pendente = (!$usuario->isVendedor() && ($solic === null)) ? "flex" : "none";
         $naoEVendedor = ($usuario->isVendedor()) ? "none" :  "flex";
         $eVendedor = ($usuario->isVendedor()) ? "flex" :  "none";
@@ -52,6 +51,7 @@
     <main>
         <div>
             <div id="esquerda">
+                <!-- input pata mudar a foto -->
                 <?php
                     if ($editavel){
                         echo "<div id='foto'>
@@ -65,19 +65,21 @@
                     <input type="text" value="<?php echo $usuario->getNome();?>" placeholder="Nome" id="nome">
                     <input type="text" value="<?php echo $usuario->getSobrenome();?>" placeholder="Sobrenome" id="sobrenome">
                     <input type="email" value="<?php echo $usuario->getEmail();?>" placeholder="Email" id="email">
+                    <!-- inputs sobre o dono do portifolio, só ele deve ver -->
                     <?php 
                         if ($editavel){
                           echo "<input type='password' value='" . $usuario->getSenha() . "' placeholder='Senha' id='senha'> 
-                                <input style='display:".$eVendedor.";' type='text' value='" . $usuario->getCpf() . "' placeholder='CPF' id='cpf'> 
-                                <input type='text' style = 'display:".$eVendedor.";' value='" . $usuario->getPix() . "' placeholder='chavePIX' id='chavePIX'> 
+                                <input readonly style='display:".$eVendedor.";' type='text' value='" . $usuario->getCpf() . "' placeholder='CPF' id='cpf'> 
+                                <input readonly type='text' style = 'display:".$eVendedor.";' value='" . $usuario->getStripeId() . "' placeholder='Stripe ID' id='chavePIX'> 
                                 <input type='text' style = 'display:".$eVendedor.";' placeholder='titulo' id='titulo' value='" . ($usuario->isVendedor() ? $portifolio->getTitulo() :  "") . "'> 
                                 <textarea id='txtarea' style = 'display:".$eVendedor.";' placeholder='Escreva sobre voce'>" . ($usuario->isVendedor() ? $portifolio->getDescricao() :  "") . "</textarea>";
                         } else {
-                            echo "<input type='text' value='" . $usuario->getPix() . "' placeholder='chavePIX' id='chavePIX'>";
+                            echo "<input type='text' value='" . $usuario->getStripeId() . "' placeholder='Stripe ID' id='chavePIX'>";
                         }
                     ?>
 
                 </div>
+                    <!--  inputs relacionados ao envio da documentação do fornecedor  -->
                 <?php
                     if ($editavel){
                         echo "<div id='btn_div'>
@@ -103,7 +105,7 @@
                     <div id="inputs_">
                         <div id="inputs_txt">
                             <input type="text" id="cpf_doc" placeholder="CPF">
-                            <input type="text" id="chavePIX_doc" placeholder="chave pix">
+                            <input type="text" id="chavePIX_doc" placeholder="Stripe ID">
                         </div>
                         <div id="input_file">
                             <label for="documento" id="documento_lab">+</label>
@@ -130,6 +132,7 @@
                         </div>
                     </div>
                     <h2>Meus Serviços</h2>
+                <!-- tratamento de anuncios -->
                     <?php
                         if ($editavel){
                             echo "<div id='addservic'>".
@@ -140,6 +143,7 @@
                     ?>
                     <div class="servicos-container">
                         <div class="servicos" id="servicos">
+                            <!-- carrossel de anuncios -->
                             <?php
                                 foreach ($anuncios as $anuncio){
                                     echo "<div class='servico' id=".$anuncio->getId()." onClick='render_anuncio(".$anuncio->getId().")' >". 

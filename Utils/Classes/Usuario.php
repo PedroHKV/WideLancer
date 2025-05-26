@@ -11,7 +11,7 @@ class Usuario implements JsonSerializable {
     private $cpf;
     private $vendedor;
     private $curador;
-    private $pix;
+    private $stripeid;
     private $ativo;
 
     public function __construct($id, $email, $senha, $nome, $sobrenome, $foto, $cpf, $vendedor, $curador) {
@@ -54,8 +54,8 @@ class Usuario implements JsonSerializable {
         return $this->cpf;
     }
 
-    public function getPix() {
-        return $this->pix;
+    public function getStripeid() {
+        return $this->stripeid;
     }
 
     public function isVendedor() {
@@ -94,8 +94,8 @@ class Usuario implements JsonSerializable {
         $this->cpf = $cpf;
     }
 
-    public function setPix($pix) {
-        $this->pix = $pix;
+    public function setStripeid($stripeid) {
+        $this->stripeid = $stripeid;
     }
 
     public function setVendedor($bool) {
@@ -131,12 +131,12 @@ class Usuario implements JsonSerializable {
     public function salvarUpdates() {
         $bd = ConectarSQL();
 
-        $sql = "UPDATE Usuario SET nome = ?, sobrenome = ?, email = ?, senha = ?, foto = ?, vendedor = ?, curador = ?, pix = ?, ativo = ?
+        $sql = "UPDATE Usuario SET nome = ?, sobrenome = ?, email = ?, senha = ?, foto = ?, vendedor = ?, curador = ?, stripeid = ?, ativo = ?, cpf = ?
                 WHERE id = ?";
 
         $query = $bd->prepare($sql);
         $query->bind_param(
-            "sssssiisii",
+            "sssssiisisi",
             $this->nome,
             $this->sobrenome,
             $this->email,
@@ -144,8 +144,9 @@ class Usuario implements JsonSerializable {
             $this->foto,
             $this->vendedor,
             $this->curador,
-            $this->pix,
+            $this->stripeid,
             $this->ativo,
+            $this->cpf,
             $this->id
         );
 
@@ -181,7 +182,7 @@ class Usuario implements JsonSerializable {
             "cpf" => $this->cpf,
             "vendedor" => $this->vendedor,
             "curador" => $this->curador,
-            "pix" => $this->pix ?? null,
+            "stripeid" => $this->stripeid ?? null,
             "ativo" => $this->ativo
         ];
     }
@@ -211,8 +212,8 @@ class Usuario implements JsonSerializable {
                 $linha["curador"]
             );
 
-            if (isset($linha["pix"])) {
-                $usuario->setPix($linha["pix"]);
+            if (isset($linha["stripeid"])) {
+                $usuario->setStripeid($linha["stripeid"]);
             }
 
             if (isset($linha["ativo"])) {
@@ -254,8 +255,8 @@ class Usuario implements JsonSerializable {
                 $linha["curador"]
             );
 
-            if (isset($linha["pix"])) {
-                $usuario->setPix($linha["pix"]);
+            if (isset($linha["stripeid"])) {
+                $usuario->setStripeid($linha["stripeid"]);
             }
 
             if (isset($linha["ativo"])) {
@@ -304,8 +305,8 @@ class Usuario implements JsonSerializable {
                 $linha["curador"]
             );
 
-            if (isset($linha["pix"])) {
-                $usuario->setPix($linha["pix"]);
+            if (isset($linha["stripeid"])) {
+                $usuario->setStripeid($linha["stripeid"]);
             }
 
             if (isset($linha["ativo"])) {

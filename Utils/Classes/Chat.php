@@ -80,14 +80,48 @@
                         $linha["horario"],
                     );
                     $mensagens[] = $mensagem;
-                } else if ( $tipo === "mensagem_produto"){
-
+                } else if ( $tipo === "produto"){
+                    $mensagem = new MensagemProduto(
+                        $linha["id"],
+                        $linha["adquirido"],
+                        $linha["caminho"],
+                        $linha["usuario_id"],
+                        $linha["chat_id"],
+                        $linha["horario"]
+                    );
+                    $mensagens[] = $mensagem;
                 } else {
-                    echo "errp ap carregar mensagens";
+                    echo "erro ap carregar mensagens";
                 }
             }
             return $mensagens;
 
+        }
+
+        public function getVendaPendente(){
+            $bd = ConectarSQL();
+            $sql = "SELECT * FROM Venda WHERE chat_id = ? AND andamento = TRUE;";
+            $query = $bd->prepare($sql);
+            $query->bind_param("i", $this->id);
+            $query->execute();
+            $result = $query->get_result();
+            $linha = $result->fetch_assoc();
+
+            $bd->close();
+
+            if ($linha) {
+                $venda = new Venda(
+                    $linha["id"],
+                    $linha["data_init"],
+                    $linha["data_termino"],
+                    $linha["andamento"],
+                    $linha["chat_id"]
+                );
+                $venda->setPreco($linha["preco"]);
+                return $venda;
+            }
+
+            return null;
         }
 
         //metodos estaticos

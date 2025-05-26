@@ -30,6 +30,7 @@ header {
     align-items: center;
     margin-right: 8px;
     margin-top: 8px;
+    display: flex
 }
 
 .login-btn {
@@ -52,7 +53,7 @@ header {
 }
 
 .btn {
-    padding: 10px 20px;
+    padding: 5px 10px;
     color: rgb(0, 0, 0);
     border: none;
     border-radius: 8px;
@@ -71,6 +72,7 @@ header {
 }
 
 #perfil-container{
+    display: flex;
     text-align: right;
     justify-content: space-between;
     align-items: center;

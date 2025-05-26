@@ -65,7 +65,29 @@ function enviar_decisao(decisao, id){
         body: dados 
     }).then(r=>{return r.text()}).then(res=>{
         console.log(res);
+        if (res === "salvas"){
+            window.location.href = URL_SITE+"/Templates/chat.php";
+        }
         
+    });
+}
+
+//redireciona para a pagina de pagamento
+function render_pagamento( id ){
+    let dados = new FormData();
+    dados.append("cmd", "coleta");
+    dados.append("produto_id", id);
+
+    fetch(URL_SITE+"/ServerScripts/tratar_produto.php", {
+        method : "POST",
+        body : dados
+    }).then(r => {return r.text()}).then(r => {
+        console.log(r);
+        if (r === "sucesso"){
+            window.location.href = URL_SITE+"/Templates/pagamento.php";
+        }
+    }).catch(e => {
+        console.log(e);
     });
 }
 

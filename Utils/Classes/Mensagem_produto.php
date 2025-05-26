@@ -67,9 +67,9 @@ class MensagemProduto extends Mensagem implements JsonSerializable {
     }
 
     // Métodos estáticos
-    public static function findById($id) {
+    public static function findProdutoById($id) {
         $bd = ConectarSQL();
-        $sql = "SELECT * FROM MensagensView WHERE id = ? AND tipo = 'mensagem_produto'";
+        $sql = "SELECT * FROM MensagensView WHERE id = ? AND tipo = 'produto'";
 
         $query = $bd->prepare($sql);
         $query->bind_param("i", $id);

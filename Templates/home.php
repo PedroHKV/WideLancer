@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../Stylesheets\home.css">
+    <link rel="stylesheet" href="../Stylesheets/home.css">
 </head>
 <body>
 
@@ -35,6 +35,9 @@
         </div>
         <div class="login-container">
             <a href="./notificacoes.php" class="btn">Notificações</a>
+        </div>
+        <div class="login-container">
+            <a href="./historico_compra.php" class="btn">Produtos</a>
         </div>
     </header>
 

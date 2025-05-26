@@ -8,6 +8,7 @@ class Venda implements JsonSerializable {
     private $data_termino;
     private $andamento;
     private $chat_id;
+    private $preco;
 
     // Construtor
     public function __construct($id, $data_init, $data_termino, $andamento, $chat_id) {
@@ -21,6 +22,10 @@ class Venda implements JsonSerializable {
     // Getters
     public function getId() {
         return $this->id;
+    }
+
+    public function getPreco(){
+        return $this->preco;
     }
 
     public function getDataInit() {
@@ -44,6 +49,10 @@ class Venda implements JsonSerializable {
         $this->data_init = $data_init;
     }
 
+    public function setPreco( $preco ){
+        $this->preco = $preco;
+    }
+
     public function setDataTermino($data_termino) {
         $this->data_termino = $data_termino;
     }
@@ -59,16 +68,17 @@ class Venda implements JsonSerializable {
     // Cadastrar nova venda
     public function cadastrar() {
         $bd = ConectarSQL();
-        $sql = "INSERT INTO Venda(data_init, data_termino, andamento, chat_id)
-                VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO Venda(data_init, data_termino, andamento, chat_id, preco)
+                VALUES (?, ?, ?, ?, ?)";
 
         $query = $bd->prepare($sql);
         $query->bind_param(
-            "ssii",
+            "ssiid",
             $this->data_init,
             $this->data_termino,
             $this->andamento,
-            $this->chat_id
+            $this->chat_id,
+            $this->preco
         );
 
         $cadastrado = $query->execute();
@@ -80,16 +90,17 @@ class Venda implements JsonSerializable {
     // Atualizar venda existente
     public function salvarUpdates() {
         $bd = ConectarSQL();
-        $sql = "UPDATE Venda SET data_init = ?, data_termino = ?, andamento = ?, chat_id = ?
+        $sql = "UPDATE Venda SET data_init = ?, data_termino = ?, andamento = ?, chat_id = ?, preco = ?
                 WHERE id = ?";
 
         $query = $bd->prepare($sql);
         $query->bind_param(
-            "ssiii",
+            "ssiidi",
             $this->data_init,
             $this->data_termino,
             $this->andamento,
             $this->chat_id,
+            $this->preco,
             $this->id
         );
 
@@ -118,6 +129,7 @@ class Venda implements JsonSerializable {
                 $v["andamento"],
                 $v["chat_id"]
             );
+            $venda->setPreco($v["preco"]);
             $query->close();
             $bd->close();
             return $venda;
@@ -141,13 +153,16 @@ class Venda implements JsonSerializable {
         $vendas = [];
 
         while ($v = $res->fetch_assoc()) {
-            $vendas[] = new Venda(
+            $venda = new Venda(
                 $v["id"],
                 $v["data_init"],
                 $v["data_termino"],
                 $v["andamento"],
                 $v["chat_id"]
             );
+
+            $venda->setPreco($v["preco"]);
+            $vendas[] = $venda;
         }
 
         $query->close();
@@ -178,7 +193,8 @@ class Venda implements JsonSerializable {
             "data_init" => $this->data_init,
             "data_termino" => $this->data_termino,
             "andamento" => $this->andamento,
-            "chat_id" => $this->chat_id
+            "chat_id" => $this->chat_id,
+            "preco" => $this->preco
         ];
     }
 }

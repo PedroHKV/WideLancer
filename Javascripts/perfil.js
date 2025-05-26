@@ -165,6 +165,9 @@ btn_solic.onclick = () => {
         body : dados
     }).then(r => {return r.text()}).then(res => {
         console.log(res);
+        if (res === "sucesso"){
+            window.location.href = URL_SITE+"/Templates/perfil.php";
+        }
     }).catch(erro => {
         console.log(erro);
     })

@@ -83,18 +83,20 @@
                     </div>
                 </div>
                 <?php
+                    //logica para o display das mensagens
                     foreach ($mensagens as $mensagem ){
+                        //analiza se o usuario que mandou a msg é o mesmo que esta vendo a tela
                         $myMSG = ($mensagem->getUsuarioId()===$usuario_id);
                         $classe = $myMSG ? "message-row sent" : "message-row received";
                         $foto = $myMSG ? $usuario->getFoto() : $outro->getFoto();
 
                         if ($mensagem instanceof Proposta){
                             $respondida = !($mensagem->getAceita() === null);
-
+                            //verifica se a proposta foi aceita
                             if(($mensagem->getAceita() !== null) && ($mensagem->getAceita() !== 0)){
                                 $proposta_aceita = true;
                             }
-
+                            //decide o que vai apareces de interação nas mensagens de proposta
                             if ( $respondida){
                                 $acoes = ($mensagem->getAceita() === 1) ? "<p>Proposta aceita</p>" : "<p>Proposta recusada</p>" ;
                             } else if (!$respondida && !$vendedor) {
@@ -121,15 +123,27 @@
                                         "<span class='timestamp'>".$mensagem->getHorario()."</span>".
                                     "</div>".
                                   "</div>";
+                        } else if ($mensagem instanceof MensagemProduto){
+                            $adquirido = $mensagem->getAdquirido() ? "Produto adquirido" : "Não obtido";
+                            echo "<div class='produto'>".
+                                    "<div class='infos_btn'>".
+                                        "<div class='infos'>".
+                                            "<p>Entrega de produto</p>".
+                                            "<p style='font-size: 12px; color:#204d61;'>".$adquirido."</p>".
+                                        "</div>".
+                                        "<input type='button' style='display :".(($vendedor || $mensagem->getAdquirido()) ? "none" : "flex").";' class='botao' onClick='render_pagamento(".$mensagem->getId().")' value='checar'>".
+                                    "</div>".
+                                  "</div>"; 
                         }
                     }
                 ?>
+                
             </div>
             <div class="chat-input">
                 <input type="text" placeholder="Digite sua mensagem...">
                 <button class="btn enviar-mensagem">Enviar</button>
                 <?php echo (($vendedor && !$proposta_aceita && !$proposta_pendente) ? "<button class='btn proposta-btn'>Proposta</button>": NULL); ?>
-                <?php echo ($proposta_aceita ? "<button class='btn' id='produto_ent' onClick='entregar_produto()'>Entregar produto</button>": NULL); ?>
+                <?php echo (($proposta_aceita && $vendedor) ? "<button class='btn' id='produto_ent' onClick='entregar_produto()'>Entregar produto</button>": NULL); ?>
             </div>
             
         </section>
