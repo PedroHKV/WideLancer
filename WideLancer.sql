@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS Anuncio (
     titulo VARCHAR(50),
     portifolio_id INT,
     usuario_id INT,
+    ativo TINYINT,
     FOREIGN KEY (portifolio_id) REFERENCES Portifolio(id),
     FOREIGN KEY (usuario_id) REFERENCES Usuario(id)
 );

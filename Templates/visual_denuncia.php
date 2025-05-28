@@ -95,7 +95,7 @@
                 <div class="info"><b>Nome:</b> <?php echo $vendedor->getNome()." ".$vendedor->getSobrenome();?></div><br>
                 <div class="info"><b>Email:</b> <?php echo $vendedor->getEmail()?></div><br>
                 <div class="info"><b>CPF:</b> <?php echo $vendedor->getCpf()?></div><br>
-                <div class="info"><b>Pix:</b> <?php echo $vendedor->getPix()?></div><br>
+                <div class="info"><b>Stripeid:</b> <?php echo $vendedor->getStripeid()?></div><br>
                 <div class="info"><b>n° denuncias:</b> <?php echo $numero_denuncias;?></div><br>
             </div>
         </div>

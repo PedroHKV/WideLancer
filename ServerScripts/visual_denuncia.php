@@ -23,7 +23,7 @@
             $denuncia->setDecisao("anuncio_excluido");
             $denuncia->setPendente(0);
             
-            Anuncio::deleteAnuncioById($denuncia->getId());
+            Anuncio::deleteAnuncioById($denuncia->getAnuncioId());
 
             $denuncia->salvarUpdates();
             echo "sucesso";

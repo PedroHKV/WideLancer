@@ -29,13 +29,15 @@
     <div id="cards">
         <?php
             foreach ($anuncios as $anuncio){
-                echo " <div class='card' onClick='render_anuncio(".$anuncio->getId().")'>".
+                if($anuncio->getAtivo()===1){
+                    echo " <div class='card' onClick='render_anuncio(".$anuncio->getId().")'>".
                           "<img src='".$anuncio->getFoto()."' alt=''>".
                           "<div>".
                                 "<p class='titulo'>".$anuncio->getTitulo()."</p>". 
                                 "<p class='descricao'>".$anuncio->getDescricao()."</p>".
                           "</div>".
                         "</div>";
+                }
             }
         ?>
    </main>

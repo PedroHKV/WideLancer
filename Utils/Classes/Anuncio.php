@@ -8,6 +8,7 @@
         private $descricao;
         private $portifolio;
         private $usuario_id; 
+        private $ativo;
 
         
         public function __construct($id, $foto, $titulo, $descricao, $usuario_id, $portfolio_id = null){
@@ -42,23 +43,44 @@
         public function getUsuarioId(){
             return $this->usuario_id;
         }
+        public function getAtivo(){
+            return $this->ativo;
+        }
 
         public function setPortifolio($id_port){
             $this->portifolio = $id_port;
+        }
+
+        public function setAtivo($ativo){
+            $this->ativo = $ativo;
         }
 
         //metodos publicos
         public function cadastrar(){
             $cadastrado = false;
             $bd = ConectarSQL();
-            $sql = "INSERT INTO Anuncio(titulo, foto, descricao, usuario_id) VALUES (?, ?, ?, ?);";
+            $sql = "INSERT INTO Anuncio(titulo, foto, descricao, usuario_id, ativo) VALUES (?, ?, ?, ?, ?);";
 
             $query = $bd->prepare($sql);
-            $query->bind_param("sssi", $this->titulo, $this->foto, $this->descricao, $this->usuario_id);
+            $query->bind_param("sssii", $this->titulo, $this->foto, $this->descricao, $this->usuario_id, $this->ativo);
 
             $cadastrado = $query->execute();
             return $cadastrado;
         } 
+
+        public function salvarUpdates(){
+            $bd = ConectarSQL();
+
+            $sql = 
+            "UPDATE Anuncio SET foto = ?, titulo = ?, descricao = ?, ativo = ? WHERE id = ?";
+
+            $query = $bd->prepare($sql);
+            $query->bind_param("sssii", 
+            $this->foto, $this->titulo, $this->descricao, $this->ativo, $this->id);
+            $atualizado = $query->execute();
+            $bd->close();
+            return $atualizado;
+        }
 
         //metodos estaticos
         public static function findAnunciosByQuery($pesquisaRaw) {
@@ -94,6 +116,7 @@
                         $row["usuario_id"],
                         $row["portifolio_id"]
                     );
+                    $anunc->setAtivo( $row['ativo']);
                     $anuncios[] = $anunc;
                     $idsAdicionados[] = $row['id'];
                 }
@@ -120,6 +143,7 @@
                     $linha["usuario_id"],
                     $linha["portifolio_id"]
                 );
+                $anuncio->setAtivo( $linha['ativo']);
                 $anuncios[] = $anuncio;
             }
             $bd->close();
@@ -148,13 +172,9 @@
         }
 
         public static function deleteAnuncioById($id){
-            $bd = ConectarSQL();
-            $sql = "DELETE FROM Anuncio WHERE id = ?";
-            $query = $bd->prepare($sql);
-            $query->bind_param("i", $id);
-            $excluido = $query->execute();
-            $bd->close();
-            return $excluido;
+            $anuncio = Anuncio::findAnuncioById($id);
+            $anuncio->setAtivo(0);
+            $anuncio->salvarUpdates();
         }
     }
 ?>

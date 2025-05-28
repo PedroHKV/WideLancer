@@ -13,6 +13,7 @@
             $nome_file = str_replace(" ", "+",$img["name"]);
             $caminho = "../Uploads/anuncios/".$nome_file;
             $anuncio = new Anuncio(NULL, $caminho, $nome, $descricao, $id);
+            $anuncio->setAtivo(1);
             move_uploaded_file($img["tmp_name"], $caminho);
             $cadastrado = $anuncio->cadastrar();
             if ($cadastrado){
