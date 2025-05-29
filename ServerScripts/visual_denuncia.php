@@ -35,7 +35,12 @@
             $anuncio_id = $denuncia->getAnuncioId();
             $anuncio = Anuncio::findAnuncioById($anuncio_id);
             $vendedor_id = $anuncio->getUsuarioId();
+            $anuncios = Anuncio::findAnunciosByUserId($vendedor_id);
             Usuario::deleteUsuarioById($vendedor_id);
+            foreach($anuncios as $anuncio){
+                $anuncio->setAtivo(0);
+                $anuncio->salvarUpdates();
+            }
 
             $denuncia->salvarUpdates();
             echo "sucesso";

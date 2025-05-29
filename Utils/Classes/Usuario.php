@@ -322,17 +322,9 @@ class Usuario implements JsonSerializable {
     }
 
     public static function deleteUsuarioById($id) {
-        $bd = ConectarSQL();
-        $sql = "DELETE FROM Usuario WHERE id = ?";
-        $query = $bd->prepare($sql);
-        $query->bind_param("i", $id);
-
-        $sucesso = $query->execute();
-
-        $query->close();
-        $bd->close();
-
-        return $sucesso;
+        $usuario = Usuario::findUsuarioById($id);
+        $usuario->setAtivo(0);
+        $usuario->salvarUpdates();
     }
 }
 ?>

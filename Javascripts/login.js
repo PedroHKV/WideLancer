@@ -22,6 +22,9 @@ botao.onclick = () => {
             } else if ( res === "err"){
                 display_erros.innerHTML = "email ou senha errados!";
                 display_erros.style.display = "block";
+            }  else if(res === "banido"){
+                display_erros.innerHTML = "usuário banido!";
+                display_erros.style.display = "block";      
             } else if (res === "certo"){
                 window.location.href = URL_SITE+"/Templates/home.php";
             }

@@ -242,4 +242,4 @@ DELIMITER ;
 
 
 
-INSERT INTO Usuario(email, senha, nome, sobrenome, stripeid, cpf, foto, vendedor, curador) VALUES ('yuriSobezak@gmail.com', 'admin123', 'Yuri', 'Sobezak', '1234567', '541.731.480-38', '../imagens/usuario_icone.png', 1, 1);
+INSERT INTO Usuario(email, senha, nome, sobrenome, stripeid, cpf, foto, vendedor, curador) VALUES ('yuriSobezak@gmail.com', 'admin123', 'Yuri', 'Sobezak', '1234567', '541.731.480-38', '1', '../imagens/usuario_icone.png', 1, 1);
