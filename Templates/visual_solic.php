@@ -44,9 +44,26 @@
     <main>
         <div id="horizontal">
             <div id="acoes">
-                <div id="status_denuncia"></div>
-                <input type="button" id="aceit" value="aceitar" onclick = "aceitar(<?php echo $solicitacao->getUsuarioId() ?>)">
-                <input type="button" id="rec" value="recusar">
+                <div id="status_solicitacao">
+                    <?php
+                        $decisao = $solicitacao->getDecisao();
+                        if ($decisao !== null && $decisao !== "pendente") {
+                            echo "<div id='status_denuncia'>Esta solicitação está: " . htmlspecialchars($decisao) . "</div>";
+                    }
+            ?>
+    </div>
+
+    <input type="button" 
+           id="aceit" 
+           value="aceitar" 
+           onclick="aceitar(<?php echo $solicitacao->getUsuarioId() ?>)" 
+           <?php echo ($solicitacao->getPendente() ? "" : "disabled"); ?>>
+
+    <input type="button" 
+           id="rec" 
+           value="recusar" 
+           onclick="recusar(<?php echo $solicitacao->getUsuarioId() ?>)" 
+           <?php echo ($solicitacao->getPendente() ? "" : "disabled"); ?>>
             </div>
             <div id="dados_solicitante">
                 <h3>Informações do candidato:</h3><br>

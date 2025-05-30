@@ -20,6 +20,10 @@ class Solicitacao implements JsonSerializable {
         $this->usuario_id = $usuario_id;
     }
 
+    public function getPendente() {
+        return $this->decisao === null || $this->decisao === 'pendente';
+    }
+    
     public function getId() {
         return $this->id;
     }
