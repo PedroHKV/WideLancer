@@ -44,7 +44,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>WideLancer - Perfil</title>
+    <link rel="icon" href="../imagens/logo.png" type="image/png">
     <link rel="stylesheet" href="../Stylesheets/perfil.css">
 </head>
 <body>

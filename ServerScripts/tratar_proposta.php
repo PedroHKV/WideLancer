@@ -26,8 +26,12 @@
                 $proposta->setAceita(0);
             }
 
-            $proposta->salvarUpdates();
-            echo "salvas";
+            $escolha = $proposta->salvarUpdates();
+            if ($escolha){
+                echo "salvas";
+            } else {
+                echo "falha";
+            }
         } else {
             //caso seja um fornecedor cadastrando uma proposta
             $orcamento = $_POST["orcamento"];

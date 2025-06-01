@@ -37,7 +37,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../Stylesheets/chat.css">
-    <title>Document</title>
+    <title>WideLancer - Chat</title>
+    <link rel="icon" href="../imagens/logo.png" type="image/png">
 </head>
 <body>
     <header>

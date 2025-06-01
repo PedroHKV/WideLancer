@@ -13,7 +13,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagina de pesquisa</title>
+    <title>WideLancer - Pesquisa</title>
+    <link rel="icon" href="../imagens/logo.png" type="image/png">
     <link rel="stylesheet" href="../Stylesheets/pesquisa.css"> 
 </head>
 <body>

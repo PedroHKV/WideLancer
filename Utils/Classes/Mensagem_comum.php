@@ -41,7 +41,6 @@ class MensagemComum extends Mensagem{
         $sql = "CALL cadastrar_msg_comum(?, ?, ?, ?)";
 
         $query = $bd->prepare($sql);
-        echo $this->chat_id;
         $query->bind_param("ssii", $this->texto, $this->imagem, $this->chat_id, $this->usuario_id);
         $cadastrada = $query->execute();
 

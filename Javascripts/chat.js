@@ -15,6 +15,7 @@ const chatInputWrapper = document.querySelector('.chat-input');
 const statusIndicador = document.querySelector('.status-indicador');
 const proposta_btn = document.querySelector('.enviar-proposta');
 const statusbar = document.getElementById("status");
+const display_erros = document.getElementById("statusHTTP");
 
 function scrollToBottom() {
     chatMain.scrollTop = chatMain.scrollHeight;
@@ -67,6 +68,12 @@ function enviar_decisao(decisao, id){
         console.log(res);
         if (res === "salvas"){
             window.location.href = URL_SITE+"/Templates/chat.php";
+        } else {
+                display_erros.innerHTML = "Falha ao realizar escolha.";
+                display_erros.style.display = "block";
+                statusbar.innerHTML = "Falha ao realizar ação";
+                reqStatus.style.transform = "translateY(115px)";
+                console.log(res);
         }
         
     });
@@ -104,7 +111,16 @@ sendBtn.addEventListener('click', () => {
             method:"POST", 
             body: dados 
         }).then(r=>{return r.text()}).then(res=>{
-            window.location.href = URL_SITE+"/Templates/chat.php";
+                console.log(res);
+                if (res === "salvas"){
+                    window.location.href = URL_SITE+"/Templates/chat.php";
+                } else {
+                    display_erros.innerHTML = "Falha ao enviar mensagem.";
+                    display_erros.style.display = "block";
+                    statusbar.innerHTML = "Falha ao realizar ação";
+                    reqStatus.style.transform = "translateY(115px)";
+                    console.log(res);
+                }
         });
         scrollToBottom();
     }
@@ -133,7 +149,11 @@ if (vendedor){
                 if (res === "cadastrado"){
                     window.location.href = URL_SITE+"/Templates/chat.php";
                 } else { 
-                    alert("Falha ao enviar mensagem.");
+                    display_erros.innerHTML = "Por favor, insira um prazo e um orçamento.";
+                    display_erros.style.display = "block";
+                    statusbar.innerHTML = "Falha ao realizar ação";
+                    reqStatus.style.transform = "translateY(115px)";
+                    console.log(res);
                 }
             });
 

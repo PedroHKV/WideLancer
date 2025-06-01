@@ -16,16 +16,16 @@ btnIgnorar.onclick = () => {
         body : dados
     }).then(r => { return r.text()}).then(r => {
         if (r === "sucesso"){
-            statusbar.innerHTML = "Alterações feitas com sucesso";
+            statusbar.innerHTML = "Alterações feitas com sucesso.";
             reqStatus.style.transform = "translateY(115px)";
         } else {
-            statusbar.innerHTML = "Falha o realizar ação";
+            statusbar.innerHTML = "Falha ao realizar ação.";
             reqStatus.style.transform = "translateY(115px)";
             console.log(r);
         }
     }).catch(err => {
         console.log(err);
-        statusbar.innerHTML = "Falha o realizar ação";
+        statusbar.innerHTML = "Falha ao realizar ação.";
         reqStatus.style.transform = "translateY(115px)";
         console.log(r);
     });;
@@ -39,16 +39,16 @@ btnExcluirAnuncio.onclick = () => {
         body : dados
     }).then(r => { return r.text()}).then(r => {
         if (r === "sucesso"){
-            statusbar.innerHTML = "Anuncio excluido com sucesso";
+            statusbar.innerHTML = "Anúncio excluido com sucesso.";
             reqStatus.style.transform = "translateY(115px)";
         } else {
-            statusbar.innerHTML = "Falha o realizar ação";
+            statusbar.innerHTML = "Falha ao realizar ação.";
             reqStatus.style.transform = "translateY(115px)";
             console.log(r);
         }
     }).catch(err => {
         console.log(err);
-        statusbar.innerHTML = "Falha o realizar ação";
+        statusbar.innerHTML = "Falha ao realizar ação.";
         reqStatus.style.transform = "translateY(115px)";
         console.log(r);
     });;
@@ -62,16 +62,16 @@ btnBanirAnunciante.onclick = () => {
         body : dados
     }).then(r => { return r.text()}).then(r => {
         if (r === "sucesso"){
-            statusbar.innerHTML = "Usuario banido com sucesso";
+            statusbar.innerHTML = "Usuário banido com sucesso.";
             reqStatus.style.transform = "translateY(115px)";
         } else {
-            statusbar.innerHTML = "Falha o realizar ação";
+            statusbar.innerHTML = "Falha ao realizar ação.";
             reqStatus.style.transform = "translateY(115px)";
             console.log(r);
         }
     }).catch(err => {
             console.log(err);
-            statusbar.innerHTML = "Falha o realizar ação";
+            statusbar.innerHTML = "Falha ao realizar ação.";
             reqStatus.style.transform = "translateY(115px)";
             console.log(r);
     });
