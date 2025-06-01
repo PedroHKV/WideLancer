@@ -174,7 +174,8 @@
         public static function deleteAnuncioById($id){
             $anuncio = Anuncio::findAnuncioById($id);
             $anuncio->setAtivo(0);
-            $anuncio->salvarUpdates();
+            $retornar = $anuncio->salvarUpdates();
+            return $retornar;
         }
     }
 ?>

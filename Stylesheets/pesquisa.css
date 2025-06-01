@@ -100,12 +100,6 @@ header {
     border: 1px solid white;
 }
 
-.semResul h3 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #232f46;
-}
-
 #pesquis{
     display: flex;
     align-items: center;

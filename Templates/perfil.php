@@ -148,7 +148,7 @@
                             <?php
                                 foreach ($anuncios as $anuncio){
                                     if($anuncio->getAtivo()===1){
-                                        echo "<div class='servico' id=".$anuncio->getId()." onClick='render_anuncio(".$anuncio->getId().")' >". 
+                                        echo "<div class='servico' id=' ".$anuncio->getId()." ' onClick='render_anuncio(".$anuncio->getId().")' >". 
                                                   "<img src='".$anuncio->getFoto()."' alt=''/>".
                                                   "<p>".$anuncio->getTitulo()."</p>".
                                               "</div>";
