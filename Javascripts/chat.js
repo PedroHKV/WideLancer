@@ -75,7 +75,6 @@ function enviar_decisao(decisao, id){
                 reqStatus.style.transform = "translateY(115px)";
                 console.log(res);
         }
-        
     });
 }
 
@@ -111,16 +110,17 @@ sendBtn.addEventListener('click', () => {
             method:"POST", 
             body: dados 
         }).then(r=>{return r.text()}).then(res=>{
+            console.log(res);
+            if (res === "cadastrado"){
+                window.location.href = URL_SITE+"/Templates/chat.php";
+            } else {
+                display_erros.innerHTML = "Falha ao enviar mensagem.";
+                display_erros.style.display = "block";
+                statusbar.innerHTML = "Falha ao realizar ação";
+                reqStatus.style.transform = "translateY(115px)";
                 console.log(res);
-                if (res === "salvas"){
-                    window.location.href = URL_SITE+"/Templates/chat.php";
-                } else {
-                    display_erros.innerHTML = "Falha ao enviar mensagem.";
-                    display_erros.style.display = "block";
-                    statusbar.innerHTML = "Falha ao realizar ação";
-                    reqStatus.style.transform = "translateY(115px)";
-                    console.log(res);
-                }
+            }
+            
         });
         scrollToBottom();
     }
@@ -149,7 +149,7 @@ if (vendedor){
                 if (res === "cadastrado"){
                     window.location.href = URL_SITE+"/Templates/chat.php";
                 } else { 
-                    display_erros.innerHTML = "Por favor, insira um prazo e um orçamento.";
+                    display_erros.innerHTML = "Ouve um erro ao envio da Proposta.";
                     display_erros.style.display = "block";
                     statusbar.innerHTML = "Falha ao realizar ação";
                     reqStatus.style.transform = "translateY(115px)";
@@ -158,9 +158,12 @@ if (vendedor){
             });
 
         } else {
-            alert("Por favor, insira um prazo e um orçamento.");
+            display_erros.innerHTML = "Por favor, insira um prazo e um orçamento.";
+            display_erros.style.display = "block";
+            statusbar.innerHTML = "Falha ao realizar ação";
+            reqStatus.style.transform = "translateY(115px)";
+            console.log(res);
         }
     });
 }
 scrollToBottom();
-

@@ -138,7 +138,9 @@
                         }
                     }
                 ?>
+                <div id="statusHTTP">
                 
+                </div>
             </div>
             <div class="chat-input">
                 <input type="text" placeholder="Digite sua mensagem...">
