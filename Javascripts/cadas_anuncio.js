@@ -3,6 +3,7 @@ const descricao = document.getElementById("descric");
 const foto = document.getElementById("infile");
 const infoto = document.getElementById("input_file");
 const submit = document.getElementById("botao");
+const display_erros = document.getElementById("statusHTTP");
 
 foto.oninput = () => {
     let img = foto.files[0];
@@ -33,6 +34,10 @@ submit.onclick = () => {
             alert(e);
         });
     } else {
-        alert("todos os textos devem ser preenchidos");
+        display_erros.innerHTML = "Por favor, preencha todos os campos.";
+        display_erros.style.display = "block";
+        statusbar.innerHTML = "Falha ao realizar ação";
+        reqStatus.style.transform = "translateY(115px)";
+        console.log(res);
     }
 };

@@ -5,6 +5,7 @@
         $pesquisa = $_GET ["query"]; 
        
         $anuncios = Anuncio::findAnunciosByQuery($pesquisa);
+        $resultados = count($anuncios);
     }
 ?>
 
@@ -42,6 +43,12 @@
             }
         ?>
    </main>
+    <?php
+        if ($resultados === 0){
+            echo "<div id='pesquis'><h3>Nenhum anúncio foi encontrado para a sua pesquisa.</h3><img id='zero' src='../imagens/0_anunc.png' alt=''></div>";
+        }
+    ?>   
+
 </body>
 <script src="../Configuracoes.js"></script>
 <script src="../javascripts/pesquisa.js"></script>

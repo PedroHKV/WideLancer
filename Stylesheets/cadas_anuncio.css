@@ -219,3 +219,11 @@ h1{
     display: flex;
     justify-content: end;
 }
+
+#statusHTTP{
+  color: rgb(196, 29, 29);
+  font-family: "Arial";
+  display: block;
+  padding-top: 2%;
+  padding-left: 3%;
+}
