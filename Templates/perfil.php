@@ -84,6 +84,7 @@
                 <?php
                     if ($editavel){
                         echo "<div id='btn_div'>
+                                  <div id='error_div' style = 'color: red;' > </div>
                                   <input type='button' id='submit' value='salvar'>
                               </div><br><br>
                               <h3 style = 'display:".$semSolicitacao_pendente.";'>Torne-se um vendedor também! basta clicar no botao abaixo</h3><br> 

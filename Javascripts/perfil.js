@@ -26,7 +26,7 @@ const descricao_tag = document.getElementById("txtarea");
 const fotos_input = document.getElementById("infoto");
 const fotos_img = document.getElementById("foto_lab");
 const err = document.getElementById("err");
-
+const error_div = document.getElementById("error_div");
 const submit = document.getElementById("submit");
 
 function validarCPF(cpf) {
@@ -229,6 +229,10 @@ sim_btn.onclick = () => {
     })
 }
 
+function exibirMensagemErroBotao(mensagem) {
+    error_div.innerHTML = mensagem;
+}
+
 // botão de submit (salvar alterações)
 submit.onclick = () => {
     const nome = document.getElementById("nome").value;
@@ -239,13 +243,14 @@ submit.onclick = () => {
     const titulo = document.getElementById("titulo") ? document.getElementById("titulo").value : '';
     const descricao = document.getElementById("txtarea") ? document.getElementById("txtarea").value : '';
     const img = fotos_input.files[0];
+    const stripeRegex = /^acct_[a-zA-Z0-9]+$/;
 
     let dados = new FormData();
     dados.append("nome", nome);
     dados.append("sobrenome", sobrenome);
     dados.append("email", email);
     dados.append("senha", senha);
-    dados.append("chavePix", pix);
+    dados.append("chavePIX", pix);
     dados.append("titulo", titulo);
     dados.append("descricao", descricao);
 
@@ -253,6 +258,28 @@ submit.onclick = () => {
         dados.append("img", img);
         console.log("img enviada");
     }
+
+
+    if (!pix) {
+            exibirMensagemErroBotao( "O campo: Stripe ID é obrigatório.");
+            return;
+        }
+        
+    if (!stripeRegex.test(pix)) {
+            exibirMensagemErroBotao( "Stripe ID inválido! Deve começar com 'acct_' seguido de letras ou números.");
+            return;
+        }
+
+    if (!email) {
+            exibirMensagemErroBotao( "O campo: Email é obrigatório.");
+            return;
+        }
+        
+    if (!email.endsWith(".com")) {
+            exibirMensagemErroBotao( "O Email deve terminar com '.com'.");
+            return;
+        }
+
 
     fetch(URL_SITE + "/ServerScripts/update_usuario.php", {
         method: "POST",
