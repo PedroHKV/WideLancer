@@ -31,6 +31,10 @@
             $pix = (trim($_POST["pix"] === "") ? null : $_POST["pix"]);
             $usuario->setPix($pix);
         }
+        if (isset( $_POST["chavePIX"] )){
+            $stripeid = $_POST["chavePIX"];
+            $usuario->setStripeid( $stripeid );
+        }
         if (isset( $_POST["descricao"] )){
             $descricao = $_POST["descricao"];
         } else { $descricao = Null;}

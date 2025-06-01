@@ -70,7 +70,7 @@
                         if ($editavel){
                           echo "<input type='password' value='" . $usuario->getSenha() . "' placeholder='Senha' id='senha'> 
                                 <input readonly style='display:".$eVendedor.";' type='text' value='" . $usuario->getCpf() . "' placeholder='CPF' id='cpf'> 
-                                <input readonly type='text' style = 'display:".$eVendedor.";' value='" . $usuario->getStripeId() . "' placeholder='Stripe ID' id='chavePIX'> 
+                                <input type='text' style = 'display:".$eVendedor.";' value='" . $usuario->getStripeId() . "' placeholder='Stripe ID' id='chavePIX'> 
                                 <input type='text' style = 'display:".$eVendedor.";' placeholder='titulo' id='titulo' value='" . ($usuario->isVendedor() ? $portifolio->getTitulo() :  "") . "'> 
                                 <textarea id='txtarea' style = 'display:".$eVendedor.";' placeholder='Escreva sobre voce'>" . ($usuario->isVendedor() ? $portifolio->getDescricao() :  "") . "</textarea>";
                         } else {

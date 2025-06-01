@@ -146,8 +146,14 @@ btn_solic.onclick = () => {
         }
     }
 
-    if (!pix){
-        exibirMensagemErro("o campo: Chave PIX é obrigatório");
+    // VALIDAÇÃO Stripe ID
+    const stripeRegex = /^acct_[a-zA-Z0-9]+$/;
+    if (!pix) {
+        exibirMensagemErro("O campo: Stripe ID é obrigatório");
+        return;
+    }
+    if (!stripeRegex.test(pix)) {
+        exibirMensagemErro("Stripe ID inválido! Deve começar com 'acct_' seguido de letras ou números.");
         return;
     }
 
@@ -229,6 +235,7 @@ submit.onclick = () => {
     const sobrenome = document.getElementById("sobrenome").value;
     const email = document.getElementById("email").value;
     const senha = document.getElementById("senha").value;
+    const pix = document.getElementById("chavePIX").value;
     const titulo = document.getElementById("titulo") ? document.getElementById("titulo").value : '';
     const descricao = document.getElementById("txtarea") ? document.getElementById("txtarea").value : '';
     const img = fotos_input.files[0];
@@ -238,6 +245,7 @@ submit.onclick = () => {
     dados.append("sobrenome", sobrenome);
     dados.append("email", email);
     dados.append("senha", senha);
+    dados.append("chavePix", pix);
     dados.append("titulo", titulo);
     dados.append("descricao", descricao);
 
