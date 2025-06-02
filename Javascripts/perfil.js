@@ -259,16 +259,17 @@ submit.onclick = () => {
         console.log("img enviada");
     }
 
-
-    if (!pix) {
-            exibirMensagemErroBotao( "O campo: Stripe ID é obrigatório.");
-            return;
-        }
-        
-    if (!stripeRegex.test(pix)) {
-            exibirMensagemErroBotao( "Stripe ID inválido! Deve começar com 'acct_' seguido de letras ou números.");
-            return;
-        }
+    if (vended === 1){
+        if (!pix) {
+                exibirMensagemErroBotao( "O campo: Stripe ID é obrigatório.");
+                return;
+            }
+            
+        if (!stripeRegex.test(pix)) {
+                exibirMensagemErroBotao( "Stripe ID inválido! Deve começar com 'acct_' seguido de letras ou números.");
+                return;
+            }
+    }
 
     if (!email) {
             exibirMensagemErroBotao( "O campo: Email é obrigatório.");

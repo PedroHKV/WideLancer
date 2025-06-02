@@ -36,6 +36,7 @@
         $semSolicitacao_pendente = (!$usuario->isVendedor() && ($solic === null)) ? "flex" : "none";
         $naoEVendedor = ($usuario->isVendedor()) ? "none" :  "flex";
         $eVendedor = ($usuario->isVendedor()) ? "flex" :  "none";
+        $vended = $usuario->isVendedor();
 }
 
 ?>
@@ -165,5 +166,6 @@
     </main>
 </body>
 <script src="../Configuracoes.js"></script>
+<script> let vended = <?php echo $vended?> ; </script>
 <script src="../Javascripts/perfil.js"></script>
 </html>
