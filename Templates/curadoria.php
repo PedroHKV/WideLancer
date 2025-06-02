@@ -15,7 +15,7 @@
             <h1><span class="wide">Wide</span><span class="lancer">Lancer</span></h1>
         </div>
         <div class="login-container">
-            <a href="./login.html" class="btn">Login</a>
+            <a href="./login.php" class="btn">Login</a>
         </div>
         <div class="login-container">
             <a href="./curadoria.php" class="btn">Curadoria</a>

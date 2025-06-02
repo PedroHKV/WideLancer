@@ -28,7 +28,7 @@
         </div>
         <div>
             <div class="login-container">
-                <a href="./login.html" class="btn">Login</a>
+                <a href="./login.php" class="btn">Login</a>
             </div>
             <div id="perfil-container">
                 <a href="./perfil.php" class="btn">Perfil</a>

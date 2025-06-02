@@ -53,7 +53,7 @@ submit.onclick = () => {
             body : dados
         }).then(r => {return r.text()}).then(r => {
             if (r == "cadastrado"){
-                window.location.href = URL_SITE+"/Templates/login.html";
+                window.location.href = URL_SITE+"/Templates/login.php";
             } else {
                 console.log(r);
             }
