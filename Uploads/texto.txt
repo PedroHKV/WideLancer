@@ -1,1 +1,0 @@
-sem esse texto o git ignora esta pasta

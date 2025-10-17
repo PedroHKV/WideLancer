@@ -1,0 +1,2 @@
+alguns caminhos sao absolutos, portanto a pasta WideLancer deve estar na area de trabalho pra que o servidor funcione
+a classe com.wideLancer.pagamentos.pagamentoCartao precisa de uma chave valida.
