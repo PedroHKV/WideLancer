@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.wideLancer.ConfiguracaoUploads;
 import com.wideLancer.models.Anuncio;
 import com.wideLancer.repositories.AnuncioRepository;
 import com.wideLancer.utils.handlers.HandlerStrings;
@@ -18,7 +20,7 @@ import jakarta.servlet.http.HttpSession;;
 public class CadastroVisualisacaoAnuncioRequisicoes {
 
     @Autowired private HandlerStrings str;
-    private String repositorio = "C:/Users/User/Desktop/WideLancer/uploads/anuncios/";
+    private final String repositorio = ConfiguracaoUploads.getInstance().getDiretorioAnuncios();
 
     @PostMapping("/cadastrar")
     public String cadastrarAnuncio(

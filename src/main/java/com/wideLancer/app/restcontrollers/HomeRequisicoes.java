@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.wideLancer.ConfiguracaoUploads;
 import com.wideLancer.models.Solicitacao;
 import com.wideLancer.repositories.SolicitacaoRepository;
 import com.wideLancer.utils.handlers.HandlerStrings;
@@ -17,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/solicitacoes")
 public class HomeRequisicoes {
-    private String repositorio = "C:/Users/User/Desktop/WideLancer/uploads/documentos/";
+    private final String repositorio = ConfiguracaoUploads.getInstance().getDiretorioDocumentos();;
     private HandlerStrings str = new HandlerStrings();
 
     @PostMapping("/cadastrar")

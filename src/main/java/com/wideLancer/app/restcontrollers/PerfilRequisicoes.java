@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.wideLancer.ConfiguracaoUploads;
 import com.wideLancer.models.Usuario;
 import com.wideLancer.repositories.UsuarioRepository;
 import com.wideLancer.utils.handlers.HandlerStrings;
@@ -17,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/perfil")
 public class PerfilRequisicoes {
 
-    private String repositorio = "C:/Users/User/Desktop/WideLancer/uploads/perfis/";
+    private final String repositorio = ConfiguracaoUploads.getInstance().getDiretorioPerfis();
     @Autowired HandlerStrings str;
 
 

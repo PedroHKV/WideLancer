@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.wideLancer.ConfiguracaoUploads;
 import com.wideLancer.abstractions.Mensagem;
 import com.wideLancer.models.Chat;
 import com.wideLancer.models.MensagemComum;
@@ -25,7 +26,7 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/chat")
 public class ChatRequisicoes {
 
-    private String repositorio = "C:/Users/User/Desktop/WideLancer/uploads/produtos";
+    private final String repositorio = ConfiguracaoUploads.getInstance().getDiretorioProdutos();
 
     @PostMapping("/cadasMensagem")
     public String cadastrarNovaMensagem(

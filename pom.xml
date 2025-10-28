@@ -3,7 +3,7 @@
 
     <groupId>com.WideLancer</groupId>
     <artifactId>wideLancer</artifactId>
-    <version>Java Edition</version>
+    <version>Java-Edition</version>
 
     <properties>
         <maven.compiler.source>18</maven.compiler.source>
@@ -42,6 +42,25 @@
                 <configuration>
                     <mainClass>com.wideLancer.Main</mainClass>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.wideLancer.Main</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>        
     </build>

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.wideLancer.ConfiguracaoUploads;
 import com.wideLancer.models.Produto;
 import com.wideLancer.models.Usuario;
 import com.wideLancer.repositories.ProdutoRepository;
@@ -17,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/produtos")
 public class ProdutoController {
-    private final String repositorio = "C:/Users/User/Desktop/WideLancer/uploads/produtos";
+    private final String repositorio = ConfiguracaoUploads.getInstance().getDiretorioProdutos();;
     private final String[] medidas = {" B", " kB", " MB", " GB", " TB"};
 
     @GetMapping("/pagamento")
