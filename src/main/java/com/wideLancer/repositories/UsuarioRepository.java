@@ -101,7 +101,7 @@ public class UsuarioRepository extends RepositoryTemplate<Usuario> {
 
     // método específico
     public Usuario findByEmail(String email) throws SQLException {
-        Usuario usuario = null;
+        Usuario usuario = new Usuario();
         String sql = "SELECT * FROM Usuario WHERE email = ?";
         try (Connection conn = bd.conectarSql(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, email);

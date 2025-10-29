@@ -7,8 +7,8 @@ const display_erros = document.getElementById("statusHTTP");
 botao.onclick = () => {
     let em = email.value;
     let sen = senha.value; 
-    let valido = (em.trim() !== "") && (sen.trim() !== "")
-    if(valido){
+    let valido = validar_credenciais(em, sen);
+    if(valido === "valido"){
         let dados = new FormData();
         
         dados.append("email", em );
@@ -35,5 +35,26 @@ botao.onclick = () => {
         }).catch(e => {
             console.log("cath: "+e);
         });
+    } else if (valido === "email_nulo") {
+        display_erros.innerHTML = "o campo email é obrigatorio";
+        display_erros.style.display = "block";
+    } else if (valido === "senha_nula"){
+        display_erros.innerHTML = "o campo senha é obrigatorio";
+        display_erros.style.display = "block";
+    } else if (valido === "email_invalido"){
+        display_erros.innerHTML = "email invalido";
+        display_erros.style.display = "block";
     }
+}
+
+function validar_credenciais(em, sen){
+    let regex_email = /@\w+.\w+$/
+    if (em.trim() === "")
+        return "email_nulo";
+    else if (sen.trim() === "")
+        return "senha_nula";
+    else if (!regex_email.test(em))
+        return "email_invalido";
+    else 
+        return "valido";
 }

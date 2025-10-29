@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/cadastro.css}">
+</head>
+<body>
+    <header>
+
+    </header>
+    <main>
+        <div id="esquerda">
+            <h1>Divulgue seus serviços com <br> WideLancer !</h1>
+            <p>Há um mundo de oportunidades a sua espera</p>
+        </div>
+        <div id="direita">
+            <h3>Cadastro</h3>
+            <input type="text" name="nome" placeholder="Nome">
+            <input type="text" name="sobrenome" placeholder="Sobrenome">
+            <input type="email" name="email" placeholder="Email">
+            <input type="password" name="senha" placeholder="Senha">
+            <p>Já possui uma conta? <a th:href="@{/login}">Login</a></p>
+            <div id="divbutt">
+                <input type="button" id="btn" value="Cadastrar">
+            </div>
+            <div id="statusHTTP">
+                <img th:src="@{images/Erro.png}" alt="">
+                <div>
+                    <p>erro</p>
+                    <p>erro</p>
+                    <p>erro</p>
+                    <p>erro</p>
+                    <p>erro</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</body>
+<script th:src="@{js/configuracoes.js}"></script>
+    <script th:src="@{js/cadastro.js}"></script>
+</html>
