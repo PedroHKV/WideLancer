@@ -53,10 +53,10 @@ public class CadastroLoginRequisicoes {
         try{
             //antes de autenticar , verifica se o email existe no bd
             usuario = repositorioUsuario.findByEmail(email);
-            id = usuario.getId();
-            if(usuario.getEmail() == null){
+            if(usuario == null){
                 return "em404";
             }
+            id = usuario.getId();
             boolean ativo = usuario.isAtivo();
             if (!ativo){
                 return "inativo";
