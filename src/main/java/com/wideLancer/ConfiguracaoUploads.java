@@ -5,10 +5,12 @@ import java.io.File;
 public class ConfiguracaoUploads{
     private static ConfiguracaoUploads instancia;
 
-    private final String diretorioDocumentos = "C:/Users/User/Desktop/WideLancer/uploads/documentos/" ;
-    private final String diretorioAnuncios = "C:/Users/User/Desktop/WideLancer/uploads/anuncios/" ;
-    private final String diretorioProdutos = "C:/Users/User/Desktop/WideLancer/uploads/produtos" ;
-    private final String diretorioPerfis = "C:/Users/User/Desktop/WideLancer/uploads/perfis/" ;
+    private final String baseDir = System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "WideLancer" + File.separator + "uploads";
+
+    private final String diretorioDocumentos = baseDir + File.separator + "documentos" + File.separator;
+    private final String diretorioAnuncios   = baseDir + File.separator + "anuncios" + File.separator;
+    private final String diretorioProdutos   = baseDir + File.separator + "produtos" + File.separator;
+    private final String diretorioPerfis     = baseDir + File.separator + "perfis" + File.separator;
 
     public static ConfiguracaoUploads getInstance(){
       if (instancia == null){
