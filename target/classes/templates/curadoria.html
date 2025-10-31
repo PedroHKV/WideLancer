@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{css/curadoria.css}">
+</head>
+<body>
+
+    <header>
+        <img th:src="@{/images/logo.png}" id="logo" style="width: 90px; height: 80px;">
+        <div class="container">
+            <h1><span class="wide">Wide</span><span class="lancer">Lancer</span></h1>
+        </div>
+        <div class="login-container">
+            <a th:href="@{login}" class="btn">Login</a>
+        </div>
+  
+        <div th:if="${usuario.isCurador}" class='login-container'>
+            <a th:href='@{curadoria}' class='btn'>Curadoria</a>
+        </div>
+        <div th:if="${usuario.isVendedor}" class='login-container'>
+            <a th:href='@{pagina_anuncio}' class='btn'>Anunciar</a>
+        </div>
+        <div th:if="${!usuario.isVendedor}" class='login-container'>
+            <a onClick="convidarParaSerVendedor()" class='btn'>Anunciar</a>
+        </div>
+
+        <div id="perfil-container">
+            <a th:href="@{home}" class="btn">Home</a>
+        </div>
+    </header>
+    <main>
+        <div id="esquerda">
+            <button id="solics">Solicitações</button>
+            <button id="denuncias">Denuncias</button>
+            <button id="forns">Fornecedores</button>
+            <button id="curadores">Curadores</button>
+            <button id="clientes">Clientes</button>
+        </div>
+        <div id="direita">
+            <input type="search" name="" id="pesquisa" placeholder="pesquisar usuario">
+            <div id="caixa">
+                <h3></h3><br>
+        
+            </div>
+        </div>
+    </main>
+
+</body>
+<script th:src="@{js/configuracoes.js}"></script>
+<script th:src="@{js/curadoria.js}"></script>
+</html>

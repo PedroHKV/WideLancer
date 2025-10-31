@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{css/chat.css}">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <img th:src="@{images/logo.png}" id="logo" style="width: 70px; height: 60px;">
+        <div class="container">
+            <h1><span class="wide">Wide</span><span class="lancer">Lancer</span></h1>
+        </div>
+        <div id="perfil-container">
+            <a th:href="@{home}" class="btn">Home</a>
+        </div>
+    </header>
+    <div id="reqStatus">
+      <p id="status"></p>
+      <input type="button" onclick="translatediv()" id="dispose" value="X">
+    </div> 
+    <main class="chat-layout">
+        <aside class="chat-sidebar">
+            <h3>Conversas</h3>
+            <ul class="chat-list">
+
+                <li th:each="chat : ${chats}" th:text="${chat[0]}" th:id="${chat[1]}" class="chat-item">  </li>
+                    
+            </ul>
+            
+        </aside>
+        <section class="chat-main">
+
+            <div class="chat-header">
+                <div id="chat-perfilinfo">
+                    <img th:src="${outro.getFoto}" alt="Foto do usuário" class="user-photo">
+                    <span class="user-name" th:text="${outro.getNomeCompleto}"></span>
+                </div>
+            </div>
+
+            <div id="mensagens">
+
+                <div th:each="mensagem : ${mensagens}">
+                    <div class="proposta-card-1" id="proposta-form" style="display: none;">
+                        <h4>Proposta de Serviço</h4>
+                        <input type="date" class="prazo-trabalho" placeholder="Prazo (ex: 5 dias)">
+                        <input type="text" class="input-orcamento" placeholder="Insira seu orçamento (ex: R$ 300)">
+                        <div class="botoes-proposta">
+                            <button class="enviar-proposta">Enviar</button>
+                        </div>
+                    </div>
+                    
+                    <div th:if="${mensagem.getTipo} == 'Proposta'" class="proposta-card-2" id="proposta-recebida">
+                            <h4>Estimativa do Serviço</h4>
+                            <p class="prazo" th:text="'será entregue até: '+${mensagem.getPrazo}"></p>
+                            <p class="orcamento" th:text="'irá custar: '+${mensagem.getOrcamento}+' R$'">irá custar: $mensagem->getOrcamento()</p><br>
+                            <div class="botoes-proposta">
+                                <p th:if="${mensagem.getAceita } == 'aceita'" >Proposta aceita</p>
+                                <p th:if="${mensagem.getAceita } == 'recusada'" >Proposta recusada</p>
+                                <p th:if="${mensagem.getAceita } == 'acabada'" >Negócio encerrado</p>
+
+                                <button th:if="${mensagem.getAceita == 'pendente' }  and !${souVendedor}" th:id="${mensagem.getId}" class='btn aceitar'>Aceitar</button>
+                                <button th:if="${mensagem.getAceita == 'pendente' }  and !${souVendedor}" th:id="${mensagem.getId}" class='btn recusar'>Recusar</button>
+
+                                <p th:if="${mensagem.getAceita == 'pendente' }  and ${souVendedor}" >sem resposta</p>
+                            </div>
+                        </div>
+            
+                    <div th:if="${mensagem.getTipo} == 'MensagemComum'" th:class="${mensagem.getEmissor} == ${meuId} ? 'message-row sent' : 'message-row received' ">
+                        <img th:if="${mensagem.getEmissor} == ${meuId}" th:src="${eu.getFoto}" class="message-avatar" alt="Você">
+                        <img th:if="${mensagem.getEmissor} != ${meuId}" th:src="${outro.getFoto}" class="message-avatar" alt="Você">
+                        <div class="message">
+                            <p th:text="${mensagem.getTexto}"></p>
+                            <span class="timestamp" th:text="${mensagem.getHora}" ></span>
+                        </div>
+                    </div>
+            
+                    <div th:if="false" class="produto">
+                        <div class="infos_btn">
+                            <div class="infos">
+                                <p>Entrega de produto</p>
+                                <p style="font-size: 12px; color:#204d61;">$adquirido</p>
+                            </div>
+                            <input type="button" class="botao" onClick="render_pagamento()" value="checar">
+                        </div>
+                    </div> 
+                </div>
+                
+            </div>
+            <div class="chat-input">
+                <input type="text" placeholder="Digite sua mensagem">
+                <button class="btn enviar-mensagem">Enviar</button>
+                <button th:if="${souVendedor} and ${possoFazerNovaProposta}" class='btn proposta-btn'>Proposta</button>
+                <button th:if="${souVendedor} and ${possoEntregarProduto}" class="btn produto-btn">Entregar Produto</button>
+            </div>
+            
+        </section>
+    </main>
+    <script th:src="@{js/configuracoes.js}"></script>
+    <script th:src="@{js/chat.js}"></script>
+</body>
+</html>
