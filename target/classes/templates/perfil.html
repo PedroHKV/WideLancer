@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{css/perfil.css}">
+</head>
+<body>
+    <main>
+        <div>
+            <div id="esquerda">
+                <!-- input pata mudar a foto -->
+                <div id="foto">
+                    <img id="cam" th:src="@{images/camera.png}">
+                    <label for="infoto"><img id="foto_lab" th:src="${usuario.getFoto}" alt=""></label>
+                    <input type="file" name="" id="infoto">
+                </div>
+
+                <div id="inputs">
+                    <input type="text" th:value="${usuario.getNome}" placeholder="Nome" id="nome">
+                    <input type="text" th:value="${usuario.getSobrenome}" placeholder="Sobrenome" id="sobrenome">
+                    <input type="email" th:value="${usuario.getEmail}" placeholder="Email" id="email">
+                    <!-- inputs sobre o dono do portifolio, só o vendedor pode ver -->
+                    <input readonly type="password" th:value="${usuario.getSenha}" placeholder="Senha" id="senha"> 
+                    <input th:if="${usuario.isVendedor}" readonly type="text" th:value="${usuario.getCpf}" placeholder="CPF" id="cpf"> 
+                    <input th:if="${usuario.isVendedor}" readonly type="text" th:value="${usuario.getStripeId}" placeholder="Stripe ID" id="chavePIX"> 
+                    <input th:if="${usuario.isVendedor}" type="text" th:value="${usuario.getTituloPortifolio}" placeholder="titulo do portifolio" id="titulo" value=""> 
+                    <textarea th:if="${usuario.isVendedor}" id="txtarea" th:text="${usuario.getDescricaoPortifolio}" placeholder="escreva sobre: você, seus serviços, hobies, etc..."></textarea>
+                </div>
+
+                <div id="btn_div">
+                    <input type="button" id="submit" value="salvar">
+                </div>
+            </div>
+            <div id="direita">
+                <div id="header">
+                    <p id="nome" th:text="${usuario.getNome}"></p>
+                    <div id="fotoport">
+                        <label for="infotoport"><img th:src="${usuario.getFoto}" alt=""></label>
+                    </div>
+                    <input type="button" id="voltar" value="Home">
+                </div>  
+                <div id="informacoes">
+                    <br><br><br><br>
+                    <h2 th:text="${usuario.getTituloPortifolio}"></h2>
+                    <p id="descricao" th:text="${usuario.getDescricaoPortifolio}"></p>
+                    <h2>Meus Serviços</h2>
+                <!-- tratamento de anuncios -->
+
+                    <div class="servicos-container">
+                        <div class="servicos" id="servicos">
+                            <!-- carrossel de anuncios -->
+
+                            <div th:id="${anuncio.getId}" th:each="anuncio : ${anuncios}" class="servico">
+                                <img th:src="${anuncio.getFoto}" alt=""/>
+                                <p th:text="${anuncio.getTitulo}" ></p>
+                            </div>
+
+                        </div>
+                        <button id="prevBtn">❮</button>
+                        <button id="nextBtn">❯</button>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </main>
+</body>
+<script th:src="@{js/configuracoes.js}"></script>
+<script th:src="@{js/perfil.js}"></script>
+</html>
