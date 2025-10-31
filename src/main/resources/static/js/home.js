@@ -150,7 +150,7 @@ submitSolicBtn.onclick = () =>{
     }
 
     if (!pix){
-        exibirMensagemErro("o campo: Chave PIX é obrigatório");
+        exibirMensagemErro("o campo: Stripe Id é obrigatório");
         return;
     }
 
