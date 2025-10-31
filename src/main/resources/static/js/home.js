@@ -133,11 +133,6 @@ submitSolicBtn.onclick = () =>{
                 exibirMensagemErro("O CPF deve conter apenas números de 0 a 9.");
                 return;
             }
-
-            if (cpf === "" || cpf === undefined){
-                exibirMensagemErro("O campo CPF é obrigatorio.");
-                return;
-            }
             
             if (cpfLimpo.length !== 11) {
                 exibirMensagemErro("O CPF deve ter exatamente 11 dígitos.");
@@ -149,6 +144,9 @@ submitSolicBtn.onclick = () =>{
                 return;
             }
         }
+    } else {
+        exibirMensagemErro("O campo CPF é obrigatorio.");
+        return;
     }
 
     if (!pix){
