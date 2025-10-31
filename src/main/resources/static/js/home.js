@@ -134,7 +134,7 @@ submitSolicBtn.onclick = () =>{
                 return;
             }
 
-            if (cpf.trin() === ""){
+            if (cpf === "" || cpf === undefined){
                 exibirMensagemErro("O campo CPF é obrigatorio.");
                 return;
             }
