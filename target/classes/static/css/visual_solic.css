@@ -1,0 +1,213 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+b{
+    font-family: "Arial";
+    font-size: 13px;
+    background-color: #0b598d;
+    color: white;
+    padding: 3px;
+    border-radius: 3px;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #e6f0f3;
+}
+
+header {
+    padding: 20px 0;
+    color: #ffffff;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
+}
+
+header div{
+    display: flex;
+    align-items: center;
+}
+
+.wide {
+    color: rgb(126, 240, 255);
+}
+
+.lancer {
+    color: rgb(73, 135, 143)
+}
+
+.login-container{
+    text-align: right;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 8px;
+    margin-top: 8px;
+}
+
+.login-btn {
+    padding: 10px 20px;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
+.login-btn:hover{
+    background-color: #000000;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 100%);
+    color: white;
+    border: 1px solid white;
+}
+
+.btn {
+    padding: 10px 20px;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;  
+    font-size: 16px;
+    cursor: pointer;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
+.btn:hover{
+    background-color: #232f46;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 100%);
+    color: white;
+    border: 1px solid white;
+}
+
+#perfil-container{
+    text-align: right;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 8px;
+    margin-top: 8px;
+}
+
+.info{
+    display: flex;
+    gap: 2px;
+}
+
+main{
+    height: 100%;
+}
+
+#horizontal{
+    display: flex;
+    gap:15px;
+    height: 100%;
+}
+
+#acoes{
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ddd;
+    height: 100%;
+    width: 20%;
+}
+
+#acoes input{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#e6f0f3 ;
+    border: none;
+    width: 100%;
+    height: 30px;
+    cursor: pointer;
+}
+
+#acoes input:hover{
+    background-color:#cee8f1 ;
+}
+
+#documento_foto{
+    margin:15px 0px 0px 0px;
+    padding: 20px 10px 20px 10px;
+    background-color: #f3fcff;
+    width: 35%;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 5%);
+    display: flex;
+    justify-content: center;
+} 
+
+#foto{
+    width: 80%;
+    height: 100%;
+    border-radius: 5px;
+    border: none;
+}
+
+#dados_solicitante{
+    margin:15px 0px 0px 0px;
+    padding: 20px 10px 20px 10px;
+    background-color: #f3fcff;
+    width: 35%;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 5%);
+}
+
+#reqStatus{
+  display: flex;
+  position: fixed;
+  width: 90%;
+  background-color: #037791;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  align-items: center;
+  top: -100px;
+  left: 5%;
+  transition: 1s ease;
+}
+
+#status{
+    color: white;
+}
+
+#dispose{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: #03b4db;
+  color: white;
+  transition: 0.3s ease;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+#dispose:hover{
+  background-color: #04c0eb;
+}
+
+#status_denuncia{
+    background-color: #037791;
+    display: flex;
+    color: white;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 5px;
+    border:none;
+    height: 70px;
+    font-family: "Arial";
+    font-size: 14px;
+}
+
